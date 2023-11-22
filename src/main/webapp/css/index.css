@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+@import "../layui/css/layui.css";
+
+html,
+body {
+	margin: 0;
+	background-image: url("../images/wallhaven-nr8xeq.jpg");
+}
+
+.container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-size: cover;
+/*	background-color: black;*/
+}
+
+.demo-login-container {
+	width: 320px;
+	margin: 21px auto 0;	
+}
+
+.demo-login-other .layui-icon {
+	position: relative;
+	display: inline-block;
+	margin: 0 2px;
+	top: 2px;
+	font-size: 26px;
+}
+
+.myform {
+	align-items: center;
+	text-align: center;
+	border: 1px solid green;
+	border-radius: 18px;
+	width: 350px;
+	height: 220px;
+	padding: 40px;
+	box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.3);
+/*	color: white;	*/
+}
+
+.myform::before {
+	filter: blur(6px);
+}
+
+/*.myform a {
+	color: white;
+}
+
+.myform input {
+	background-color: black;
+	color: white;
+}*/
+	
+.h2 {
+	text-align: center;
+}
+	
+	
+	
+	
+	
+	
+	
+	
