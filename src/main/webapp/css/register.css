@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+@import "../layui/css/layui.css";
+
+.demo-reg-container{width: 320px; margin: 21px auto 0;}
+.demo-reg-other .layui-icon{position: relative; display: inline-block; margin: 0 2px; top: 2px; font-size: 26px;}
