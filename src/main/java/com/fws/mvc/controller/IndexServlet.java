@@ -61,20 +61,30 @@ public class IndexServlet extends HttpServlet {
 	// 登陆
 	@SuppressWarnings("unused")
 	private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.getWriter().print("hello");
+		String userType = request.getParameter("usertype");
+		Boolean res = service.loginService(request, response);
+
+		if (res) {
+			request.setAttribute("error", false);
+			request.getRequestDispatcher("WEB-INF/views/" + userType + "Page/mainPage.jsp").forward(request, response);
+		}
+		else {
+			request.setAttribute("error", true);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
 	}
 
 	
 	// 登陆转注册选择类型
 	@SuppressWarnings("unused")
 	private void turnToRegisterSelectTypeJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getRequestDispatcher("/WEB-INF/views/registerSelectType.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/registerPage/registerSelectType.jsp").forward(request, response);
 	}
 	
 	// 选择类型后转注册页面
 	@SuppressWarnings("unused")
 	private void turnToRegister(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String path = "/WEB-INF/views/register";
+		String path = "/WEB-INF/views/registerPage/register";
 		if (request.getParameter("usertype").equals(TeacherType))
 			path += TeacherType;
 		else 
@@ -83,15 +93,24 @@ public class IndexServlet extends HttpServlet {
 		request.getRequestDispatcher(path + ".jsp").forward(request, response);
 	}
 	
-	@SuppressWarnings("unused")
-	private void register(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-	}
-	
+	// 发送验证码
 	@SuppressWarnings("unused")
 	private void sendVerCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String path = "/WEB-INF/views/register" + request.getParameter("role") + ".jsp";
+		String path = "/WEB-INF/views/registerPage/register" + request.getParameter("role") + ".jsp";
 		service.sendVerCodeService(request, response);
 		request.getRequestDispatcher(path).forward(request, response);
 	}
+	
+	// 家长账号注册
+	@SuppressWarnings("unused")
+	private void registerGuardian(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+	}
+ 
+	// 老师账号注册
+	@SuppressWarnings("unused")
+	private void registerTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+	}
+
 }

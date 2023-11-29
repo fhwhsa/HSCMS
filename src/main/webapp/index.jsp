@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,7 +24,7 @@
 					</div>
 					<input type="text" name="username" value="" lay-verify="required"
 						placeholder="用户名" lay-reqtext="请填写用户名" autocomplete="off"
-						class="layui-input" lay-affix="clear">
+						class="layui-input" lay-affix="clear" required>
 				</div>
 			</div>
 
@@ -35,16 +36,16 @@
 					</div>
 					<input type="password" name="password" value=""
 						lay-verify="required" placeholder="密   码" lay-reqtext="请填写密码"
-						autocomplete="off" class="layui-input" lay-affix="eye">
+						autocomplete="off" class="layui-input" lay-affix="eye" required>
 				</div>
 			</div>
 
 			<!--     选择用户类型 -->
 			<div class="layui-form-item">
 				<select name="usertype">
-					<option value="Guardian">家长</option>
-					<option value="Teacher">老师</option>
-					<option value="Administrator">管理员</option>
+					<option value="guardian">家长</option>
+					<option value="teacher">老师</option>
+					<option value="admin">管理员</option>
 				</select>
 			</div>
 
@@ -57,8 +58,17 @@
 					href="${pageContext.request.contextPath }/turnToRegisterSelectTypeJSP.do">注册帐号</a>
 			</div>
 
+
 		</div>
 	</form>
+
+	<%if (request.getAttribute("error") != null) {%>
+	<script>
+		window.alert("用户名或密码错误！！");
+	</script>
+	<%
+	}
+	%>
 
 </body>
 </html>

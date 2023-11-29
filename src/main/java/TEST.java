@@ -5,6 +5,7 @@ import java.sql.Connection;
 import org.apache.commons.dbutils.QueryRunner;
 import org.junit.jupiter.api.Test;
 
+import com.fws.mvc.bean.Administrator;
 import com.fws.mvc.bean.Teacher;
 import com.fws.mvc.bean.User;
 import com.fws.mvc.daoArc.CommonDaoArc;

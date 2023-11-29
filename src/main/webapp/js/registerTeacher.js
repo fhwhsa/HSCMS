@@ -17,7 +17,7 @@ window.onload = function() {
 };
 
 
-window.onbeforeunload = function() {
+function sava() {
 	var emailAddr = document.getElementById("reg-emailAddr").value;
 	var passwd = document.getElementById("reg-password").value;
 	var cpasswd = document.getElementById("reg-confirmPassword").value;
@@ -45,7 +45,7 @@ function send() {
 		return false;
 	}
 	console.log('send');
-	window.location.href = "sendVerCode.do?role=Guardian&emailAddr=" + emailAddr;
+	window.location.href = "sendVerCode.do?role=Teacher&emailAddr=" + emailAddr;
 };
 
 

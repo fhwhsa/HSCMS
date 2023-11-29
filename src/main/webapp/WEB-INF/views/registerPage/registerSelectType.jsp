@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>登陆</title>
+<title>注册类型</title>
 <link href="css/index.css" rel="stylesheet">
 </head>
 

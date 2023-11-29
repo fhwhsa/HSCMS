@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>家长账号注册</title>
+<title>老师账号注册</title>
 <link href="css/register.css" rel="stylesheet">
 </head>
 <body>
@@ -37,7 +37,7 @@
 		}
 	</script>
 
-	<form class="layui-form" action="register.do" method="post" id="myform">
+	<form class="layui-form" action="registerTeacher.do" method="post" id="myform">
 		<div class="demo-reg-container">
 
 			<!--   	验证邮箱 -->
@@ -76,7 +76,7 @@
 					<div class="layui-input-prefix">
 						<i class="layui-icon layui-icon-vercode"></i>
 					</div>
-					<input type="text" name="verCode" placeholder="验证码"
+					<input type="number" name="verCode" placeholder="验证码"
 						lay-reqtext="请填写验证码" autocomplete="off" class="layui-input"
 						required>
 				</div>
@@ -115,7 +115,7 @@
 			</div>
 
 			<div class="layui-form-item">
-				<button class="layui-btn layui-btn-fluid" lay-submit>注册</button>
+				<button class="layui-btn layui-btn-fluid" lay-submit onclick="save()">注册</button>
 			</div>
 
 			<div class="layui-form-item demo-reg-other">
@@ -125,6 +125,6 @@
 	</form>
 
 	<script src="layui/layui.js"></script>
-	<script src="js/register.js"></script>
+	<script src="js/registerTeacher.js"></script>
 </body>
 </html>
