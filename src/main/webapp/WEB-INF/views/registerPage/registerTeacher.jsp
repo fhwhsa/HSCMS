@@ -125,6 +125,6 @@
 	</form>
 
 	<script src="layui/layui.js"></script>
-	<script src="js/registerTeacher.js"></script>
+	<script src="js/registerJS/registerTeacher.js"></script>
 </body>
 </html>

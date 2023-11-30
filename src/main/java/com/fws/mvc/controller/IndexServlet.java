@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fws.mvc.daoArc.GlobalVarDaoArc;
+import com.fws.mvc.service.GlobalVarService;
 import com.fws.mvc.service.IndexService;
 import com.fws.mvc.utils.SendEmail;
 
@@ -21,17 +23,19 @@ public class IndexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String TeacherType = "Teacher";
 	private static final String GuardianType = "Guardian";
-    private static IndexService service = null;  
-	
+    private static IndexService indexService = null;  
+    private static GlobalVarService globalVarService = null;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
     public IndexServlet() {
         super();
-        if (service == null) {
-        	service = new IndexService();  
-        }
-        // TODO Auto-generated constructor stub
+        if (indexService == null) 
+        	indexService = new IndexService();  
+        
+        if (globalVarService == null)
+        	globalVarService = new GlobalVarService();
     }
 
 	/**
@@ -62,10 +66,11 @@ public class IndexServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userType = request.getParameter("usertype");
-		Boolean res = service.loginService(request, response);
-
+		Boolean res = indexService.loginService(request, response);
+		
 		if (res) {
 			request.setAttribute("error", false);
+			request.setAttribute("announcement", globalVarService.getSysAnno());
 			request.getRequestDispatcher("WEB-INF/views/" + userType + "Page/mainPage.jsp").forward(request, response);
 		}
 		else {
@@ -97,7 +102,7 @@ public class IndexServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	private void sendVerCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String path = "/WEB-INF/views/registerPage/register" + request.getParameter("role") + ".jsp";
-		service.sendVerCodeService(request, response);
+		indexService.sendVerCodeService(request, response);
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 	

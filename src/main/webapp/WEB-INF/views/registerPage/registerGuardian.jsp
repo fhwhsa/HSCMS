@@ -136,6 +136,6 @@
 	</form>
 
 	<script src="layui/layui.js"></script>
-	<script src="js/registerGuardian.js"></script>
+	<script src="js/registerJS/registerGuardian.js"></script>
 </body>
 </html>

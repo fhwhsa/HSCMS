@@ -50,7 +50,7 @@
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
+					<li class="layui-nav-item layui-this"><a href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToUserMJSP.ado">用户管理</a></li>
 				</ul>
 			</div>
@@ -59,7 +59,7 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
-				<h1 style="text-align: center;">hello</h1>
+				<p style="text-align: center;">class</p>
 							
 			</div>
 		</div>

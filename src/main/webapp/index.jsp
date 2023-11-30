@@ -62,7 +62,7 @@
 		</div>
 	</form>
 
-	<%if (request.getAttribute("error") != null) {%>
+	<%if (request.getAttribute("error") != null && (Boolean)request.getAttribute("error")) {%>
 	<script>
 		window.alert("用户名或密码错误！！");
 	</script>
