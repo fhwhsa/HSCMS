@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>layout 管理界面大布局示例 - Layui</title>
+<title>注册审核</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +32,7 @@
 							<a href="javascript:;">Settings</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">Sign out</a>
+							<a href="${pageContext.request.contextPath }/index.jsp">注销</a>
 						</dd>
 					</dl>
 				</li>

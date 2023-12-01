@@ -32,7 +32,7 @@
 							<a href="javascript:;">Settings</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">Sign out</a>
+							<a href="${pageContext.request.contextPath }/index.jsp">注销</a>
 						</dd>
 					</dl>
 				</li>

@@ -74,4 +74,13 @@ public class AdminServlet extends HttpServlet {
 		request.setAttribute("announcement", globalVarService.getSysAnno());
 		request.getRequestDispatcher("WEB-INF/views/adminPage/userManagement.jsp").forward(request, response);
 	}
+	
+	@SuppressWarnings("unused")
+	private void updateAnno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String context = request.getParameter("context");
+		context = new String(context.getBytes("iso-8859-1"), "utf-8");
+		globalVarService.updateSysAnno(context);
+		request.setAttribute("announcement", globalVarService.getSysAnno());
+		request.getRequestDispatcher("WEB-INF/views/adminPage/announcement.jsp").forward(request, response);
+	}
 }
