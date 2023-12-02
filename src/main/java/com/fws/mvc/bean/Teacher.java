@@ -5,12 +5,21 @@ import java.util.List;
 
 public class Teacher extends User {	
 	
+	private String emailAddr;
 	private String classList;
-
-	public void setClassList(String classList) {
-		this.classList = classList;
+	
+	public Teacher() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
+	public Teacher(String name, String passWord, String emailAddr, String classList) {
+		super(name, passWord);
+		this.emailAddr = emailAddr;
+		this.classList = classList;
+		// TODO Auto-generated constructor stub
+	}
+
 	List<String> getClassList() {
 		List<String> ans = new ArrayList<String>();
 		for (int i = 0; i < classList.length();) {
@@ -20,5 +29,17 @@ public class Teacher extends User {
 			i = j + 1;
 		}
 		return ans;
+	}
+	
+	public String getClassListToString() {
+		return this.classList;
+	}
+
+	public String getEmailAddr() {
+		return emailAddr;
+	}
+	
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
 	}
 }

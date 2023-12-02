@@ -22,15 +22,13 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Boolean setPassWord(String oldPassWord, String newPassWord) {
-		if (!checkPassWord(oldPassWord)) return false;
-		this.passWord = newPassWord;
-		return true;
+
+	public String getPassWord() {
+		return passWord;
 	}
 
-	public Boolean checkPassWord(String p) {
-		return p.equals(passWord);
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 	
 }

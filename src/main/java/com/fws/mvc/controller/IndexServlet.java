@@ -95,6 +95,7 @@ public class IndexServlet extends HttpServlet {
 		else 
 			path += GuardianType;
 		request.setAttribute("flag", false); // 通过点击注册进入, 改变flag值，即为不调用按钮计时函数
+		request.setAttribute("isAddrExist", false); // 用于控制弹出错误提示
 		request.getRequestDispatcher(path + ".jsp").forward(request, response);
 	}
 	

@@ -59,8 +59,27 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
-				<p style="text-align: center;">register</p>
-							
+				<table class="layui-table" page: true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
+				  <thead>
+				    <tr>
+				      <th lay-data="{field:'username', width:80}" rowspan="2">联系人</th>
+				      <th lay-data="{align:'center'}">地址</th>
+				      <th lay-data="{field:'amount'}">数量</th>
+				      <th lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}" rowspan="2">操作</th>
+				    </tr>
+				  </thead>
+				  <tr>
+					<th>测试</th>
+					<th>测试</th>
+					<th>测试</th>
+					<th>
+					  <div class="layui-clear-space">
+					    <a class="layui-btn layui-btn-primary layui-btn-xs">按钮1</a>
+					    <a class="layui-btn layui-btn-primary layui-btn-xs">按钮2</a>
+					  </div>
+					 </th>
+				  </tr>
+				</table>
 			</div>
 		</div>
 
@@ -73,8 +92,7 @@
 
 	<script src="layui/layui.js"></script>
 	<script src="js/adminPageJS/mainPage.js"></script>
-	<script>
-		
-	</script>
+
+
 </body>
 </html>

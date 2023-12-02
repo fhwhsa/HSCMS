@@ -5,8 +5,25 @@ import java.util.List;
 
 public class Guardian extends User {
 	
+	private String emailAddr;
 	private String childList;
 	private String classList;
+
+	
+
+	public Guardian() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Guardian(String name, String passWord, String emailAddr, String childList, String classList) {
+		super(name, passWord);
+		this.emailAddr = emailAddr;
+		this.childList = childList;
+		this.classList = classList;
+		// TODO Auto-generated constructor stub
+	}
+	
 
 	public void setChildList(String childList) {
 		this.childList = childList;
@@ -23,6 +40,10 @@ public class Guardian extends User {
 		return ans;
 	}
 	
+	public String getChildListToString() {
+		return this.childList;
+	}
+	
 	public void setClassList(String classList) {
 		this.classList = classList;
 	}
@@ -36,5 +57,17 @@ public class Guardian extends User {
 			i = j + 1;
 		}
 		return ans;
+	}
+	
+	public String getClassListToString() {
+		return this.classList;
+	}
+
+	public String getEmailAddr() {
+		return emailAddr;
+	}
+
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
 	}
 }

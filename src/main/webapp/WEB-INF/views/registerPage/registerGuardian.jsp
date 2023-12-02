@@ -66,10 +66,6 @@
 				</div>
 			</div>
 			
-			<!-- 是否调用计时函数判断 -->
-			<%if ((Boolean) request.getAttribute("flag")) {%>
-				<script>func();</script>
-			<%}%>
 
 			<!--     填写收到的验证码 -->
 			<div class="layui-form-item">
@@ -135,6 +131,15 @@
 		</div>
 	</form>
 
+	<!-- 是否调用计时函数判断 -->
+	<%if ((Boolean) request.getAttribute("flag")) {%>
+		<script>func();</script>
+	<%}%>
+			
+	<!-- 点击获取验证码后检查邮箱是否重复，重复提示错误信息 -->
+	<%if ((Boolean) request.getAttribute("isAddrExist")) { %>
+		<script>window.alert("邮箱已被使用！！")</script>
+	<%} %>
 	<script src="layui/layui.js"></script>
 	<script src="js/registerJS/registerGuardian.js"></script>
 </body>
