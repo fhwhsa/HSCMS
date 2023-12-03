@@ -127,7 +127,7 @@
 			
 	<!-- 点击获取验证码后检查邮箱是否重复，重复提示错误信息 -->
 	<%if ((Boolean) request.getAttribute("isAddrExist")) { %>
-		<script>window.alert("邮箱已被使用！！")</script>
+		<script>window.alert("邮箱已被使用或申请已经被提交！！")</script>
 	<%} %>
 	<script src="layui/layui.js"></script>
 	<script src="js/registerJS/registerTeacher.js"></script>

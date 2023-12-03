@@ -16,13 +16,18 @@ public class RegisterDaoArc extends CommonDaoArc<GlobalVar> implements RegisterD
 		String sql = "select count(*) from " + userType + " where emailAddr = ?;"; 
 		Object[] params = {emailAddr};
 		Long t = this.<Long>fetchScaler(connection, sql, params);
+		if (t == 1) return true;
+		sql = "select count(*) from raf where emailAddr = ? and userType = ?;";
+		Object[] params2 = {emailAddr, userType};
+		t = this.<Long>fetchScaler(connection, sql, params2);
 		return t == 1;
+		
 	}
 
 	@Override
 	public void addApplication(Connection connection, RegistrationRecord record) throws SQLException {
-		String sql = "insert into RAF (name, passWord, emailAddr, childList) values (?, ?, ?, ?);";
-		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr(), record.getChildList()};
+		String sql = "insert into RAF (name, passWord, emailAddr, userType, childList, classList) values (?, ?, ?, ?, ?, ?);";
+		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr(), record.getUserType(), record.getChildList(), record.getClassList()};
 		update(connection, sql, params);
 	}
 

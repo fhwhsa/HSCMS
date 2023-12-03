@@ -5,7 +5,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.fws.mvc.bean.Administrator;
+import com.fws.mvc.bean.Guardian;
 import com.fws.mvc.bean.RegistrationRecord;
+import com.fws.mvc.bean.Teacher;
+import com.fws.mvc.bean.User;
 import com.fws.mvc.dao.AdministratorDao;
 
 public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implements AdministratorDao {
@@ -31,7 +34,7 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 		
 		String sql = "select * from RAF where emailAddr = ? and userType = ?;";
 		Object[] params = {emailAddr, userType};
-		return this.<RegistrationRecord>fetchScaler(connection, sql, params);
+		return fetch(connection, sql, params);
 	}
 
 	@Override
@@ -46,8 +49,16 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 	@Override
 	public void approvedRegistrationRecord(Connection connection, String emailAddr, String userType)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		
+		RegistrationRecord record = getRegistrationRecord(connection, emailAddr, userType);
+		deleteRegistrationRecord(connection, emailAddr, userType);
+		User user = null;
+		if (record.getUserType().equals("Teacher"))
+			user = new Teacher(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getClassList());
+		else
+			user = new Guardian(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getChildList(), record.getClassList());
+		UserDaoArc userDaoArc = new UserDaoArc();
+		userDaoArc.add(connection, user, record.getUserType());
 	}
 
 }
