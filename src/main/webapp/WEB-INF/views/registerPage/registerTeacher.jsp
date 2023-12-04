@@ -1,4 +1,4 @@
-<%@page import="javax.swing.text.Document"%>
+<%@page import="javax.swing.text.Document"%>${pageContext.request.contextPath }
 <%@page import="com.fws.mvc.utils.JdbcTools"%>
 <%@page import="com.fws.mvc.utils.SendEmail"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

@@ -58,13 +58,13 @@ public class RegistrationRecord {
 	public void setEmailAddr(String emailAddr) {
 		this.emailAddr = emailAddr;
 	}
-	public String getChildList() {
+	public String getChildListToString() {
 		return childList;
 	}
 	public void setChildList(String childList) {
 		this.childList = childList;
 	}
-	public String getClassList() {
+	public String getClassListToString() {
 		return classList;
 	}
 	public void setClassList(String classList) {

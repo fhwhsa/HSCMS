@@ -25,6 +25,8 @@ public class GlobalVarService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
 		}
 	}
 	
@@ -37,6 +39,8 @@ public class GlobalVarService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			res = e.getMessage();
+		} finally {
+			JdbcTools.releaseSources(connection);
 		}
 		return res;
 	}

@@ -27,7 +27,7 @@ class TEST {
 	void test() throws Exception {
 		AdministratorDaoArc administratorDaoArc = new AdministratorDaoArc();
 		Connection connection = JdbcTools.getConnectionByPools();
-		administratorDaoArc.approvedRegistrationRecord(connection, "ccc", "Guardian");
+		administratorDaoArc.approvedRegistrationRecord(connection, "aaa", "Teacher");
 	}
 
 }

@@ -11,7 +11,7 @@ import com.fws.mvc.dao.UserDao;
 public class UserDaoArc extends CommonDaoArc<User> implements UserDao {
 
 	public void add(Connection connection, User user, String userType) throws SQLException {
-		if (userType == "Teacher") {
+		if (userType.equals("Teacher")) {
 			Teacher obj = (Teacher)user;
 			String sql = "insert into teacher (name, passWord, emailAddr, classList) values (?, ?, ?, ?);";
 			Object[] params = {obj.getName(), obj.getPassWord(), obj.getEmailAddr(), obj.getClassListToString()};

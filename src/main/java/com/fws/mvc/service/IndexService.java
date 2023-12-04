@@ -17,6 +17,7 @@ public class IndexService {
 	private static HashMap<String, String> verCode = null; // 存储每个邮箱对应的验证码
 	private static AdministratorDaoArc administratorDaoArc = null;
 	private static RegisterDaoArc registerDaoArc = null;
+    private static GlobalVarService globalVarService = null;
 
 	public IndexService() {
 		if (verCode == null)
@@ -25,6 +26,8 @@ public class IndexService {
 			administratorDaoArc = new AdministratorDaoArc();
 		if (registerDaoArc == null)
 			registerDaoArc = new RegisterDaoArc();
+        if (globalVarService == null)
+        	globalVarService = new GlobalVarService();
 	}
 
 	// 发送验证码
@@ -97,5 +100,10 @@ public class IndexService {
 	// 老师登陆
 	public void guardianLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+	}
+	
+	// 获取系统公告
+	public String getSysAnno() {
+		return globalVarService.getSysAnno();
 	}
 }

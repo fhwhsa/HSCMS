@@ -27,7 +27,7 @@ public class RegisterDaoArc extends CommonDaoArc<GlobalVar> implements RegisterD
 	@Override
 	public void addApplication(Connection connection, RegistrationRecord record) throws SQLException {
 		String sql = "insert into RAF (name, passWord, emailAddr, userType, childList, classList) values (?, ?, ?, ?, ?, ?);";
-		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr(), record.getUserType(), record.getChildList(), record.getClassList()};
+		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr(), record.getUserType(), record.getChildListToString(), record.getClassListToString()};
 		update(connection, sql, params);
 	}
 

@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.fws.mvc.bean.RegistrationRecord"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,23 +64,34 @@
 				<table class="layui-table" page: true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
 				  <thead>
 				    <tr>
-				      <th lay-data="{field:'username', width:80}" rowspan="2">联系人</th>
-				      <th lay-data="{align:'center'}">地址</th>
-				      <th lay-data="{field:'amount'}">数量</th>
+				      <th lay-data="{width:80}" rowspan="2">名称</th>
+				      <th>邮箱地址</th>
+				      <th lay-data="{align:'center'}">用户类型</th>
+				      <th>班级列表</th>
+				      <th>孩子列表</th>
 				      <th lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}" rowspan="2">操作</th>
 				    </tr>
 				  </thead>
-				  <tr>
-					<th>测试</th>
-					<th>测试</th>
-					<th>测试</th>
-					<th>
-					  <div class="layui-clear-space">
-					    <a class="layui-btn layui-btn-primary layui-btn-xs">按钮1</a>
-					    <a class="layui-btn layui-btn-primary layui-btn-xs">按钮2</a>
-					  </div>
-					 </th>
-				  </tr>
+				  
+				  
+				  <%List<RegistrationRecord> records = (List<RegistrationRecord>)request.getAttribute("records"); %>
+				  
+				  <% for (RegistrationRecord record : records) { %>
+					  <tr>
+						<th><%=record.getName() %></th>
+						<th><%=record.getEmailAddr() %></th>
+						<th><%=record.getUserType() %></th>
+						<th><%=record.getClassListToString() %></th>
+						<th><%=record.getChildListToString() %></th>
+						<th>
+						  <div class="layui-clear-space">
+						    <a class="layui-btn layui-btn-primary layui-btn-xs" href="refused.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">拒绝</a>
+						    <a class="layui-btn layui-btn-primary layui-btn-xs" href="approved.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">同意</a>
+						  </div>
+						 </th>
+					  </tr>
+				  <%} %>
+				  
 				</table>
 			</div>
 		</div>

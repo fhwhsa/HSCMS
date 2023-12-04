@@ -24,7 +24,7 @@ public class IndexServlet extends HttpServlet {
 	private static final String TeacherType = "Teacher";
 	private static final String GuardianType = "Guardian";
     private static IndexService indexService = null;  
-    private static GlobalVarService globalVarService = null;
+
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,8 +34,6 @@ public class IndexServlet extends HttpServlet {
         if (indexService == null) 
         	indexService = new IndexService();  
         
-        if (globalVarService == null)
-        	globalVarService = new GlobalVarService();
     }
 
 	/**
@@ -67,10 +65,11 @@ public class IndexServlet extends HttpServlet {
 	private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userType = request.getParameter("usertype");
 		Boolean res = indexService.loginService(request, response);
+		String anno = indexService.getSysAnno();
 		
 		if (res) {
 			request.setAttribute("error", false);
-			request.setAttribute("announcement", globalVarService.getSysAnno());
+			request.setAttribute("announcement", anno);
 			request.getRequestDispatcher("WEB-INF/views/" + userType + "Page/mainPage.jsp").forward(request, response);
 		}
 		else {

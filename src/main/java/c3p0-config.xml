@@ -9,10 +9,10 @@
 	<property name="user">root</property>
 	<property name="password">fws@fws-workstation</property>
 
-    <property name="acquireIncrement">2</property>
-    <property name="initialPoolSize">2</property>
-    <property name="minPoolSize">2</property>
-    <property name="maxPoolSize">10</property>
+    <property name="acquireIncrement">5</property>
+    <property name="initialPoolSize">5</property>
+    <property name="minPoolSize">5</property>
+    <property name="maxPoolSize">15</property>
 
   </named-config>
 </c3p0-config>

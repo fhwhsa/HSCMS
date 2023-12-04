@@ -10,6 +10,7 @@ import com.fws.mvc.bean.RegistrationRecord;
 import com.fws.mvc.bean.Teacher;
 import com.fws.mvc.bean.User;
 import com.fws.mvc.dao.AdministratorDao;
+import com.fws.mvc.utils.SendEmail;
 
 public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implements AdministratorDao {
 	
@@ -44,6 +45,9 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 		String sql = "delete from RAF where emailAddr = ? and userType = ?;";
 		Object[] params = {emailAddr, userType};
 		update(connection, sql, params);
+		
+		// 发送邮箱信息告知注册被拒绝
+//		SendEmail.sendMail(emailAddr, "注册申请结果", "不通过");
 	}
 
 	@Override
@@ -54,11 +58,14 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 		deleteRegistrationRecord(connection, emailAddr, userType);
 		User user = null;
 		if (record.getUserType().equals("Teacher"))
-			user = new Teacher(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getClassList());
+			user = new Teacher(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getClassListToString());
 		else
-			user = new Guardian(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getChildList(), record.getClassList());
+			user = new Guardian(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getChildListToString(), record.getClassListToString());
 		UserDaoArc userDaoArc = new UserDaoArc();
 		userDaoArc.add(connection, user, record.getUserType());
+		
+		// 发送邮箱信息告知注册成功
+//		SendEmail.sendMail(emailAddr, "注册申请结果", "通过");
 	}
 
 }
