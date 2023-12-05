@@ -5,6 +5,7 @@
 
 //页面初始化时获取数据
 window.onload = function() {
+	console.log('load');
 	var email = sessionStorage.getItem("email");
 	var passwd = sessionStorage.getItem("passwd");
 	var cpasswd = sessionStorage.getItem("cpasswd");
@@ -17,7 +18,8 @@ window.onload = function() {
 };
 
 
-function sava() {
+function save() {
+	console.log('save');
 	var emailAddr = document.getElementById("reg-emailAddr").value;
 	var passwd = document.getElementById("reg-password").value;
 	var cpasswd = document.getElementById("reg-confirmPassword").value;
@@ -30,6 +32,7 @@ function sava() {
 
 // 点链接时清空缓存
 function clearSession() {
+	console.log('clear');
 	window.onunload = function() {
 		console.log('onunload');
 		sessionStorage.clear();

@@ -25,9 +25,15 @@ class TEST {
 	
 	@Test
 	void test() throws Exception {
-		AdministratorDaoArc administratorDaoArc = new AdministratorDaoArc();
-		Connection connection = JdbcTools.getConnectionByPools();
-		administratorDaoArc.approvedRegistrationRecord(connection, "aaa", "Teacher");
+		Connection connection = null;
+		RegisterDaoArc registerDaoArc = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			registerDaoArc = new RegisterDaoArc();
+			registerDaoArc.addApplication(connection, new RegistrationRecord("Guardian", "Guardian", "Guardian", "Guardian"));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

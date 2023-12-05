@@ -40,7 +40,7 @@
 
 	<form class="layui-form" action="registerGuardian.do" method="post" id="myform">
 		<div class="demo-reg-container">
-
+			<p style="text-align: center;">${requestScope.error }</p><br>
 			<!--   	验证邮箱 -->
 			<div class="layui-form-item">
 				<div class="layui-row">
@@ -60,7 +60,7 @@
 						<div style="margin-left: 11px;">
 							<button type="button"
 								class="layui-btn layui-btn-fluid layui-btn-primary" id="count"
-								onclick="send()">获取验证码</button>
+								onclick="save(); send();">获取验证码</button>
 						</div>
 					</div>
 				</div>
@@ -136,10 +136,6 @@
 		<script>func();</script>
 	<%}%>
 			
-	<!-- 点击获取验证码后检查邮箱是否重复，重复提示错误信息 -->
-	<%if ((Boolean) request.getAttribute("isAddrExist")) { %>
-		<script>window.alert("邮箱已被使用或申请已经被提交！！")</script>
-	<%} %>
 	<script src="layui/layui.js"></script>
 	<script src="js/registerJS/registerGuardian.js"></script>
 </body>

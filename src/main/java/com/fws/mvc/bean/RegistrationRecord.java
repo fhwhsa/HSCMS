@@ -17,6 +17,7 @@ public class RegistrationRecord {
 		this.name = name;
 		this.passWord = passWord;
 		this.emailAddr = emailAddr;
+		this.userType = userType;
 		this.childList = this.classList = "";
 	}
 	
@@ -36,8 +37,8 @@ public class RegistrationRecord {
 		this.passWord = passWord;
 		this.emailAddr = emailAddr;
 		this.userType = userType;
-		this.childList = childList;
-		this.classList = classList;
+		this.childList = childList + ",";
+		this.classList = classList + ",";
 	}
 
 	public String getName() {

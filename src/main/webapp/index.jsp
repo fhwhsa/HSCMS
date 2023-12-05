@@ -11,7 +11,6 @@
 </head>
 
 <body>
-	<script src="layui/layui.js"></script>
 
 	<form class="layui-form myform" action="login.do" method="post">
 		<div class="demo-login-container">
@@ -62,6 +61,7 @@
 		</div>
 	</form>
 
+	<script src="layui/layui.js"></script>
 	<%if (request.getAttribute("error") != null && (Boolean)request.getAttribute("error")) {%>
 	<script>
 		window.alert("用户名或密码错误！！");

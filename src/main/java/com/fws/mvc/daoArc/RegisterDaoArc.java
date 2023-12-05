@@ -9,7 +9,7 @@ import com.fws.mvc.bean.RegistrationRecord;
 import com.fws.mvc.bean.Teacher;
 import com.fws.mvc.dao.RegisterDao;
 
-public class RegisterDaoArc extends CommonDaoArc<GlobalVar> implements RegisterDao {
+public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements RegisterDao {
 
 	@Override
 	public Boolean isEAddrExist(Connection connection, String userType, String emailAddr) throws SQLException {
@@ -26,7 +26,9 @@ public class RegisterDaoArc extends CommonDaoArc<GlobalVar> implements RegisterD
 
 	@Override
 	public void addApplication(Connection connection, RegistrationRecord record) throws SQLException {
+		System.out.println(record.toString());
 		String sql = "insert into RAF (name, passWord, emailAddr, userType, childList, classList) values (?, ?, ?, ?, ?, ?);";
+		System.out.println();
 		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr(), record.getUserType(), record.getChildListToString(), record.getClassListToString()};
 		update(connection, sql, params);
 	}
