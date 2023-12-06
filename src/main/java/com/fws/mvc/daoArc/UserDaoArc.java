@@ -25,4 +25,21 @@ public class UserDaoArc extends CommonDaoArc<User> implements UserDao {
 		}
 	}
 	
+	@Override
+	public Boolean isExist(Connection connection, String emailAddr, String passWord, String userType) throws SQLException {
+		String sql = "select count(*) from " + userType + " where emailAddr = ? and passWord = ?;";
+		Object[] params = {emailAddr, passWord};
+		Long t = this.<Long>fetchScaler(connection, sql, params);
+		return t == 1;
+	}
+
+	@Override
+	public User get(Connection connection, String emailAddr, String userType) throws SQLException {
+		String sql = "select * from " + userType + " where emailAddr = ?;";
+		Object[] params = {emailAddr};
+		User u = fetch(connection, sql, params);
+		return u;
+	}
+	
+	
 }

@@ -28,21 +28,21 @@
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="javascript:;">Your Profile</a>
+							<a href="javascript:;">账号信息</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">Settings</a>
+							<a href="javascript:;">修改密码</a>
 						</dd>
 						<dd>
 							<a href="${pageContext.request.contextPath }/index.jsp">注销</a>
 						</dd>
 					</dl>
 				</li>
-				      <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-        <a href="javascript:;">
-          <i class="layui-icon layui-icon-more-vertical"></i>
-        </a>
-      </li>
+				<li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+					<a href="javascript:;"> <i
+						class="layui-icon layui-icon-more-vertical"></i>
+				</a>
+				</li>
 			</ul>
 		</div>
 
@@ -50,10 +50,12 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
-					<li class="layui-nav-item layui-this"><a href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToUserMJSP.ado">用户管理</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
+					<li class="layui-nav-item layui-this"><a
+						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
 				</ul>
 			</div>
 		</div>
@@ -61,37 +63,42 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
-				<table class="layui-table" page: true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
-				  <thead>
-				    <tr>
-				      <th lay-data="{width:80}" rowspan="2">名称</th>
-				      <th>邮箱地址</th>
-				      <th lay-data="{align:'center'}">用户类型</th>
-				      <th>班级列表</th>
-				      <th>孩子列表</th>
-				      <th lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}" rowspan="2">操作</th>
-				    </tr>
-				  </thead>
-				  
-				  
-				  <%List<RegistrationRecord> records = (List<RegistrationRecord>)request.getAttribute("records"); %>
-				  
-				  <% for (RegistrationRecord record : records) { %>
-					  <tr>
+				<table class="layui-table" page:
+					true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
+					<thead>
+						<tr>
+							<th lay-data="{width:80}" rowspan="2">名称</th>
+							<th>邮箱地址</th>
+							<th lay-data="{align:'center'}">用户类型</th>
+							<th>班级列表</th>
+							<th>孩子列表</th>
+							<th
+								lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}"
+								rowspan="2">操作</th>
+						</tr>
+					</thead>
+
+
+					<%List<RegistrationRecord> records = (List<RegistrationRecord>)request.getAttribute("records"); %>
+
+					<% for (RegistrationRecord record : records) { %>
+					<tr>
 						<th><%=record.getName() %></th>
 						<th><%=record.getEmailAddr() %></th>
 						<th><%=record.getUserType() %></th>
 						<th><%=record.getClassListToString() %></th>
 						<th><%=record.getChildListToString() %></th>
 						<th>
-						  <div class="layui-clear-space">
-						    <a class="layui-btn layui-btn-primary layui-btn-xs" href="refused.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">拒绝</a>
-						    <a class="layui-btn layui-btn-primary layui-btn-xs" href="approved.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">同意</a>
-						  </div>
-						 </th>
-					  </tr>
-				  <%} %>
-				  
+							<div class="layui-clear-space">
+								<a class="layui-btn layui-btn-primary layui-btn-xs"
+									href="refused.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">拒绝</a>
+								<a class="layui-btn layui-btn-primary layui-btn-xs"
+									href="approved.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">同意</a>
+							</div>
+						</th>
+					</tr>
+					<%} %>
+
 				</table>
 			</div>
 		</div>

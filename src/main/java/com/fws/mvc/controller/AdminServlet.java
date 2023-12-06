@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fws.mvc.bean.RegistrationRecord;
 import com.fws.mvc.service.AdminService;
-import com.fws.mvc.service.GlobalVarService;
 
 /**
  * Servlet implementation class AdminServlet

@@ -13,14 +13,6 @@ import com.fws.mvc.dao.AdministratorDao;
 import com.fws.mvc.utils.SendEmail;
 
 public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implements AdministratorDao {
-	
-	@Override
-	public Boolean isExist(Connection connection, String name, String passwd) throws SQLException {
-		String sql = "select count(*) from admin where name = ? and passWord = ? ;";
-		Object[] params = {name, passwd};
-		Long count = this.<Long>fetchScaler(connection, sql, params);
-		return count == 1;
-	}
 
 	@Override
 	public List<RegistrationRecord> getRegistrationRecordsList(Connection connection) throws SQLException {
@@ -47,7 +39,7 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 		update(connection, sql, params);
 		
 		// 发送邮箱信息告知注册被拒绝
-//		SendEmail.sendMail(emailAddr, "注册申请结果", "不通过");
+		SendEmail.sendMail(emailAddr, "注册申请结果", "不通过");
 	}
 
 	@Override
@@ -57,6 +49,7 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 		RegistrationRecord record = getRegistrationRecord(connection, emailAddr, userType);
 		deleteRegistrationRecord(connection, emailAddr, userType);
 		User user = null;
+		if (record == null) return;
 		if (record.getUserType().equals("Teacher"))
 			user = new Teacher(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getClassListToString());
 		else
@@ -65,7 +58,7 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 		userDaoArc.add(connection, user, record.getUserType());
 		
 		// 发送邮箱信息告知注册成功
-//		SendEmail.sendMail(emailAddr, "注册申请结果", "通过");
+		SendEmail.sendMail(emailAddr, "注册申请结果", "通过");
 	}
 
 }

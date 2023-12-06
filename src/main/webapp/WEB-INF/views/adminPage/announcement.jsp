@@ -26,10 +26,10 @@
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="javascript:;">Your Profile</a>
+							<a href="javascript:;">账号信息</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">Settings</a>
+							<a href="javascript:;">修改密码</a>
 						</dd>
 						<dd>
 							<a href="${pageContext.request.contextPath }/index.jsp">注销</a>
@@ -53,9 +53,7 @@
 					<li class="layui-nav-item"><a
 						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
 					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToUserMJSP.ado">用户管理</a></li>
+						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a>
 				</ul>
 			</div>
 		</div>
@@ -66,7 +64,8 @@
 			<form class="layui-form" action="updateAnno.ado" method="post">
 				<div class="layui-form-item layui-form-text">
 					<div class="layui-input-block">
-						<textarea name="context" placeholder="请输入内容" class="layui-textarea"></textarea>
+						<textarea name="context" placeholder="请输入内容"
+							class="layui-textarea"></textarea>
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -80,8 +79,7 @@
 		</div>
 
 		<div class="layui-footer layui-text">
-			${requestScope.announcement }
-		</div>
+			${requestScope.announcement }</div>
 
 	</div>
 

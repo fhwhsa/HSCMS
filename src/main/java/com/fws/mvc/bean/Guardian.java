@@ -5,11 +5,8 @@ import java.util.List;
 
 public class Guardian extends User {
 	
-	private String emailAddr;
 	private String childList;
 	private String classList;
-
-	
 
 	public Guardian() {
 		super();
@@ -17,8 +14,7 @@ public class Guardian extends User {
 	}
 
 	public Guardian(String name, String passWord, String emailAddr, String childList, String classList) {
-		super(name, passWord);
-		this.emailAddr = emailAddr;
+		super(name, passWord, emailAddr);
 		this.childList = childList;
 		this.classList = classList;
 		// TODO Auto-generated constructor stub
@@ -61,13 +57,5 @@ public class Guardian extends User {
 	
 	public String getClassListToString() {
 		return this.classList;
-	}
-
-	public String getEmailAddr() {
-		return emailAddr;
-	}
-
-	public void setEmailAddr(String emailAddr) {
-		this.emailAddr = emailAddr;
 	}
 }

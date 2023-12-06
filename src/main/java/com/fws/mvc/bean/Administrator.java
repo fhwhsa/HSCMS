@@ -7,9 +7,9 @@ public class Administrator extends User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Administrator(String id, String name, String passWord) {
-		super(name, passWord);
+	public Administrator(String name, String passWord, String emailAddr) {
+		super(name, passWord, emailAddr);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

@@ -21,9 +21,9 @@
 					<div class="layui-input-prefix">
 						<i class="layui-icon layui-icon-username"></i>
 					</div>
-					<input type="text" name="username" value="" lay-verify="required"
-						placeholder="用户名" lay-reqtext="请填写用户名" autocomplete="off"
-						class="layui-input" lay-affix="clear" required>
+					<input type="email" name="emailAddr" value="" lay-verify="required|email"
+						placeholder="邮箱" lay-reqtext="请填写邮箱" autocomplete="off"
+						class="layui-input" lay-affix="clear">
 				</div>
 			</div>
 
@@ -64,7 +64,7 @@
 	<script src="layui/layui.js"></script>
 	<%if (request.getAttribute("error") != null && (Boolean)request.getAttribute("error")) {%>
 	<script>
-		window.alert("用户名或密码错误！！");
+		window.alert("邮箱或密码错误！！");
 	</script>
 	<%
 	}

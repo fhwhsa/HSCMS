@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fws.mvc.daoArc.GlobalVarDaoArc;
-import com.fws.mvc.service.GlobalVarService;
+import com.fws.mvc.daoArc.UserDaoArc;
 import com.fws.mvc.service.IndexService;
 import com.fws.mvc.utils.SendEmail;
 

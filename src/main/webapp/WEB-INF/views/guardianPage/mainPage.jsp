@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>用户管理</title>
+<title>主页</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,11 +36,11 @@
 						</dd>
 					</dl>
 				</li>
-				      <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-        <a href="javascript:;">
-          <i class="layui-icon layui-icon-more-vertical"></i>
-        </a>
-      </li>
+				<li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+					<a href="javascript:;"> <i
+						class="layui-icon layui-icon-more-vertical"></i>
+				</a>
+				</li>
 			</ul>
 		</div>
 
@@ -48,10 +48,12 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
-					<li class="layui-nav-item layui-this"><a href="${pageContext.request.contextPath }/turnToUserMJSP.ado">用户管理</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
 				</ul>
 			</div>
 		</div>
@@ -59,8 +61,8 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
-				<p style="text-align: center;">user</p>
-							
+				<h1 style="text-align: center;">hello</h1>
+
 			</div>
 		</div>
 

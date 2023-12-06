@@ -26,21 +26,21 @@
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="javascript:;">Your Profile</a>
+							<a href="javascript:;">账号信息</a>
 						</dd>
 						<dd>
-							<a href="javascript:;">Settings</a>
+							<a href="javascript:;">用户密码</a>
 						</dd>
 						<dd>
 							<a href="${pageContext.request.contextPath }/index.jsp">注销</a>
 						</dd>
 					</dl>
 				</li>
-				      <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-        <a href="javascript:;">
-          <i class="layui-icon layui-icon-more-vertical"></i>
-        </a>
-      </li>
+				<li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+					<a href="javascript:;"> <i
+						class="layui-icon layui-icon-more-vertical"></i>
+				</a>
+				</li>
 			</ul>
 		</div>
 
@@ -48,10 +48,12 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
-					<li class="layui-nav-item layui-this"><a href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToUserMJSP.ado">用户管理</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
+					<li class="layui-nav-item layui-this"><a
+						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
 				</ul>
 			</div>
 		</div>
@@ -60,7 +62,7 @@
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
 				<p style="text-align: center;">class</p>
-							
+
 			</div>
 		</div>
 

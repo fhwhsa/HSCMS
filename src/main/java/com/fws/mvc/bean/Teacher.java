@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Teacher extends User {	
 	
-	private String emailAddr;
 	private String classList;
 	
 	public Teacher() {
@@ -14,8 +13,7 @@ public class Teacher extends User {
 	}
 	
 	public Teacher(String name, String passWord, String emailAddr, String classList) {
-		super(name, passWord);
-		this.emailAddr = emailAddr;
+		super(name, passWord, emailAddr);
 		this.classList = classList;
 		// TODO Auto-generated constructor stub
 	}
@@ -33,13 +31,5 @@ public class Teacher extends User {
 	
 	public String getClassListToString() {
 		return this.classList;
-	}
-
-	public String getEmailAddr() {
-		return emailAddr;
-	}
-	
-	public void setEmailAddr(String emailAddr) {
-		this.emailAddr = emailAddr;
 	}
 }

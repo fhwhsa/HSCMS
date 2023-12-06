@@ -3,16 +3,18 @@ package com.fws.mvc.bean;
 public class User {
 	private String name;
 	private String passWord;
+	private String emailAddr;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public User(String name, String passWord) {
+	public User(String name, String passWord, String emailAddr) {
 		super();
 		this.name = name;
 		this.passWord = passWord;
+		this.emailAddr = emailAddr;
 	}
 	
 	public String getName() {
@@ -29,6 +31,19 @@ public class User {
 
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
+	}
+
+	public String getEmailAddr() {
+		return emailAddr;
+	}
+
+	public void setEmailAddr(String emailAddr) {
+		this.emailAddr = emailAddr;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", emailAddr=" + emailAddr + "]";
 	}
 	
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import com.fws.mvc.bean.RegistrationRecord;
 
 public interface AdministratorDao {
-	public Boolean isExist(Connection connection, String name, String passwd) throws SQLException;
 	
 	public List<RegistrationRecord> getRegistrationRecordsList(Connection connection) throws SQLException;
 	
