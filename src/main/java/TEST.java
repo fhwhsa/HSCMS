@@ -26,13 +26,13 @@ class TEST {
 	@Test
 	void test() throws Exception {
 		Connection connection = null;
-		RegisterDaoArc registerDaoArc = null;
+		UserDaoArc userDaoArc = null;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			registerDaoArc = new RegisterDaoArc();
-			registerDaoArc.addApplication(connection, new RegistrationRecord("Guardian", "Guardian", "Guardian", "Guardian"));
+			userDaoArc = new UserDaoArc();
+			userDaoArc.updatePasswd(connection, "1320079281@qq.com", "Teacher", "111111");
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 

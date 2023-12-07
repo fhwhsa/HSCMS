@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fws.mvc.daoArc.GlobalVarDaoArc;
 import com.fws.mvc.daoArc.UserDaoArc;
@@ -56,40 +57,31 @@ public class IndexServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
+	}	
 	
-	
-	
-	// 登陆
-	@SuppressWarnings("unused")
-	private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String userType = request.getParameter("usertype");
-		Boolean res = indexService.loginService(request, response);
-		String anno = indexService.getSysAnno();
-		
-		if (res) {
-			request.setAttribute("error", false);
-			request.setAttribute("announcement", anno);
-			request.getRequestDispatcher("WEB-INF/views/" + userType + "Page/mainPage.jsp").forward(request, response);
-		}
-		else {
-			request.setAttribute("error", true);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		}
-	}
-
-	
-	// 登陆转注册选择类型
+	// 转注册选择类型
 	@SuppressWarnings("unused")
 	private void turnToRegisterSelectTypeJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.getRequestDispatcher("/WEB-INF/views/registerPage/registerSelectType.jsp").forward(request, response);
 	}
 	
-	// 选择类型后转注册页面
+	// 转找回密码用户类型
+	@SuppressWarnings("unused")
+	private void turnToSelectUserTypeJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.getRequestDispatcher("WEB-INF/views/forgetPage/selectUserType.jsp").forward(request, response);
+	}
+	
+	// 转找回密码
+	@SuppressWarnings("unused")
+	private void turnToForgetPasswdJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.getRequestDispatcher("WEB-INF/views/forgetPage/forgetPasswd.jsp?userType=" + request.getParameter("userType")).forward(request, response);
+	}
+	
+	// 转注册页面
 	@SuppressWarnings("unused")
 	private void turnToRegister(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String path = "/WEB-INF/views/registerPage/register";
-		if (request.getParameter("usertype").equals(TeacherType))
+		if (request.getParameter("userType").equals(TeacherType))
 			path += TeacherType;
 		else 
 			path += GuardianType;
@@ -97,12 +89,40 @@ public class IndexServlet extends HttpServlet {
 		request.getRequestDispatcher(path + ".jsp").forward(request, response);
 	}
 	
+	// 登陆
+	@SuppressWarnings("unused")
+	private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String userType = request.getParameter("userType");
+		Boolean res = indexService.loginService(request, response);
+		
+		if (res) 		
+			request.getRequestDispatcher("WEB-INF/views/" + userType + "Page/mainPage.jsp").forward(request, response);
+		else 
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+	}
+	
 	// 发送验证码
 	@SuppressWarnings("unused")
-	private void sendVerCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String path = "/WEB-INF/views/registerPage/register" + request.getParameter("role") + ".jsp";
-		indexService.sendVerCodeService(request, response);
+	private void sendRegisterVerCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String path = "/WEB-INF/views/registerPage/register" + request.getParameter("userType") + ".jsp";
+		indexService.sendRegisterVerCodeService(request, response);
 		request.getRequestDispatcher(path).forward(request, response);
+	}
+	
+	// 发送验证码前检查邮箱是否存在
+	@SuppressWarnings("unused")
+	private void SendFindPasswdVerCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		indexService.sendFindPasswdVerCodeService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/forgetPage/forgetPasswd.jsp?userType=" + request.getParameter("userType")).forward(request, response);
+	}
+	
+	// 修改密码
+	@SuppressWarnings("unused")
+	private void changePasswd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (indexService.changePasswdService(request, response)) 
+			request.getRequestDispatcher("WEB-INF/views/forgetPage/sucess.jsp").forward(request, response);
+		else
+			request.getRequestDispatcher("WEB-INF/views/forgetPage/forgetPasswd.jsp?userType=" + request.getParameter("userType")).forward(request, response);
 	}
 	
 	// 家长账号注册

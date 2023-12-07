@@ -14,7 +14,7 @@
 
 	<form class="layui-form myform" action="login.do" method="post">
 		<div class="demo-login-container">
-
+			<p style="text-align: center;">${requestScope.error }</p><br>
 			<!-- 	用户名 -->
 			<div class="layui-form-item">
 				<div class="layui-input-wrap">
@@ -41,7 +41,7 @@
 
 			<!--     选择用户类型 -->
 			<div class="layui-form-item">
-				<select name="usertype">
+				<select name="userType">
 					<option value="guardian">家长</option>
 					<option value="teacher">老师</option>
 					<option value="admin">管理员</option>
@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="layui-form-item demo-login-other">
-				<a href="#forget" style="float: right; margin-top: 7px;">忘记密码？</a> <a
+				<a href="${pageContext.request.contextPath}/turnToSelectUserTypeJSP.do" style="float: right;">忘记密码？</a> <a
 					href="${pageContext.request.contextPath }/turnToRegisterSelectTypeJSP.do">注册帐号</a>
 			</div>
 
@@ -62,13 +62,6 @@
 	</form>
 
 	<script src="layui/layui.js"></script>
-	<%if (request.getAttribute("error") != null && (Boolean)request.getAttribute("error")) {%>
-	<script>
-		window.alert("邮箱或密码错误！！");
-	</script>
-	<%
-	}
-	%>
 
 </body>
 </html>

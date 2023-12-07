@@ -47,7 +47,11 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 			throws SQLException {
 		
 		RegistrationRecord record = getRegistrationRecord(connection, emailAddr, userType);
-		deleteRegistrationRecord(connection, emailAddr, userType);
+
+		String sql = "delete from RAF where emailAddr = ? and userType = ?;";
+		Object[] params = {emailAddr, userType};
+		update(connection, sql, params);
+
 		User user = null;
 		if (record == null) return;
 		if (record.getUserType().equals("Teacher"))

@@ -26,20 +26,41 @@ public class UserDaoArc extends CommonDaoArc<User> implements UserDao {
 	}
 	
 	@Override
-	public Boolean isExist(Connection connection, String emailAddr, String passWord, String userType) throws SQLException {
-		String sql = "select count(*) from " + userType + " where emailAddr = ? and passWord = ?;";
-		Object[] params = {emailAddr, passWord};
+	public Boolean isExist(Connection connection, String emailAddr, String userType) throws SQLException {
+		String sql = "select count(*) from " + userType + " where emailAddr = ?;";
+		Object[] params = {emailAddr};
 		Long t = this.<Long>fetchScaler(connection, sql, params);
 		return t == 1;
 	}
 
 	@Override
-	public User get(Connection connection, String emailAddr, String userType) throws SQLException {
+	public User getUser(Connection connection, String emailAddr, String userType) throws SQLException {
 		String sql = "select * from " + userType + " where emailAddr = ?;";
 		Object[] params = {emailAddr};
 		User u = fetch(connection, sql, params);
 		return u;
 	}
+
+	@Override
+	public String getUserName(Connection connection, String emailAddr, String userType) throws SQLException {
+		String sql = "select name from " + userType + " where emailAddr = ?;";
+		Object[] params = {emailAddr};
+		String res = this.<String>fetchScaler(connection, sql, params);
+		return res;
+	}
 	
-	
+	public void updatePasswd(Connection connection, String emailAddr, String userType, String newPasswd) throws SQLException {
+		String sql = "update " + userType + " set passWord = ? where emailAddr = ?;";		
+		System.out.println(sql + " " + newPasswd + " " + emailAddr + " " + userType);
+		Object[] params = {newPasswd, emailAddr};
+		update(connection, sql, params);
+	}
+
+	@Override
+	public Boolean checkPasswd(Connection connection, String emailAddr, String passWord, String userType) throws SQLException {
+		String sql = "select count(*) from " + userType + " where emailAddr = ? and passWord = ?;";
+		Object[] params = {emailAddr, passWord};
+		Long t = this.<Long>fetchScaler(connection, sql, params);
+		return t == 1;
+	}
 }

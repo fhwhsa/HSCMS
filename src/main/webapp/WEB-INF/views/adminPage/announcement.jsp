@@ -26,7 +26,7 @@
 				</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<a href="javascript:;">账号信息</a>
+							<a href="javascript:;">修改名字</a>
 						</dd>
 						<dd>
 							<a href="javascript:;">修改密码</a>

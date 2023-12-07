@@ -50,7 +50,7 @@ function send() {
 		return false;
 	}
 	console.log('send');
-	window.location.href = "sendVerCode.do?role=Guardian&emailAddr=" + emailAddr;
+	window.location.href = "sendRegisterVerCode.do?userType=Guardian&emailAddr=" + emailAddr;
 };
 
 
