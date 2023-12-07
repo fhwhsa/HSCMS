@@ -14,14 +14,14 @@
              top: 20%;
              left: 50%;
              transform: translate(-50%,-50%);">
-		<i class="layui-icon layui-icon-face-smile" style="font-size: 210px; color: green;"></i> 
+		<i class="layui-icon layui-icon-face-smile" style="font-size: 110px; color: green;"></i> 
 	</div>
 	
 	<div style="position:absolute;
              top: 40%;
              left: 50%;
              transform: translate(-50%,-50%);">
-		<p style="text-align: center;">注册申请已经提交，请等待管理员审核，审核结果将通过邮箱通知。
+		<p style="text-align: center;">${requestsScope.message }
 		<a href="${pageContext.request.contextPath }/index.jsp" style="color: blue;">点击返回登陆界面</a></p>	
 	</div>
 </body>

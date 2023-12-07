@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fws.mvc.bean.Guardian;
 import com.fws.mvc.bean.RegistrationRecord;
+import com.fws.mvc.bean.Teacher;
 import com.fws.mvc.bean.User;
 import com.fws.mvc.daoArc.GlobalVarDaoArc;
 import com.fws.mvc.daoArc.RegisterDaoArc;
@@ -32,6 +34,9 @@ public class IndexService {
 			userDaoArc = new UserDaoArc();
 	}
 
+	
+/* 登陆 *********************************************************************************************************************************/	
+	
 	// 登陆
 	public Boolean loginService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String emailAddr = request.getParameter("emailAddr");
@@ -49,7 +54,7 @@ public class IndexService {
 				session.setAttribute("currEmailAddr", emailAddr);
 				session.setAttribute("currUserType", userType);
 				session.setAttribute("currName", getUserNameService(emailAddr, userType));
-				request.setAttribute("announcement", getSysAnnoService());
+				session.setAttribute("announcement", getSysAnnoService());
 			}
 			else 
 				request.setAttribute("error", "邮箱或密码错误！！");
@@ -60,6 +65,14 @@ public class IndexService {
 		}
 		return res;
 	}
+	
+/*****************************************************************************************************************************************/
+	
+	
+	
+	
+	
+/* 找回密码 ********************************************************************************************************************************/
 	
 	// 找回密码发送验证码
 	public void sendFindPasswdVerCodeService(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -117,6 +130,12 @@ public class IndexService {
 		return res;
 	}
 	
+/*****************************************************************************************************************************************/
+	
+	
+	
+/* 注册 ***********************************************************************************************************************************/
+	
 	// 注册发送验证码
 	public void sendRegisterVerCodeService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
@@ -146,7 +165,7 @@ public class IndexService {
 		request.setAttribute("flag", true); // 该servlet是点击获取验证码按钮启动的，改变flag值让其回到页面后按钮开始计时
 	}
 	
-	// 家长注册
+	// 家长注册（不经管理员审核）
 	public Boolean registerGuardianService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String emailAddr = request.getParameter("emailAddr");
 		String vcode = request.getParameter("verCode");
@@ -163,7 +182,7 @@ public class IndexService {
 		try {
 			connection = JdbcTools.getConnectionByPools();
 			connection.setAutoCommit(false);
-			registerDaoArc.addApplication(connection, new RegistrationRecord(name, passwd, emailAddr, "Guardian", child));
+			userDaoArc.add(connection, new Guardian(name, passwd, emailAddr, child), "Guardian");
 			connection.commit();
 		} catch (Exception e) {
 			connection.rollback();
@@ -194,7 +213,7 @@ public class IndexService {
 		try {
 			connection = JdbcTools.getConnectionByPools();
 			connection.setAutoCommit(false);
-			registerDaoArc.addApplication(connection, new RegistrationRecord(name, passwd, emailAddr, "Teacher"));
+			registerDaoArc.addApplication(connection, new RegistrationRecord(name, passwd, emailAddr));
 			connection.commit();
 		} catch (Exception e) {
 			connection.rollback();
@@ -208,6 +227,14 @@ public class IndexService {
 		
 		return true;
 	}
+	
+/*****************************************************************************************************************************************/
+	
+	
+	
+	
+	
+/* 其它 ***********************************************************************************************************************************/
 	
 	// 获取系统公告
 	public String getSysAnnoService() throws Exception {
@@ -253,4 +280,6 @@ public class IndexService {
 		}
 		return res;
 	}
+	
+/*****************************************************************************************************************************************/
 }

@@ -67,7 +67,7 @@
 
 		<div class="layui-footer">
 			<!-- 底部固定区域 -->
-			${requestScope.announcement }
+			${sessionScope.announcement }
 		</div>
 
 	</div>

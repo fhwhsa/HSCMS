@@ -52,13 +52,49 @@ public class AdminServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
+/* 公告 *****************************************************************************************************************************/
+	
 	// 跳转公告管理
 	@SuppressWarnings("unused")
 	private void turnToAnnoMJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("announcement", adminService.getSysAnnoService());
 		request.getRequestDispatcher("WEB-INF/views/adminPage/announcement.jsp").forward(request, response);
 	}
+	
+	// 更新系统公告
+	@SuppressWarnings("unused")
+	private void updateAnno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String context = request.getParameter("context");
+		context = new String(context.getBytes("iso-8859-1"), "utf-8");
+		adminService.updateSysAnnoService(context);
+		request.getSession().setAttribute("announcement", adminService.getSysAnnoService());
+		request.getRequestDispatcher("WEB-INF/views/adminPage/announcement.jsp").forward(request, response);
+	}
+
+/************************************************************************************************************************************/	
+	
+	
+	
+
+	
+/* 班级管理 **********************************************************************************************************************************/
+	
+	// 跳转班级管理
+	@SuppressWarnings("unused")
+	private void turnToClassMJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("announcement", adminService.getSysAnnoService());
+		request.getRequestDispatcher("WEB-INF/views/adminPage/classAssessment.jsp").forward(request, response);
+	}
+
+/********************************************************************************************************************************************/
+	
+	
+	
+
+	
+/* 老师用户信息审核 *************************************************************************************************************************************/
 	
 	// 跳转注册审核
 	@SuppressWarnings("unused")
@@ -68,54 +104,23 @@ public class AdminServlet extends HttpServlet {
 		request.setAttribute("announcement", adminService.getSysAnnoService());
 		request.getRequestDispatcher("WEB-INF/views/adminPage/registrationAssessment.jsp").forward(request, response);
 	}  
-    
-	
-	// 跳转班级管理
-	@SuppressWarnings("unused")
-	private void turnToClassMJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("announcement", adminService.getSysAnnoService());
-		request.getRequestDispatcher("WEB-INF/views/adminPage/classAssessment.jsp").forward(request, response);
-	}
-	
-	// 跳转用户管理
-	@SuppressWarnings("unused")
-	private void turnToUserMJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("announcement", adminService.getSysAnnoService());
-		request.getRequestDispatcher("WEB-INF/views/adminPage/userManagement.jsp").forward(request, response);
-	}
-	
-	// 更新系统公告
-	@SuppressWarnings("unused")
-	private void updateAnno(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String context = request.getParameter("context");
-		context = new String(context.getBytes("iso-8859-1"), "utf-8");
-		adminService.updateSysAnnoService(context);
-		request.setAttribute("announcement", adminService.getSysAnnoService());
-		request.getRequestDispatcher("WEB-INF/views/adminPage/announcement.jsp").forward(request, response);
-	}
-	
+
+	// 同意注册
 	@SuppressWarnings("unused")
 	private void approved(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailAddr = request.getParameter("emailAddr");
-		String userType = request.getParameter("userType");
-		adminService.approvedService(emailAddr, userType);
+		adminService.approvedService(emailAddr);
 		this.turnToRegistMJSP(request, response);
-	}
+	}	
 	
+	// 拒绝
 	@SuppressWarnings("unused")
 	private void refused(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailAddr = request.getParameter("emailAddr");
-		String userType = request.getParameter("userType");
-		adminService.refusedService(emailAddr, userType);
+		adminService.refusedService(emailAddr);
 		this.turnToRegistMJSP(request, response);
 	}
+	
+/******************************************************************************************************************************************************/
 }
 
-/*
-insert into raf (name, passWord, emailAddr, userType, childList, classList) values 
-("fws", "111", "aaa", "Teacher", "", ""),
-("fws2", "111", "bbb", "Teacher", "", "class1,"),
-("fws3", "111", "ccc", "Guardian", "", ""),
-("fws4", "111", "ddd", "Guardian", "fws41,fws42", "class1,");
-
-*/

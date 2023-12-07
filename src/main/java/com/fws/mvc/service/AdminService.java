@@ -77,11 +77,11 @@ public class AdminService {
 	}
 	
 	// 通过申请
-	public void approvedService(String emailAddr, String userType) {
+	public void approvedService(String emailAddr) {
 		Connection connection = null;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			administratorDaoArc.approvedRegistrationRecord(connection, emailAddr, userType);
+			administratorDaoArc.approvedRegistrationRecord(connection, emailAddr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -90,11 +90,11 @@ public class AdminService {
 	}
 	
 	// 拒绝申请
-	public void refusedService(String emailAddr, String userType) {
+	public void refusedService(String emailAddr) {
 		Connection connection = null;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			administratorDaoArc.deleteRegistrationRecord(connection, emailAddr, userType);
+			administratorDaoArc.deleteRegistrationRecord(connection, emailAddr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

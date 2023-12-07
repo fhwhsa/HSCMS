@@ -59,35 +59,9 @@ public class IndexServlet extends HttpServlet {
 		doGet(request, response);
 	}	
 	
-	// 转注册选择类型
-	@SuppressWarnings("unused")
-	private void turnToRegisterSelectTypeJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getRequestDispatcher("/WEB-INF/views/registerPage/registerSelectType.jsp").forward(request, response);
-	}
 	
-	// 转找回密码用户类型
-	@SuppressWarnings("unused")
-	private void turnToSelectUserTypeJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getRequestDispatcher("WEB-INF/views/forgetPage/selectUserType.jsp").forward(request, response);
-	}
 	
-	// 转找回密码
-	@SuppressWarnings("unused")
-	private void turnToForgetPasswdJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.getRequestDispatcher("WEB-INF/views/forgetPage/forgetPasswd.jsp?userType=" + request.getParameter("userType")).forward(request, response);
-	}
-	
-	// 转注册页面
-	@SuppressWarnings("unused")
-	private void turnToRegister(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String path = "/WEB-INF/views/registerPage/register";
-		if (request.getParameter("userType").equals(TeacherType))
-			path += TeacherType;
-		else 
-			path += GuardianType;
-		request.setAttribute("flag", false); // 通过点击注册进入, 改变flag值，即为不调用按钮计时函数
-		request.getRequestDispatcher(path + ".jsp").forward(request, response);
-	}
+/* 登陆 *********************************************************************************************************************************/
 	
 	// 登陆
 	@SuppressWarnings("unused")
@@ -101,6 +75,32 @@ public class IndexServlet extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 	
+/*****************************************************************************************************************************************/
+	
+	
+	
+	
+	
+/* 注册 ***********************************************************************************************************************************/
+	
+	// 转注册选择类型
+	@SuppressWarnings("unused")
+	private void turnToRegisterSelectTypeJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.getRequestDispatcher("/WEB-INF/views/registerPage/registerSelectType.jsp").forward(request, response);
+	}
+	
+	// 转注册页面
+	@SuppressWarnings("unused")
+	private void turnToRegister(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String path = "/WEB-INF/views/registerPage/register";
+		if (request.getParameter("userType").equals(TeacherType))
+			path += TeacherType;
+		else 
+			path += GuardianType;
+		request.setAttribute("flag", false); // 通过点击注册进入, 改变flag值，即为不调用按钮计时函数
+		request.getRequestDispatcher(path + ".jsp").forward(request, response);
+	}
+
 	// 发送验证码
 	@SuppressWarnings("unused")
 	private void sendRegisterVerCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -108,6 +108,52 @@ public class IndexServlet extends HttpServlet {
 		indexService.sendRegisterVerCodeService(request, response);
 		request.getRequestDispatcher(path).forward(request, response);
 	}
+	
+	// 家长账号注册
+	@SuppressWarnings("unused")
+	private void registerGuardian(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (indexService.registerGuardianService(request, response)) {
+			request.setAttribute("message", "注册成功");
+			request.getRequestDispatcher("WEB-INF/views/registerPage/sucess.jsp").forward(request, response);
+		}
+		else {
+			request.setAttribute("flag", false);
+			request.getRequestDispatcher("WEB-INF/views/registerPage/registerGuardian.jsp").forward(request, response);
+		}
+	}
+	
+	// 老师账号注册
+	@SuppressWarnings("unused")
+	private void registerTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (indexService.registerTeacherService(request, response)) {
+			request.setAttribute("message", "注册申请已提交，清等待管理员审核，结果通过邮箱通知！");			
+			request.getRequestDispatcher("WEB-INF/views/registerPage/sucess.jsp").forward(request, response);
+		}
+		else {
+			request.setAttribute("flag", false);
+			request.getRequestDispatcher("WEB-INF/views/registerPage/registerTeacher.jsp").forward(request, response);			
+		}
+	}
+	
+/*****************************************************************************************************************************************/
+	
+	
+	
+	
+	
+/* 找回密码 ********************************************************************************************************************************/
+	
+	// 转找回密码用户类型
+	@SuppressWarnings("unused")
+	private void turnToSelectUserTypeJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.getRequestDispatcher("WEB-INF/views/forgetPage/selectUserType.jsp").forward(request, response);
+	}
+	
+	// 转找回密码
+	@SuppressWarnings("unused")
+	private void turnToForgetPasswdJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.getRequestDispatcher("WEB-INF/views/forgetPage/forgetPasswd.jsp?userType=" + request.getParameter("userType")).forward(request, response);
+	}	
 	
 	// 发送验证码前检查邮箱是否存在
 	@SuppressWarnings("unused")
@@ -125,26 +171,5 @@ public class IndexServlet extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/views/forgetPage/forgetPasswd.jsp?userType=" + request.getParameter("userType")).forward(request, response);
 	}
 	
-	// 家长账号注册
-	@SuppressWarnings("unused")
-	private void registerGuardian(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if (indexService.registerGuardianService(request, response))
-			request.getRequestDispatcher("WEB-INF/views/registerPage/sucess.jsp").forward(request, response);
-		else {
-			request.setAttribute("flag", false);
-			request.getRequestDispatcher("WEB-INF/views/registerPage/registerGuardian.jsp").forward(request, response);
-		}
-	}
- 
-	// 老师账号注册
-	@SuppressWarnings("unused")
-	private void registerTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if (indexService.registerTeacherService(request, response))
-			request.getRequestDispatcher("WEB-INF/views/registerPage/sucess.jsp").forward(request, response);
-		else {
-			request.setAttribute("flag", false);
-			request.getRequestDispatcher("WEB-INF/views/registerPage/registerTeacher.jsp").forward(request, response);			
-		}
-	}
-
+/*****************************************************************************************************************************************/
 }

@@ -12,11 +12,11 @@ public class Guardian extends User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Guardian(String name, String passWord, String emailAddr, String childList, String classList) {
+	
+	public Guardian(String name, String passWord, String emailAddr, String childList) {
 		super(name, passWord, emailAddr);
 		this.childList = childList;
-		this.classList = classList;
+		this.classList = "";
 		// TODO Auto-generated constructor stub
 	}
 	

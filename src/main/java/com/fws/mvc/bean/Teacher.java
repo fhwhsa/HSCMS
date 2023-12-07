@@ -12,9 +12,9 @@ public class Teacher extends User {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Teacher(String name, String passWord, String emailAddr, String classList) {
+	public Teacher(String name, String passWord, String emailAddr) {
 		super(name, passWord, emailAddr);
-		this.classList = classList;
+		this.classList = "";
 		// TODO Auto-generated constructor stub
 	}
 

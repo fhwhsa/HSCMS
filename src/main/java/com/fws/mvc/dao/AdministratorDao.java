@@ -10,10 +10,9 @@ public interface AdministratorDao {
 	
 	public List<RegistrationRecord> getRegistrationRecordsList(Connection connection) throws SQLException;
 	
-	public RegistrationRecord getRegistrationRecord(Connection connection, String emailAddr, String userType) throws SQLException;
+	public RegistrationRecord getRegistrationRecord(Connection connection, String emailAddr) throws SQLException;
 	
-	public void deleteRegistrationRecord(Connection connection, String emailAddr, String userType) throws SQLException;
+	public void deleteRegistrationRecord(Connection connection, String emailAddr) throws SQLException;
 	
-	// 同意注册申请
-	public void approvedRegistrationRecord(Connection connection, String emailAddr, String userType) throws SQLException;
+	public void approvedRegistrationRecord(Connection connection, String emailAddr) throws SQLException;
 }

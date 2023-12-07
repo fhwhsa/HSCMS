@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.fws.mvc.bean.Administrator;
-import com.fws.mvc.bean.Guardian;
 import com.fws.mvc.bean.RegistrationRecord;
 import com.fws.mvc.bean.Teacher;
 import com.fws.mvc.bean.User;
@@ -22,20 +20,20 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 	}
 
 	@Override
-	public RegistrationRecord getRegistrationRecord(Connection connection, String emailAddr, String userType)
+	public RegistrationRecord getRegistrationRecord(Connection connection, String emailAddr)
 			throws SQLException {
 		
-		String sql = "select * from RAF where emailAddr = ? and userType = ?;";
-		Object[] params = {emailAddr, userType};
+		String sql = "select * from RAF where emailAddr = ?;";
+		Object[] params = {emailAddr};
 		return fetch(connection, sql, params);
 	}
 
 	@Override
-	public void deleteRegistrationRecord(Connection connection, String emailAddr, String userType)
+	public void deleteRegistrationRecord(Connection connection, String emailAddr)
 			throws SQLException {
 		
-		String sql = "delete from RAF where emailAddr = ? and userType = ?;";
-		Object[] params = {emailAddr, userType};
+		String sql = "delete from RAF where emailAddr = ?;";
+		Object[] params = {emailAddr};
 		update(connection, sql, params);
 		
 		// 发送邮箱信息告知注册被拒绝
@@ -43,23 +41,19 @@ public class AdministratorDaoArc extends CommonDaoArc<RegistrationRecord> implem
 	}
 
 	@Override
-	public void approvedRegistrationRecord(Connection connection, String emailAddr, String userType)
+	public void approvedRegistrationRecord(Connection connection, String emailAddr)
 			throws SQLException {
 		
-		RegistrationRecord record = getRegistrationRecord(connection, emailAddr, userType);
+		RegistrationRecord record = getRegistrationRecord(connection, emailAddr);
 
-		String sql = "delete from RAF where emailAddr = ? and userType = ?;";
-		Object[] params = {emailAddr, userType};
+		String sql = "delete from RAF where emailAddr = ?;";
+		Object[] params = {emailAddr};
 		update(connection, sql, params);
 
-		User user = null;
 		if (record == null) return;
-		if (record.getUserType().equals("Teacher"))
-			user = new Teacher(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getClassListToString());
-		else
-			user = new Guardian(record.getName(), record.getPassWord(), record.getEmailAddr(), record.getChildListToString(), record.getClassListToString());
+		User user = new Teacher(record.getName(), record.getPassWord(), record.getEmailAddr());
 		UserDaoArc userDaoArc = new UserDaoArc();
-		userDaoArc.add(connection, user, record.getUserType());
+		userDaoArc.add(connection, user, "Teacher");
 		
 		// 发送邮箱信息告知注册成功
 		SendEmail.sendMail(emailAddr, "注册申请结果", "通过");

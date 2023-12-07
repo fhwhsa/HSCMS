@@ -68,10 +68,7 @@
 					<thead>
 						<tr>
 							<th lay-data="{width:80}" rowspan="2">名称</th>
-							<th>邮箱地址</th>
-							<th lay-data="{align:'center'}">用户类型</th>
-							<th>班级列表</th>
-							<th>孩子列表</th>
+							<th lay-data="{align:'center'}">邮箱地址</th>
 							<th
 								lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}"
 								rowspan="2">操作</th>
@@ -85,19 +82,21 @@
 					<tr>
 						<th><%=record.getName() %></th>
 						<th><%=record.getEmailAddr() %></th>
-						<th><%=record.getUserType() %></th>
-						<th><%=record.getClassListToString() %></th>
-						<th><%=record.getChildListToString() %></th>
 						<th>
 							<div class="layui-clear-space">
 								<a class="layui-btn layui-btn-primary layui-btn-xs"
-									href="refused.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">拒绝</a>
+									href="refused.ado?emailAddr=<%=record.getEmailAddr() %>">拒绝</a>
 								<a class="layui-btn layui-btn-primary layui-btn-xs"
-									href="approved.ado?emailAddr=<%=record.getEmailAddr() %>&userType=<%=record.getUserType() %>">同意</a>
+									href="approved.ado?emailAddr=<%=record.getEmailAddr() %>">同意</a>
 							</div>
 						</th>
 					</tr>
 					<%} %>
+
+					<% if (records == null) { %>
+						<p>暂无注册申请</p>
+					<% } %>
+
 
 				</table>
 			</div>
@@ -105,7 +104,7 @@
 
 		<div class="layui-footer">
 			<!-- 底部固定区域 -->
-			${requestScope.announcement }
+			${sessionScope.announcement }
 		</div>
 
 	</div>

@@ -13,23 +13,30 @@ public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements 
 
 	@Override
 	public Boolean isEAddrExist(Connection connection, String userType, String emailAddr) throws SQLException {
-		String sql = "select count(*) from " + userType + " where emailAddr = ?;"; 
-		Object[] params = {emailAddr};
-		Long t = this.<Long>fetchScaler(connection, sql, params);
-		if (t == 1) return true;
-		sql = "select count(*) from raf where emailAddr = ? and userType = ?;";
-		Object[] params2 = {emailAddr, userType};
-		t = this.<Long>fetchScaler(connection, sql, params2);
-		return t == 1;
-		
+		if (userType.equals("Teacher")) {			
+			String sql = "select count(*) from Teacher where emailAddr = ?;"; 
+			Object[] params = {emailAddr};
+			Long t = this.<Long>fetchScaler(connection, sql, params);
+			if (t == 1) return true;
+			sql = "select count(*) from raf where emailAddr = ?;";
+			Object[] params2 = {emailAddr, userType};
+			t = this.<Long>fetchScaler(connection, sql, params2);
+			return t == 1;
+		}
+		else {
+			String sql = "select count(*) from Guardian where emailAddr = ?;"; 
+			Object[] params = {emailAddr};
+			Long t = this.<Long>fetchScaler(connection, sql, params);
+			return t == 1;
+		}
 	}
 
 	@Override
 	public void addApplication(Connection connection, RegistrationRecord record) throws SQLException {
 		System.out.println(record.toString());
-		String sql = "insert into RAF (name, passWord, emailAddr, userType, childList, classList) values (?, ?, ?, ?, ?, ?);";
+		String sql = "insert into RAF (name, passWord, emailAddr) values (?, ?, ?);";
 		System.out.println();
-		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr(), record.getUserType(), record.getChildListToString(), record.getClassListToString()};
+		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr()};
 		update(connection, sql, params);
 	}
 

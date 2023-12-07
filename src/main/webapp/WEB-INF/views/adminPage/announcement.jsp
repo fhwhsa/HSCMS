@@ -79,7 +79,7 @@
 		</div>
 
 		<div class="layui-footer layui-text">
-			${requestScope.announcement }</div>
+			${sessionScope.announcement }</div>
 
 	</div>
 
