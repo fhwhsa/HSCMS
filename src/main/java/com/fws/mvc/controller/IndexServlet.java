@@ -114,7 +114,7 @@ public class IndexServlet extends HttpServlet {
 	private void registerGuardian(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (indexService.registerGuardianService(request, response)) {
 			request.setAttribute("message", "注册成功");
-			request.getRequestDispatcher("WEB-INF/views/registerPage/sucess.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/views/registerPage/success_r.jsp").forward(request, response);
 		}
 		else {
 			request.setAttribute("flag", false);
@@ -127,7 +127,7 @@ public class IndexServlet extends HttpServlet {
 	private void registerTeacher(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (indexService.registerTeacherService(request, response)) {
 			request.setAttribute("message", "注册申请已提交，清等待管理员审核，结果通过邮箱通知！");			
-			request.getRequestDispatcher("WEB-INF/views/registerPage/sucess.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/views/registerPage/success_r.jsp").forward(request, response);
 		}
 		else {
 			request.setAttribute("flag", false);
@@ -166,7 +166,7 @@ public class IndexServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	private void changePasswd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (indexService.changePasswdService(request, response)) 
-			request.getRequestDispatcher("WEB-INF/views/forgetPage/sucess.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/views/forgetPage/success_f.jsp").forward(request, response);
 		else
 			request.getRequestDispatcher("WEB-INF/views/forgetPage/forgetPasswd.jsp?userType=" + request.getParameter("userType")).forward(request, response);
 	}

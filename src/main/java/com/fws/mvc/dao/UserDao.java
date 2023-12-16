@@ -7,9 +7,9 @@ import com.fws.mvc.bean.User;
 
 public interface UserDao {
 
-	public void add(Connection connection, User user, String userType) throws SQLException;
+	public void add(Connection connection, User user) throws SQLException;
 
-	public Boolean isExist(Connection connection, String emailAddr, String userType) throws SQLException;
+	public Boolean isExist(Connection connection, String emailAddr) throws SQLException;
 	
 	public Boolean checkPasswd(Connection connection, String emailAddr, String passWord, String userType) throws SQLException;
 	

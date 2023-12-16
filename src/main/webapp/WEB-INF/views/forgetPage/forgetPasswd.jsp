@@ -117,6 +117,6 @@
 	<%}%>
 
 	<script src="layui/layui.js"></script>
-	<script src="js/forgetPasswd.js"></script>
+	<script src="js/forgetPageJS/forgetPasswd.js"></script>
 </body>
 </html>

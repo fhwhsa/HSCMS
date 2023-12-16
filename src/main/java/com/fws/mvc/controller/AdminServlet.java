@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fws.mvc.bean.ClassInfo;
 import com.fws.mvc.bean.RegistrationRecord;
 import com.fws.mvc.service.AdminService;
 
@@ -84,12 +85,31 @@ public class AdminServlet extends HttpServlet {
 	// 跳转班级管理
 	@SuppressWarnings("unused")
 	private void turnToClassMJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<ClassInfo> records = adminService.getClassInfoRecordsService();
+		request.setAttribute("records", records);
 		request.setAttribute("announcement", adminService.getSysAnnoService());
 		request.getRequestDispatcher("WEB-INF/views/adminPage/classAssessment.jsp").forward(request, response);
 	}
+	
+	// 同意申请
+	@SuppressWarnings("unused")
+	private void approvedClassApplication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String classNo = request.getParameter("classNo");
+		String emailAddr = request.getParameter("emailAddr");
+		adminService.approvedClassApplicationService(classNo, emailAddr);
+		this.turnToClassMJSP(request, response);
+	}
+	
+	// 拒绝
+	@SuppressWarnings("unused")
+	private void refusedClassApplication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String classNo = request.getParameter("classNo");
+		String emailAddr = request.getParameter("emailAddr");
+		adminService.refusedClassApplication(classNo, emailAddr);
+		this.turnToClassMJSP(request, response);
+	}
 
 /********************************************************************************************************************************************/
-	
 	
 	
 
@@ -97,27 +117,26 @@ public class AdminServlet extends HttpServlet {
 /* 老师用户信息审核 *************************************************************************************************************************************/
 	
 	// 跳转注册审核
-	@SuppressWarnings("unused")
 	private void turnToRegistMJSP(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<RegistrationRecord> records = adminService.getRecordsService();
+		List<RegistrationRecord> records = adminService.getRegisterRecordsService();
 		request.setAttribute("records", records);
 		request.setAttribute("announcement", adminService.getSysAnnoService());
 		request.getRequestDispatcher("WEB-INF/views/adminPage/registrationAssessment.jsp").forward(request, response);
-	}  
+	}
 
 	// 同意注册
 	@SuppressWarnings("unused")
-	private void approved(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void approvedRegistration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailAddr = request.getParameter("emailAddr");
-		adminService.approvedService(emailAddr);
+		adminService.approvedRegistrationService(emailAddr);
 		this.turnToRegistMJSP(request, response);
 	}	
 	
 	// 拒绝
 	@SuppressWarnings("unused")
-	private void refused(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void refusedRegistration(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String emailAddr = request.getParameter("emailAddr");
-		adminService.refusedService(emailAddr);
+		adminService.refusedRegistrationService(emailAddr);
 		this.turnToRegistMJSP(request, response);
 	}
 	

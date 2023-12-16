@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>老师管理页</title>
+<title>主页_T</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="//cdn.staticfile.org/layui/2.9.0-rc.2/css/layui.css"
-	rel="stylesheet">
+<link href="layui/css/layui.css" rel="stylesheet">
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -25,9 +24,9 @@
 						class="layui-nav-img"> 账号
 				</a>
 					<dl class="layui-nav-child">
-						<dd>
+<!-- 						<dd>
 							<a href="javascript:;">修改名字</a>
-						</dd>
+						</dd> -->
 						<dd>
 							<a href="javascript:;">修改密码</a>
 						</dd>
@@ -48,12 +47,9 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/selectClass.tdo">班级管理</a></li>
+					<li class="layui-nav-item"><a href="#">我加入的班级</a></li>								        
 				</ul>
 			</div>
 		</div>
@@ -67,15 +63,11 @@
 
 		<div class="layui-footer">
 			<!-- 底部固定区域 -->
-			${requestScope.announcement }
+			${sessionScope.announcement }
 		</div>
 
 	</div>
 
 	<script src="layui/layui.js"></script>
-	<script src="js/adminPageJS/mainPage.js"></script>
-	<script>
-		
-	</script>
 </body>
 </html>

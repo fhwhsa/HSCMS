@@ -1,3 +1,5 @@
+<%@page import="com.fws.mvc.bean.ClassInfo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,8 +10,7 @@
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="//cdn.staticfile.org/layui/2.9.0-rc.2/css/layui.css"
-	rel="stylesheet">
+<link href="layui/css/layui.css" rel="stylesheet">
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -25,9 +26,9 @@
 						class="layui-nav-img"> 账号
 				</a>
 					<dl class="layui-nav-child">
-						<dd>
+						<!-- 						<dd>
 							<a href="javascript:;">修改名字</a>
-						</dd>
+						</dd> -->
 						<dd>
 							<a href="javascript:;">用户密码</a>
 						</dd>
@@ -61,8 +62,51 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
-				<p style="text-align: center;">class</p>
+				<!--records  -->
 
+				<table class="layui-table" page:
+					true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
+					<thead>
+						<tr>
+							<th lay-data="{width:80}" rowspan="2">班级名称</th>
+							<th lay-data="{align:'center'}">申请人</th>
+							<th lay-data="{width:80}" rowspan="2">申请人邮箱地址</th>
+							<th
+								lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}"
+								rowspan="2">操作</th>
+						</tr>
+					</thead>
+
+					<%
+					List<ClassInfo> records = (List<ClassInfo>) request.getAttribute("records");
+					%>
+
+					<%
+					for (ClassInfo record : records) {
+					%>
+					<tr>
+						<th><%=record.getClassName()%></th>
+						<th><%=record.getCreater() %></th>
+						<th><%=record.getCreaterEmailAddr()%></th>
+						<th>
+							<div class="layui-clear-space">
+								<a class="layui-btn layui-btn-primary layui-btn-xs"
+									href="refusedClassApplication.ado?classNo=<%=record.getClassNo()%>&emailAddr=<%=record.getCreaterEmailAddr()%>">拒绝</a> <a
+									class="layui-btn layui-btn-primary layui-btn-xs"
+									href="approvedClassApplication.ado?classNo=<%=record.getClassNo()%>&emailAddr=<%=record.getCreaterEmailAddr()%>">同意</a>
+							</div>
+						</th>
+					</tr>
+					<%
+					}
+					%>
+
+				</table>
+						
+					<% if (records.size() == 0) { %>
+						<p style="text-align: center; font-weight: bold;">暂无申请</p>
+					<% } %>
+				
 			</div>
 		</div>
 

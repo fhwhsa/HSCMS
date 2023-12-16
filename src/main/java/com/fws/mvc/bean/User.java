@@ -4,17 +4,19 @@ public class User {
 	private String name;
 	private String passWord;
 	private String emailAddr;
+	private String userType;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public User(String name, String passWord, String emailAddr) {
+	public User(String name, String passWord, String emailAddr, String userType) {
 		super();
 		this.name = name;
 		this.passWord = passWord;
 		this.emailAddr = emailAddr;
+		this.userType = userType;
 	}
 	
 	public String getName() {
@@ -39,6 +41,14 @@ public class User {
 
 	public void setEmailAddr(String emailAddr) {
 		this.emailAddr = emailAddr;
+	}
+	
+	public String getUserType() {
+		return userType;
+	}
+	
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 
 	@Override

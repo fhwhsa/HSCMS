@@ -3,13 +3,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>主页_A</title>
-<meta name="renderer" content="webkit">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="layui/css/layui.css"
-	rel="stylesheet">
+	<meta charset="utf-8">
+	<title>创建班级</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="layui/css/layui.css" rel="stylesheet">
+	<style>
+	.demo-login-container {
+		width: 320px;
+		margin: 21px auto 0;
+	}
+	
+	.demo-login-other .layui-icon {
+		position: relative;
+		display: inline-block;
+		margin: 0 2px;
+		top: 2px;
+		font-size: 26px;
+	}
+	</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -25,7 +38,7 @@
 						class="layui-nav-img"> 账号
 				</a>
 					<dl class="layui-nav-child">
-<!-- 						<dd>
+						<!-- 						<dd>
 							<a href="javascript:;">修改名字</a>
 						</dd> -->
 						<dd>
@@ -48,21 +61,35 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/selectClass.tdo">班级管理</a></li>
+					<li class="layui-nav-item"><a href="#">我加入的班级</a></li>								        
 				</ul>
 			</div>
 		</div>
 
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<div style="padding: 15px;">
-				<h1 style="text-align: center;">hello ${sessionScope.currName }</h1>
-			</div>
+			<form class="layui-form" action="createClass.tdo" method="post">
+				<div class="demo-login-container">
+					<p style="text-align: center;">${requestScope.error }</p><br>
+					
+					<div class="layui-form-item">
+						<div class="layui-input-wrap">
+							<input type="text" name="className" value="" lay-verify="required"
+								placeholder="班级名" lay-reqtext="请填写班级名" autocomplete="off"
+								class="layui-input" lay-affix="clear">
+						</div>
+					</div>
+					
+					
+					<div class="layui-form-item">
+						<button class="layui-btn layui-btn-fluid" lay-submit
+							lay-filter="demo-login">提交申请</button>
+					</div>
+				</div>
+			</form>
+
 		</div>
 
 		<div class="layui-footer">
@@ -73,9 +100,5 @@
 	</div>
 
 	<script src="layui/layui.js"></script>
-	<script src="js/adminPageJS/mainPage.js"></script>
-	<script>
-		
-	</script>
 </body>
 </html>

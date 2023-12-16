@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fws.mvc.bean.Guardian;
 import com.fws.mvc.bean.RegistrationRecord;
-import com.fws.mvc.bean.Teacher;
 import com.fws.mvc.bean.User;
 import com.fws.mvc.daoArc.GlobalVarDaoArc;
 import com.fws.mvc.daoArc.RegisterDaoArc;
@@ -84,16 +82,17 @@ public class IndexService {
 		String error = "";
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			flag = userDaoArc.isExist(connection, emailAddr, userType);
+			flag = userDaoArc.isExist(connection, emailAddr);
 		} catch (Exception e) {
 			e.printStackTrace();
+			error = e.getMessage();
 		} finally {
 			JdbcTools.releaseSources(connection);
 		}
 		
 		if (!flag) {
 			request.setAttribute("flag", false); 			
-			request.setAttribute("error", "不存在的邮箱！！");
+			request.setAttribute("error", "不存在的邮箱！！" + error);
 		}
 		else {
 			String vcode = SendEmail.generateVerCode();
@@ -119,12 +118,16 @@ public class IndexService {
 		Boolean res = null;
 		try {
 			connection = JdbcTools.getConnectionByPools();
+			connection.setAutoCommit(false);
 			userDaoArc.updatePasswd(connection, emailAddr, userType, passwd);
 			res = true;
+			connection.commit();
 		} catch (Exception e) {
 			res = false;
+			connection.rollback();
 			request.setAttribute("error", e.getMessage());
 		} finally {
+			connection.setAutoCommit(true);
 			JdbcTools.releaseSources(connection);
 		}
 		return res;
@@ -141,12 +144,11 @@ public class IndexService {
 		
 		// 检查是否为已经注册的邮箱
 		String emailAddr = request.getParameter("emailAddr");
-		String userType = request.getParameter("userType");
 		Connection connection = null;
 		Boolean flag = false;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			flag = registerDaoArc.isEAddrExist(connection, userType, emailAddr);
+			flag = registerDaoArc.isEAddrExist(connection, emailAddr) && userDaoArc.isExist(connection, emailAddr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -182,7 +184,11 @@ public class IndexService {
 		try {
 			connection = JdbcTools.getConnectionByPools();
 			connection.setAutoCommit(false);
-			userDaoArc.add(connection, new Guardian(name, passwd, emailAddr, child), "Guardian");
+			userDaoArc.add(connection, new User(name, passwd, emailAddr, "Guardian"));
+			
+			// 添加孩子关联
+			
+			
 			connection.commit();
 		} catch (Exception e) {
 			connection.rollback();

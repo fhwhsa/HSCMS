@@ -8,7 +8,7 @@
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="//cdn.staticfile.org/layui/2.9.0-rc.2/css/layui.css"
+<link href="layui/css/layui.css"
 	rel="stylesheet">
 </head>
 <body>
@@ -25,9 +25,9 @@
 						class="layui-nav-img"> 账号
 				</a>
 					<dl class="layui-nav-child">
-						<dd>
+<!-- 						<dd>
 							<a href="javascript:;">修改名字</a>
-						</dd>
+						</dd> -->
 						<dd>
 							<a href="javascript:;">修改密码</a>
 						</dd>

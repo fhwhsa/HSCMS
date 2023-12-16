@@ -69,4 +69,5 @@ public class SendEmail {
 		Integer res =  (int) ((Math.random() * 9 + 1) * 100000);
 		return res.toString();
 	}
+
 }

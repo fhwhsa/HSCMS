@@ -21,8 +21,8 @@
              top: 40%;
              left: 50%;
              transform: translate(-50%,-50%);">
-		<p style="text-align: center;">${requestsScope.message }
-		<a href="${pageContext.request.contextPath }/index.jsp" style="color: blue;">点击返回登陆界面</a></p>	
+		<p style="text-align: center;">${requestScope.message }
+		<a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo" style="color: blue;">继续申请</a></p>	
 	</div>
 </body>
 </html>

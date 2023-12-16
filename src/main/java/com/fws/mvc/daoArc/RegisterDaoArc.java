@@ -2,33 +2,63 @@ package com.fws.mvc.daoArc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.fws.mvc.bean.GlobalVar;
-import com.fws.mvc.bean.Guardian;
 import com.fws.mvc.bean.RegistrationRecord;
-import com.fws.mvc.bean.Teacher;
+import com.fws.mvc.bean.User;
 import com.fws.mvc.dao.RegisterDao;
+import com.fws.mvc.utils.SendEmail;
 
 public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements RegisterDao {
 
 	@Override
-	public Boolean isEAddrExist(Connection connection, String userType, String emailAddr) throws SQLException {
-		if (userType.equals("Teacher")) {			
-			String sql = "select count(*) from Teacher where emailAddr = ?;"; 
-			Object[] params = {emailAddr};
-			Long t = this.<Long>fetchScaler(connection, sql, params);
-			if (t == 1) return true;
-			sql = "select count(*) from raf where emailAddr = ?;";
-			Object[] params2 = {emailAddr, userType};
-			t = this.<Long>fetchScaler(connection, sql, params2);
-			return t == 1;
-		}
-		else {
-			String sql = "select count(*) from Guardian where emailAddr = ?;"; 
-			Object[] params = {emailAddr};
-			Long t = this.<Long>fetchScaler(connection, sql, params);
-			return t == 1;
-		}
+	public List<RegistrationRecord> getRegistrationRecordsList(Connection connection) throws SQLException {
+		String sql = "select * from RAF;";
+		return fetchList(connection, sql, null);
+	}
+
+	@Override
+	public RegistrationRecord getRegistrationRecord(Connection connection, String emailAddr)
+			throws SQLException {
+		
+		String sql = "select * from RAF where emailAddr = ?;";
+		Object[] params = {emailAddr};
+		return fetch(connection, sql, params);
+	}
+
+	@Override
+	public void deleteRegistrationRecord(Connection connection, String emailAddr)
+			throws SQLException {
+		
+		String sql = "delete from RAF where emailAddr = ?;";
+		Object[] params = {emailAddr};
+		update(connection, sql, params);
+	}
+
+	@Override
+	public void approvedRegistrationRecord(Connection connection, String emailAddr)
+			throws SQLException {
+		
+		RegistrationRecord record = getRegistrationRecord(connection, emailAddr);
+
+		String sql = "delete from RAF where emailAddr = ?;";
+		Object[] params = {emailAddr};
+		update(connection, sql, params);
+
+		if (record == null) return;
+		User user = new User(record.getName(), record.getPassWord(), record.getEmailAddr(), "Teacher");
+		UserDaoArc userDaoArc = new UserDaoArc();
+		userDaoArc.add(connection, user);
+		
+	}
+	
+	@Override
+	public Boolean isEAddrExist(Connection connection, String emailAddr) throws SQLException {
+		String sql = "select count(*) from raf where emailAddr = ?;";
+		Object[] params2 = {emailAddr};
+	 	Long t = this.<Long>fetchScaler(connection, sql, params2);
+		return t == 1;
 	}
 
 	@Override

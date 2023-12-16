@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>主页</title>
+<title>主页_G</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,14 +61,13 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
-				<h1 style="text-align: center;">hello</h1>
-
+				<h1 style="text-align: center;">hello ${sessionScope.currName }</h1>
 			</div>
 		</div>
 
 		<div class="layui-footer">
 			<!-- 底部固定区域 -->
-			${requestScope.announcement }
+			${sessionScope.announcement }
 		</div>
 
 	</div>
