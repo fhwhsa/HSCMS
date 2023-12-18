@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fws.mvc.bean.RegistrationRecord;
 import com.fws.mvc.bean.User;
+import com.fws.mvc.daoArc.ChildDaoArc;
 import com.fws.mvc.daoArc.GlobalVarDaoArc;
 import com.fws.mvc.daoArc.RegisterDaoArc;
 import com.fws.mvc.daoArc.UserDaoArc;
@@ -20,6 +21,7 @@ public class IndexService {
 	private static RegisterDaoArc registerDaoArc = null;
     private static GlobalVarDaoArc globalVarDaoArc = null;
     private static UserDaoArc userDaoArc = null;
+    private static ChildDaoArc childDaoArc = null;
 
 	public IndexService() {
 		if (verCode == null)
@@ -30,6 +32,8 @@ public class IndexService {
 			globalVarDaoArc = new GlobalVarDaoArc();
 		if (userDaoArc == null)
 			userDaoArc = new UserDaoArc();
+		if (childDaoArc == null)
+			childDaoArc = new ChildDaoArc();
 	}
 
 	
@@ -185,10 +189,7 @@ public class IndexService {
 			connection = JdbcTools.getConnectionByPools();
 			connection.setAutoCommit(false);
 			userDaoArc.add(connection, new User(name, passwd, emailAddr, "Guardian"));
-			
-			// 添加孩子关联
-			
-			
+			childDaoArc.addGuardianChildMap(connection, emailAddr, child); // 添加孩子关联
 			connection.commit();
 		} catch (Exception e) {
 			connection.rollback();

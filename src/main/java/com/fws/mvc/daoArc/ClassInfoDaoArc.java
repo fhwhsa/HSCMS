@@ -52,7 +52,7 @@ public class ClassInfoDaoArc extends CommonDaoArc<ClassInfo> implements ClassInf
 	}
 
 	@Override
-	public List<ClassInfo> getClassInfoRecordsList(Connection connection) throws SQLException {
+	public List<ClassInfo> getClassInfoRecordsListFromApplication(Connection connection) throws SQLException {
 		String sql = "select * from CAF;";
 		return fetchList(connection, sql, null);
 	}
@@ -82,6 +82,13 @@ public class ClassInfoDaoArc extends CommonDaoArc<ClassInfo> implements ClassInf
 	public void refusedApplication(Connection connection, String no) throws SQLException {
 		String emailAddr = getClassInfoRecordFromApplication(connection, no).getCreaterEmailAddr();
 		deleteClassInfoRecordFromApplication(connection, no);
+	}
+
+	@Override
+	public List<ClassInfo> getCreateClassRecordsList(Connection connection, String emailAddr) throws SQLException {
+		String sql = "select * from classinfo where createrEmailAddr = ?;";
+		Object[] params = {emailAddr};
+		return fetchList(connection, sql, params);
 	}
 	
 

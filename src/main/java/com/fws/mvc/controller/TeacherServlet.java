@@ -79,8 +79,16 @@ public class TeacherServlet extends HttpServlet {
 
 	// 转班级选择
 	@SuppressWarnings("unused")
-	private void selectClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/teacherPage/???????.jsp").forward(request, response);
+	private void turnToSelectClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.initCreateClassData(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/selectClass.jsp").forward(request, response);
+	}
+	
+	// 转班级管理
+	@SuppressWarnings("unused")
+	private void turnToClassManagementJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.initClassManagementData(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
 
 /*************************************************************************************************************************************/

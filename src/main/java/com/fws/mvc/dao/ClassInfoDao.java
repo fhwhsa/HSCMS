@@ -20,7 +20,7 @@ public interface ClassInfoDao {
 	public void addApplication(Connection connection, ClassInfo classInfo) throws SQLException;
 
 	// 获取所有班级申请记录
-	public List<ClassInfo> getClassInfoRecordsList(Connection connection) throws SQLException;
+	public List<ClassInfo> getClassInfoRecordsListFromApplication(Connection connection) throws SQLException;
 	
 	// 从申请记录中获取班级对象
 	public ClassInfo getClassInfoRecordFromApplication(Connection connection, String no) throws SQLException;
@@ -33,4 +33,8 @@ public interface ClassInfoDao {
 	
 	// 拒绝班级创建申请
 	public void refusedApplication(Connection connection, String no) throws SQLException;
+
+	// 获取创建的班级列表
+	public List<ClassInfo> getCreateClassRecordsList(Connection connection, String emailAddr) throws SQLException;
+
 }

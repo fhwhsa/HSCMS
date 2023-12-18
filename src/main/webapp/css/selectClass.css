@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.myDiv {
+	background-color: #F5F5F5;
+	cursor: pointer;
+	margin: 2px;
+	width: 49%;
+	
+}

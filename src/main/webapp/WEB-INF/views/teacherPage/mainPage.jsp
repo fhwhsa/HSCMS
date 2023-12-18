@@ -24,7 +24,7 @@
 						class="layui-nav-img"> 账号
 				</a>
 					<dl class="layui-nav-child">
-<!-- 						<dd>
+						<!-- 						<dd>
 							<a href="javascript:;">修改名字</a>
 						</dd> -->
 						<dd>
@@ -48,8 +48,8 @@
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/selectClass.tdo">班级管理</a></li>
-					<li class="layui-nav-item"><a href="#">我加入的班级</a></li>								        
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectClassJSP.tdo">班级管理</a></li>
+					<li class="layui-nav-item"><a href="#">我的班级</a></li>
 				</ul>
 			</div>
 		</div>
@@ -69,5 +69,6 @@
 	</div>
 
 	<script src="layui/layui.js"></script>
+	<script src="js/teacherPageJS/mainPage.js"></script>
 </body>
 </html>

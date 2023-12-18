@@ -124,7 +124,7 @@ public class AdminService {
 		List<ClassInfo> records = null;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			records = classInfoDaoArc.getClassInfoRecordsList(connection);
+			records = classInfoDaoArc.getClassInfoRecordsListFromApplication(connection);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

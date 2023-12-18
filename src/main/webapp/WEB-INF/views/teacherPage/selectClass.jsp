@@ -1,28 +1,17 @@
+<%@page import="com.fws.mvc.bean.ClassInfo"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>创建班级</title>
+<title>成功</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="layui/css/layui.css" rel="stylesheet">
-<style type="text/css">
-.demo-login-container {
-	width: 320px;
-	margin: 21px auto 0;
-}
-
-.demo-login-other .layui-icon {
-	position: relative;
-	display: inline-block;
-	margin: 0 2px;
-	top: 2px;
-	font-size: 26px;
-}
-</style>
+<link href="css/selectClass.css" rel="stylesheet">
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -61,10 +50,8 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToSelectClassJSP.tdo">班级管理</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectClassJSP.tdo">班级管理</a></li>
 					<li class="layui-nav-item"><a href="#">我的班级</a></li>
 				</ul>
 			</div>
@@ -72,31 +59,32 @@
 
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
-			<div style="padding: 15px;">
-				<form class="layui-form myform" action="createClass.tdo"
-					method="post">
-					<div class="demo-login-container">
-						<p style="text-align: center;">${requestScope.error }</p>
-						<br>
-						<!-- 	用户名 -->
-						<div class="layui-form-item">
-							<div class="layui-input-wrap">
-								<div class="layui-input-prefix">
-									<i class="layui-icon layui-icon-username"></i>
-								</div>
-								<input type="text" name="className" value=""
-									lay-verify="required" placeholder="班级名称" lay-reqtext="班级名称"
-									autocomplete="off" class="layui-input" lay-affix="clear">
+
+			<%List<ClassInfo> records = (List<ClassInfo>)request.getAttribute("records"); %>
+
+			<div class="layui-bg-gray" style="padding: 16px; ">
+				<div class="layui-row layui-col-space15">
+
+					<%for (ClassInfo record : records) { %>
+					<div class="layui-col-md6 myDiv" onclick="window.location.href='turnToClassManagementJSP.tdo?selectedClassNo=<%=record.getClassNo() %>';">
+						<div class="layui-card">
+							<div class="layui-card-header">
+								班级编号：<%=record.getClassNo() %></div>
+							<div class="layui-card-body">
+								班级名称：<%=record.getClassName() %><br> 创建时间：<%=record.getCreateTimeStamp() %>
 							</div>
 						</div>
-
-						<div class="layui-form-item">
-							<button class="layui-btn layui-btn-fluid" type="submit">提交</button>
-						</div>
-
 					</div>
-				</form>
+					<%} %>
+
+					<%if (records.size() == 0) { %>
+					没有创建的班级，<a
+						href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">点此前往创建班级</a>
+					<%} %>
+
+				</div>
 			</div>
+
 		</div>
 
 		<div class="layui-footer">
@@ -110,3 +98,4 @@
 	<script src="js/teacherPageJS/mainPage.js"></script>
 </body>
 </html>
+
