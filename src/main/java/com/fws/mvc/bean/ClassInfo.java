@@ -1,4 +1,4 @@
-package com.fws.mvc.bean;
+	package com.fws.mvc.bean;
 
 import java.util.Date;
 

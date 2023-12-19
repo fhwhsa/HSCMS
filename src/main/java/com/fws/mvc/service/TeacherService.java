@@ -7,16 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fws.mvc.bean.ClassInfo;
+import com.fws.mvc.bean.UserClassMap;
 import com.fws.mvc.daoArc.ClassInfoDaoArc;
+import com.fws.mvc.daoArc.UserClassMAPDaoArc;
 import com.fws.mvc.utils.JdbcTools;
 
 public class TeacherService {
 
 	private static ClassInfoDaoArc classInfoDaoArc = null;
+	private static UserClassMAPDaoArc userClassMAPDaoArc = null;
 	
 	public TeacherService() {
 		if (classInfoDaoArc == null)
 			classInfoDaoArc = new ClassInfoDaoArc();
+		if (userClassMAPDaoArc == null)
+			userClassMAPDaoArc = new UserClassMAPDaoArc();
 	}
 	
 	
@@ -77,7 +82,35 @@ public class TeacherService {
 	// 读取选择的班级
 	public void initClassManagementData(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String selectedClassNo = request.getParameter("selectedClassNo");
-		System.out.println(selectedClassNo);
+		request.getSession().setAttribute("currClassNo", selectedClassNo);
+		request.setAttribute("page", "1");
+	}
+	
+	// 改变页面在这初始化数据
+	public void changeManagementPageService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String page = request.getParameter("page");
+		request.setAttribute("page", page);
+		if (page.equals("3"))
+			return;
+		
+		Connection connection = null;
+		String selectedClassNo = (String) request.getSession().getAttribute("currClassNo");
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			if (page.equals("1")) { 
+				
+			}
+			else { // 班级成员
+				List<UserClassMap> records = userClassMAPDaoArc.getClassMembers(connection, selectedClassNo);
+				System.out.println(records);
+				request.setAttribute("records", records);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+		
 	}
 	
 }

@@ -1,3 +1,5 @@
+<%@page import="com.fws.mvc.bean.UserClassMap"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,8 +49,10 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
-					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectClassJSP.tdo">班级管理</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
+					<li class="layui-nav-item"><a
+						href="${pageContext.request.contextPath }/turnToSelectClassJSP.tdo">班级管理</a></li>
 					<li class="layui-nav-item"><a href="#">我的班级</a></li>
 				</ul>
 			</div>
@@ -58,7 +62,98 @@
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
 
+				<div class="layui-tab layui-tab-brief">
+					<ul class="layui-tab-title">
 
+						<a
+							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=1">
+							<li <% if (request.getAttribute("page").equals("1")) { %>
+							class="layui-this" <%} %>>班级审核</li>
+						</a>
+
+						<a
+							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=2">
+							<li <% if (request.getAttribute("page").equals("2")) { %>
+							class="layui-this" <%} %>>班级成员</li>
+						</a>
+
+						<a
+							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=3">
+							<li <% if (request.getAttribute("page").equals("3")) { %>
+							class="layui-this" <%} %>>发布通知</li>
+						</a>
+					</ul>
+
+					<div class="layui-tab-content">
+
+						<!-- 班级审核 -->
+						<% if (request.getAttribute("page").equals("1")) { %>
+						<div class="layui-tab-item  layui-show">
+							<%=request.getAttribute("page") %>
+						</div>
+						<%} %>
+
+						<!-- 班级成员 -->
+						<% if (request.getAttribute("page").equals("2")) { %>
+						<div class="layui-tab-item  layui-show ">
+							<table class="layui-table" page:
+								true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
+								<thead>
+									<tr>
+										<th lay-data="{width:80}" rowspan="2">姓名</th>
+										<th lay-data="{align:'center'}">邮箱地址</th>
+										<th
+											lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}"
+											rowspan="2">操作</th>
+									</tr>
+								</thead>
+
+								<% List<UserClassMap> records = (List<UserClassMap>)request.getAttribute("records"); %>
+
+								<%
+								for (UserClassMap record : records) {
+								%>
+								<tr>
+									<th><%=record.getName()%></th>
+									<th><%=record.getEmailAddr() %></th>
+									<th>
+										<div class="layui-clear-space">
+											<a class="layui-btn layui-btn-primary layui-btn-xs" href="#">删除</a>
+										</div>
+									</th>
+								</tr>
+								<%
+								}
+								%>
+
+							</table>
+						</div>
+						<%} %>
+
+						<!-- 发布通知 -->
+						<% if (request.getAttribute("page").equals("3")) { %>
+						<div class="layui-tab-item  layui-show">
+							<label class="layui-form-label">发布通知：</label>
+							<form class="layui-form" action="#" method="post">
+								<div class="layui-form-item layui-form-text">
+									<div class="layui-input-block">
+										<textarea name="context" placeholder="请输入内容"
+											class="layui-textarea"></textarea>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<button type="submit" class="layui-btn" lay-submit
+											lay-filter="demo1">立即提交</button>
+										<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<%} %>
+
+					</div>
+				</div>
 
 			</div>
 		</div>
@@ -72,5 +167,6 @@
 
 	<script src="layui/layui.js"></script>
 	<script src="js/teacherPageJS/mainPage.js"></script>
+	<script type="js/teacherPageJS/classManagement.js"></script>
 </body>
 </html>

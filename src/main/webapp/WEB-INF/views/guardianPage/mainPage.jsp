@@ -49,11 +49,10 @@
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
 					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">发布公告</a></li>
+						href="${pageContext.request.contextPath }/turnToAnnoMJSP.ado">加入班级</a></li>
 					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">注册审核</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToClassMJSP.ado">班级审核</a></li>
+						href="${pageContext.request.contextPath }/turnToRegistMJSP.ado">我的班级</a></li>
+
 				</ul>
 			</div>
 		</div>

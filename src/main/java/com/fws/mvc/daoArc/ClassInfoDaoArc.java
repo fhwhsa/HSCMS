@@ -2,6 +2,7 @@ package com.fws.mvc.daoArc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.naming.factory.SendMailFactory;
@@ -40,9 +41,15 @@ public class ClassInfoDaoArc extends CommonDaoArc<ClassInfo> implements ClassInf
 		String sql = "insert into caf (classNo, className, creater, createTimeStamp, createrEmailAddr) values (?, ?, ?, ?, ?);";		
 		Object[] params = {classInfo.getClassNo() ,classInfo.getClassName(), classInfo.getCreater(), classInfo.getCreateTimeStamp(), classInfo.getCreaterEmailAddr()};
 		
+		CommonDaoArc<String> tmpCDA = new CommonDaoArc<String>();
+		String sql2 = "select classNo from classinfo union select classNo from caf;";
+		List<String> classNoList = tmpCDA.fetchList(connection, sql2, null);
+		HashSet<String> hs = new HashSet<String>(classNoList);
+		
+		
 		if (classInfo.getClassNo().equals("auto")) {
 			Integer res =  (int) ((Math.random() * 9 + 1) * 1000000);
-			while (findByNo(connection, res.toString())) {
+			while (hs.contains(res.toString())) {
 				res =  (int) ((Math.random() * 9 + 1) * 1000000);				
 			}
 			params[0] = res.toString();

@@ -90,6 +90,12 @@ public class TeacherServlet extends HttpServlet {
 		teacherService.initClassManagementData(request, response);
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
+	
+	@SuppressWarnings("unused")
+	private void changeManagementPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.changeManagementPageService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
+	}
 
 /*************************************************************************************************************************************/
 	
