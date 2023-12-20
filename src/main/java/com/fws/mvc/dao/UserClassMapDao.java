@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.fws.mvc.bean.UserClassMap;
 
-public interface UserClassMAPDao {
+public interface UserClassMapDao {
 
 	// 获取班级成员姓名
 	public List<UserClassMap> getClassMembers(Connection connection, String classNo) throws SQLException;

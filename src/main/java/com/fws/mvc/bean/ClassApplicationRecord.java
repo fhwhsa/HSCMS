@@ -1,31 +1,20 @@
 package com.fws.mvc.bean;
 
+// 加入班级申请
+public class ClassApplicationRecord {
 
-// 用户班级映射
-public class UserClassMap {
-	
-	private String name;
 	private String emailAddr;
+	private String name;
 	private String classNo;
-	
-	public UserClassMap() {
+	public ClassApplicationRecord() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public UserClassMap(String name, String emailAddr, String classNo) {
+	public ClassApplicationRecord(String emailAddr, String name, String classNo) {
 		super();
-		this.name = name;
 		this.emailAddr = emailAddr;
-		this.classNo = classNo;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
 		this.name = name;
+		this.classNo = classNo;
 	}
 	public String getEmailAddr() {
 		return emailAddr;
@@ -33,19 +22,17 @@ public class UserClassMap {
 	public void setEmailAddr(String emailAddr) {
 		this.emailAddr = emailAddr;
 	}
-
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getClassNo() {
 		return classNo;
 	}
-
 	public void setClassNo(String classNo) {
 		this.classNo = classNo;
 	}
-
-	@Override
-	public String toString() {
-		return "UserClassMap [name=" + name + ", emailAddr=" + emailAddr + ", classNo=" + classNo + "]";
-	}
-
 	
 }

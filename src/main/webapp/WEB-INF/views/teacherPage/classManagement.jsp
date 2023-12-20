@@ -134,7 +134,7 @@
 						<% if (request.getAttribute("page").equals("3")) { %>
 						<div class="layui-tab-item  layui-show">
 							<label class="layui-form-label">发布通知：</label>
-							<form class="layui-form" action="#" method="post">
+							<form class="layui-form" action="postAnno.tdo" method="post">
 								<div class="layui-form-item layui-form-text">
 									<div class="layui-input-block">
 										<textarea name="context" placeholder="请输入内容"

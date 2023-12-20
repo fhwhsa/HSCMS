@@ -1,5 +1,6 @@
 package com.fws.mvc.bean;
 
+// 注册申请（老师）
 public class RegistrationRecord {
 	private String name;
 	private String passWord;

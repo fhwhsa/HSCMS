@@ -2,6 +2,8 @@
 
 import java.util.Date;
 
+
+// 班级信息
 public class ClassInfo {
 	private String classNo;
 	private String className;

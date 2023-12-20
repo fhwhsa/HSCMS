@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.fws.mvc.bean.UserClassMap;
-import com.fws.mvc.dao.UserClassMAPDao;
+import com.fws.mvc.dao.UserClassMapDao;
 
-public class UserClassMAPDaoArc extends CommonDaoArc<UserClassMap> implements UserClassMAPDao {
+public class UserClassMapDaoArc extends CommonDaoArc<UserClassMap> implements UserClassMapDao {
 
 	@Override
 	public List<UserClassMap> getClassMembers(Connection connection, String classNo) throws SQLException {

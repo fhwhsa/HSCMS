@@ -91,9 +91,18 @@ public class TeacherServlet extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
 	
+	// 功能选择
 	@SuppressWarnings("unused")
 	private void changeManagementPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		teacherService.changeManagementPageService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
+	}
+	
+	// 发布通知
+	@SuppressWarnings("unused")
+	private void postAnno(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.postNoticeService(request, response);
+		request.setAttribute("page", "3");
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
 

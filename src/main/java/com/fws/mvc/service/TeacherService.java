@@ -8,20 +8,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fws.mvc.bean.ClassInfo;
 import com.fws.mvc.bean.UserClassMap;
+import com.fws.mvc.daoArc.ClassAnnoMapDaoArc;
 import com.fws.mvc.daoArc.ClassInfoDaoArc;
-import com.fws.mvc.daoArc.UserClassMAPDaoArc;
+import com.fws.mvc.daoArc.UserClassMapDaoArc;
 import com.fws.mvc.utils.JdbcTools;
 
 public class TeacherService {
 
 	private static ClassInfoDaoArc classInfoDaoArc = null;
-	private static UserClassMAPDaoArc userClassMAPDaoArc = null;
+	private static UserClassMapDaoArc userClassMAPDaoArc = null;
+	private static ClassAnnoMapDaoArc classAnnoMapDaoArc = null;
 	
 	public TeacherService() {
 		if (classInfoDaoArc == null)
 			classInfoDaoArc = new ClassInfoDaoArc();
 		if (userClassMAPDaoArc == null)
-			userClassMAPDaoArc = new UserClassMAPDaoArc();
+			userClassMAPDaoArc = new UserClassMapDaoArc();
+		if (classAnnoMapDaoArc == null)
+			classAnnoMapDaoArc = new ClassAnnoMapDaoArc();
 	}
 	
 	
@@ -86,7 +90,7 @@ public class TeacherService {
 		request.setAttribute("page", "1");
 	}
 	
-	// 改变页面在这初始化数据
+	// 功能选择，初始化数据
 	public void changeManagementPageService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String page = request.getParameter("page");
 		request.setAttribute("page", page);
@@ -97,7 +101,7 @@ public class TeacherService {
 		String selectedClassNo = (String) request.getSession().getAttribute("currClassNo");
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			if (page.equals("1")) { 
+			if (page.equals("1")) { // 审核
 				
 			}
 			else { // 班级成员
@@ -110,7 +114,25 @@ public class TeacherService {
 		} finally {
 			JdbcTools.releaseSources(connection);
 		}
-		
 	}
+	
+	// 发布通知
+	public void postNoticeService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String context = request.getParameter("context");
+		context = new String(context.getBytes("iso-8859-1"), "utf-8");
+		String classNo = (String) request.getSession().getAttribute("currClassNo");
+		
+		Connection connection = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			classAnnoMapDaoArc.addAnno(connection, classNo, context);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+	}
+	
+/*************************************************************************************************************************************************/
 	
 }
