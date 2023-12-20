@@ -72,4 +72,33 @@ public class GuardianServlet extends HttpServlet {
 	
 /*************************************************************************************************************************************************/
 	
+	
+	
+	
+
+/* 我的班级跳转处理 *********************************************************************************************************************************/
+
+	// 跳转班级选择
+	@SuppressWarnings("unused")
+	private void turnToSelectClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.initJoinedClassRecordList(request, response);
+		request.getRequestDispatcher("WEB-INF/views/guardianPage/selectClass.jsp").forward(request, response);
+	}
+	
+	// 转我的班级功能页
+	@SuppressWarnings("unused")
+	private void turnToMyClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.initMyClassPage(request, response);
+		request.getRequestDispatcher("WEB-INF/views/guardianPage/myClass.jsp").forward(request, response);
+	}
+	
+	// 我的班级功能页功能选择
+	@SuppressWarnings("unused")
+	private void changeManagementPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.changeManagementPageService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/guardianPage/myClass.jsp").forward(request, response);
+	}
+	
+/*************************************************************************************************************************************************/
+	
 }

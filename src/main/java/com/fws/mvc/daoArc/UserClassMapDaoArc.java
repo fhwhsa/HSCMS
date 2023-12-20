@@ -23,4 +23,5 @@ public class UserClassMapDaoArc extends CommonDaoArc<UserClassMap> implements Us
 		return fetch(connection, sql, params);
 	}
 
+
 }

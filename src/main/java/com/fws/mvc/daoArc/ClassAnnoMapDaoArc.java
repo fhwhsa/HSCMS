@@ -24,6 +24,5 @@ public class ClassAnnoMapDaoArc extends CommonDaoArc<ClassAnnoMap> implements Cl
 		return fetchList(connection, sql, params);
 	}
 	
-	
 
 }

@@ -18,15 +18,15 @@ import com.fws.mvc.utils.JdbcTools;
 public class TeacherService {
 
 	private static ClassInfoDaoArc classInfoDaoArc = null;
-	private static UserClassMapDaoArc userClassMAPDaoArc = null;
+	private static UserClassMapDaoArc userClassMapDaoArc = null;
 	private static ClassAnnoMapDaoArc classAnnoMapDaoArc = null;
 	private static ClassApplicationRecordDaoArc classApplicationRecordDaoArc = null;
 	
 	public TeacherService() {
 		if (classInfoDaoArc == null)
 			classInfoDaoArc = new ClassInfoDaoArc();
-		if (userClassMAPDaoArc == null)
-			userClassMAPDaoArc = new UserClassMapDaoArc();
+		if (userClassMapDaoArc == null)
+			userClassMapDaoArc = new UserClassMapDaoArc();
 		if (classAnnoMapDaoArc == null)
 			classAnnoMapDaoArc = new ClassAnnoMapDaoArc();
 		if (classApplicationRecordDaoArc == null)
@@ -95,7 +95,7 @@ public class TeacherService {
 		ClassInfo currClassInfo = null;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			currClassInfo = classInfoDaoArc.getCreateClassRecord(connection, selectedClassNo);
+			currClassInfo = classInfoDaoArc.getClassInfo(connection, selectedClassNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -121,7 +121,7 @@ public class TeacherService {
 				request.setAttribute("records", records);
 			}
 			else { // 班级成员
-				List<UserClassMap> records = userClassMAPDaoArc.getClassMembers(connection, currClassInfo.getClassNo());
+				List<UserClassMap> records = userClassMapDaoArc.getClassMembers(connection, currClassInfo.getClassNo());
 				request.setAttribute("records", records);
 			}
 		} catch (Exception e) {

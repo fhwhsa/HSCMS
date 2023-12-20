@@ -8,8 +8,7 @@
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="//cdn.staticfile.org/layui/2.9.0-rc.2/css/layui.css"
-	rel="stylesheet">
+<link href="layui/css/layui.css" rel="stylesheet">
 <style type="text/css">
 .demo-login-container {
 	width: 320px;
@@ -65,7 +64,7 @@
 					<li class="layui-nav-item"><a
 						href="${pageContext.request.contextPath }/turnToJoinClassPage.gdo">加入班级</a></li>
 					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/#">我的班级</a></li>
+						href="${pageContext.request.contextPath }/turnToSelectClassJSP.gdo">我的班级</a></li>
 
 				</ul>
 			</div>

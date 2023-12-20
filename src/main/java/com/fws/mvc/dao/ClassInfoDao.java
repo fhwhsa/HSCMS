@@ -42,6 +42,9 @@ public interface ClassInfoDao {
 	// 获取创建的班级列表(classinfo)
 	public List<ClassInfo> getCreateClassRecordsList(Connection connection, String emailAddr) throws SQLException;
 	
-	// 获取指定班级(classinfo)
-	public ClassInfo getCreateClassRecord(Connection connection, String classNo) throws SQLException;
+	// 获取加入的班级列表(classinfo, user_class_map)
+	public List<ClassInfo> getJoinedClassRecordsList(Connection connection, String emString) throws SQLException;
+	
+	// 获取指定班级信息(classinfo)
+	public ClassInfo getClassInfo(Connection connection, String classNo) throws SQLException;
 }

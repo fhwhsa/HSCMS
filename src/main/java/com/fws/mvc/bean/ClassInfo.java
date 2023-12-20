@@ -5,6 +5,7 @@ import java.util.Date;
 
 // 班级信息
 public class ClassInfo {
+
 	private String classNo;
 	private String className;
 	private String creater;
@@ -57,4 +58,9 @@ public class ClassInfo {
 		this.creater = creater;
 	}
 	
+	@Override
+	public String toString() {
+		return "ClassInfo [classNo=" + classNo + ", className=" + className + ", creater=" + creater
+				+ ", createTimeStamp=" + createTimeStamp + ", createrEmailAddr=" + createrEmailAddr + "]";
+	}
 }

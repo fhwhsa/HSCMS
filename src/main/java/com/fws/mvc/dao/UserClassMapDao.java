@@ -14,4 +14,5 @@ public interface UserClassMapDao {
 	// 获取班级创建者姓名
 	public UserClassMap getClassCreter(Connection connection, String classNo) throws SQLException;
 	
+	
 }
