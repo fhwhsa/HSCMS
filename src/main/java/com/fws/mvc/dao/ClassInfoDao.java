@@ -9,9 +9,14 @@ import com.fws.mvc.bean.ClassInfo;
 // 关联表caf和classinfo
 public interface ClassInfoDao {
 	
+	// caf, classinfo 查已审核或申请创建的班级
 	public Boolean findByNo(Connection connection, String no) throws SQLException;
 	
+	// caf, classinfo 查已审核或申请创建的班级
 	public Boolean findByName(Connection connection, String name) throws SQLException;
+	
+	// caf 查审核通过的班级
+	public Boolean isExist(Connection connection, String classNo) throws SQLException;
 	
 	// 添加班级(classinfo)
 	public void add(Connection connection, ClassInfo classInfo) throws SQLException;

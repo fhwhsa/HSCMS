@@ -97,6 +97,14 @@ public class ClassInfoDaoArc extends CommonDaoArc<ClassInfo> implements ClassInf
 		Object[] params = {emailAddr};
 		return fetchList(connection, sql, params);
 	}
+
+	@Override
+	public Boolean isExist(Connection connection, String classNo) throws SQLException {
+		String sql = "select count(*) from classinfo where classNo = ?;";
+		Object[] params = {classNo};
+		Long t = this.<Long>fetchScaler(connection, sql, params);
+		return t == 1;
+	}
 	
 
 }

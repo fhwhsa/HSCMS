@@ -15,12 +15,8 @@ class TEST {
 	@Test
 	void test() throws Exception {
 		Connection connection = JdbcTools.getConnectionByPools();
-		UserClassMapDaoArc userClassMAPDaoArc = new UserClassMapDaoArc();
-		List<UserClassMap> list = userClassMAPDaoArc.getClassMembers(connection, "4247053");
-		UserClassMap creater = userClassMAPDaoArc.getClassCreter(connection, "4247053");
-		System.out.println(creater);
-		for (UserClassMap c : list)
-			System.out.println(c);
+		ClassInfoDaoArc classInfoDaoArc = new ClassInfoDaoArc();
+		System.out.println(classInfoDaoArc.isExist(connection, "1705316"));
 	}
 
 }

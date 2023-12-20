@@ -4,12 +4,26 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>主页_G</title>
+<title>加入班级</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="//cdn.staticfile.org/layui/2.9.0-rc.2/css/layui.css"
 	rel="stylesheet">
+<style type="text/css">
+.demo-login-container {
+	width: 320px;
+	margin: 21px auto 0;
+}
+
+.demo-login-other .layui-icon {
+	position: relative;
+	display: inline-block;
+	margin: 0 2px;
+	top: 2px;
+	font-size: 26px;
+}
+</style>
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -60,7 +74,29 @@
 		<div class="layui-body">
 			<!-- 内容主体区域 -->
 			<div style="padding: 15px;">
-				<h1 style="text-align: center;">hello ${sessionScope.currName }</h1>
+				<form class="layui-form myform" action="submitApplication.gdo"
+					method="post">
+					<div class="demo-login-container">
+						<p style="text-align: center;">${requestScope.mes }</p>
+						<br>
+						<!-- 	用户名 -->
+						<div class="layui-form-item">
+							<div class="layui-input-wrap">
+								<div class="layui-input-prefix">
+									<i class="layui-icon layui-icon-username"></i>
+								</div>
+								<input type="number" name="classNo" value="" lay-verify="required"
+									placeholder="班级编号" lay-reqtext="班级编号" autocomplete="off"
+									class="layui-input" lay-affix="clear">
+							</div>
+						</div>
+
+						<div class="layui-form-item">
+							<button class="layui-btn layui-btn-fluid" type="submit">提交申请</button>
+						</div>
+
+					</div>
+				</form>
 			</div>
 		</div>
 
@@ -76,5 +112,6 @@
 	<script>
 		
 	</script>
+
 </body>
 </html>
