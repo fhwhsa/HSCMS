@@ -1,3 +1,5 @@
+<%@page import="com.fws.mvc.bean.ClassInfo"%>
+<%@page import="com.fws.mvc.bean.ClassApplicationRecord"%>
 <%@page import="com.fws.mvc.bean.UserClassMap"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -66,35 +68,105 @@
 					<ul class="layui-tab-title">
 
 						<a
+							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=0">
+							<li <%if (request.getAttribute("page").equals("0")) {%>
+							class="layui-this" <%}%>>班级信息</li>
+						</a>
+
+						<a
 							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=1">
-							<li <% if (request.getAttribute("page").equals("1")) { %>
-							class="layui-this" <%} %>>班级审核</li>
+							<li <%if (request.getAttribute("page").equals("1")) {%>
+							class="layui-this" <%}%>>班级审核</li>
 						</a>
 
 						<a
 							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=2">
-							<li <% if (request.getAttribute("page").equals("2")) { %>
-							class="layui-this" <%} %>>班级成员</li>
+							<li <%if (request.getAttribute("page").equals("2")) {%>
+							class="layui-this" <%}%>>班级成员</li>
 						</a>
 
 						<a
 							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=3">
-							<li <% if (request.getAttribute("page").equals("3")) { %>
-							class="layui-this" <%} %>>发布通知</li>
+							<li <%if (request.getAttribute("page").equals("3")) {%>
+							class="layui-this" <%}%>>发布通知</li>
 						</a>
 					</ul>
 
+
+
+
 					<div class="layui-tab-content">
 
-						<!-- 班级审核 -->
-						<% if (request.getAttribute("page").equals("1")) { %>
+						<!-- 班级信息 -->
+						<%
+						if (request.getAttribute("page").equals("0")) {
+						%>
 						<div class="layui-tab-item  layui-show">
-							<%=request.getAttribute("page") %>
+							<%
+							ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+							%>
+							<p>
+								班级编号：<%=currClassInfo.getClassNo()%></p>
+							<br>
+							<p>
+								班级名称：<%=currClassInfo.getClassName()%></p>
 						</div>
-						<%} %>
+						<%
+						}
+						%>
+
+						<!-- 班级审核 -->
+						<%
+						if (request.getAttribute("page").equals("1")) {
+						%>
+						<div class="layui-tab-item  layui-show">
+							<table class="layui-table" page:
+								true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
+								<thead>
+									<tr>
+										<th lay-data="{width:80}" rowspan="2">申请人姓名</th>
+										<th lay-data="{align:'center'}">申请人邮箱</th>
+										<th
+											lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}"
+											rowspan="2">操作</th>
+									</tr>
+								</thead>
+
+
+								<%
+								List<ClassApplicationRecord> records = (List<ClassApplicationRecord>) request.getAttribute("records");
+								%>
+
+								<%
+								for (ClassApplicationRecord record : records) {
+								%>
+								<tr>
+									<th><%=record.getName()%></th>
+									<th><%=record.getEmailAddr()%></th>
+									<th>
+										<div class="layui-clear-space">
+											<a class="layui-btn layui-btn-primary layui-btn-xs"
+												href="${pageContext.request.contextPath }/refusedApplication.tdo?emailAddr=<%=record.getEmailAddr() %>&name=<%=record.getName() %>">拒绝</a>
+											<a class="layui-btn layui-btn-primary layui-btn-xs"
+												href="${pageContext.request.contextPath }/approvedApplication.tdo?emailAddr=<%=record.getEmailAddr() %>&name=<%=record.getName() %>">同意</a>
+										</div>
+									</th>
+								</tr>
+								<%
+								}
+								%>
+							</table>
+						</div>
+						<%
+						}
+						%>
+
+
 
 						<!-- 班级成员 -->
-						<% if (request.getAttribute("page").equals("2")) { %>
+						<%
+						if (request.getAttribute("page").equals("2")) {
+						%>
 						<div class="layui-tab-item  layui-show ">
 							<table class="layui-table" page:
 								true, limit: 6, limits:[6]}" id="ID-table-demo-theads-1">
@@ -108,14 +180,16 @@
 									</tr>
 								</thead>
 
-								<% List<UserClassMap> records = (List<UserClassMap>)request.getAttribute("records"); %>
+								<%
+								List<UserClassMap> records = (List<UserClassMap>) request.getAttribute("records");
+								%>
 
 								<%
 								for (UserClassMap record : records) {
 								%>
 								<tr>
 									<th><%=record.getName()%></th>
-									<th><%=record.getEmailAddr() %></th>
+									<th><%=record.getEmailAddr()%></th>
 									<th>
 										<div class="layui-clear-space">
 											<a class="layui-btn layui-btn-primary layui-btn-xs" href="#">删除</a>
@@ -128,10 +202,16 @@
 
 							</table>
 						</div>
-						<%} %>
+						<%
+						}
+						%>
+
+
 
 						<!-- 发布通知 -->
-						<% if (request.getAttribute("page").equals("3")) { %>
+						<%
+						if (request.getAttribute("page").equals("3")) {
+						%>
 						<div class="layui-tab-item  layui-show">
 							<label class="layui-form-label">发布通知：</label>
 							<form class="layui-form" action="postAnno.tdo" method="post">
@@ -150,7 +230,9 @@
 								</div>
 							</form>
 						</div>
-						<%} %>
+						<%
+						}
+						%>
 
 					</div>
 				</div>

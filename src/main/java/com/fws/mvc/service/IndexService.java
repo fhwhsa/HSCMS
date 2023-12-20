@@ -152,7 +152,7 @@ public class IndexService {
 		Boolean flag = false;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			flag = registerDaoArc.isEAddrExist(connection, emailAddr) && userDaoArc.isExist(connection, emailAddr);
+			flag = registerDaoArc.isEAddrExist(connection, emailAddr) || userDaoArc.isExist(connection, emailAddr);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

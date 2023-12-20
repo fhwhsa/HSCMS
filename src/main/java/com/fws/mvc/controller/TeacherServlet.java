@@ -75,7 +75,7 @@ public class TeacherServlet extends HttpServlet {
 	
 	
 	
-/* 班级管理 ****************************************************************************************************************************/
+/* 班级管理跳转处理 *********************************************************************************************************************/
 
 	// 转班级选择
 	@SuppressWarnings("unused")
@@ -97,6 +97,14 @@ public class TeacherServlet extends HttpServlet {
 		teacherService.changeManagementPageService(request, response);
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
+
+/*************************************************************************************************************************************/
+	
+
+	
+	
+	
+/* 通知模块 ****************************************************************************************************************************/
 	
 	// 发布通知
 	@SuppressWarnings("unused")
@@ -106,6 +114,31 @@ public class TeacherServlet extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
 
-/*************************************************************************************************************************************/
+/***************************************************************************************************************************************/
 	
+	
+	
+	
+	
+/* 审核模块 ******************************************************************************************************************************/
+	
+	// 通过申请
+	@SuppressWarnings("unused")
+	private void approvedApplication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.approvedApplicationService(request, response);
+		request.setAttribute("page", "1");
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
+	}
+	
+	// 拒绝申请
+	@SuppressWarnings("unused")
+	private void refusedApplication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.refusedApplicationService(request, response);
+		request.setAttribute("page", "1");
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
+	}
+	
+/****************************************************************************************************************************************/
+	
+
 }

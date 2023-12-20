@@ -105,6 +105,13 @@ public class ClassInfoDaoArc extends CommonDaoArc<ClassInfo> implements ClassInf
 		Long t = this.<Long>fetchScaler(connection, sql, params);
 		return t == 1;
 	}
+
+	@Override
+	public ClassInfo getCreateClassRecord(Connection connection, String classNo) throws SQLException {
+		String sql = "select * from classinfo where classNo = ?;";
+		Object[] params = {classNo};
+		return fetch(connection, sql, params);
+	}
 	
 
 }

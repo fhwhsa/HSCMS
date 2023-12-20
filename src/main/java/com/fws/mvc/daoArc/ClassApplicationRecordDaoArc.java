@@ -19,8 +19,9 @@ public class ClassApplicationRecordDaoArc extends CommonDaoArc<ClassApplicationR
 	@Override
 	public List<ClassApplicationRecord> getApplicationRecordsList(Connection connection, String classNo)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from jcaf where classNo = ?;";
+		Object[] params = {classNo};
+		return fetchList(connection, sql, params);
 	}
 
 	@Override
@@ -29,6 +30,20 @@ public class ClassApplicationRecordDaoArc extends CommonDaoArc<ClassApplicationR
 		Object[] params = {record.getEmailAddr(), record.getClassNo()};
 		Long t = this.<Long>fetchScaler(connection, sql, params);
 		return t == 1;
+	}
+
+	@Override
+	public void addUserClassMap(Connection connection, ClassApplicationRecord record) throws SQLException {
+		String sql = "insert into user_class_map (emailAddr, classNo) values (?, ?);";
+		Object[] params = {record.getEmailAddr(), record.getClassNo()};
+		update(connection, sql, params);
+	}
+
+	@Override
+	public void deleteRecord(Connection connection, ClassApplicationRecord record) throws SQLException {
+		String sql = "delete from jcaf where emailAddr = ? and classNo = ?;";
+		Object[] params = {record.getEmailAddr(), record.getClassNo()};
+		update(connection, sql, params);
 	}
 
 }
