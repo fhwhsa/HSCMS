@@ -1,6 +1,7 @@
 package com.fws.mvc.service;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,11 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fws.mvc.bean.ClassAnnoMap;
 import com.fws.mvc.bean.ClassApplicationRecord;
+import com.fws.mvc.bean.ClassCommRecords;
 import com.fws.mvc.bean.ClassInfo;
 import com.fws.mvc.bean.User;
 import com.fws.mvc.bean.UserClassMap;
+import com.fws.mvc.dao.ClassCommRecordsDao;
 import com.fws.mvc.daoArc.ClassAnnoMapDaoArc;
 import com.fws.mvc.daoArc.ClassApplicationRecordDaoArc;
+import com.fws.mvc.daoArc.ClassCommRecordsDaoArc;
 import com.fws.mvc.daoArc.ClassInfoDaoArc;
 import com.fws.mvc.daoArc.GlobalVarDaoArc;
 import com.fws.mvc.daoArc.UserClassMapDaoArc;
@@ -27,6 +31,8 @@ public class GuardianService {
 	private ClassAnnoMapDaoArc classAnnoMapDaoArc = null;
 	private GlobalVarDaoArc globalVarDaoArc = null;
 	private UserDaoArc userDaoArc = null;
+	private ClassCommRecordsDaoArc classCommRecordsDaoArc = null;
+
 	
 	public GuardianService() {
 		if (classInfoDaoArc == null)
@@ -41,6 +47,8 @@ public class GuardianService {
 			globalVarDaoArc = new GlobalVarDaoArc();
 		if (userDaoArc == null)
 			userDaoArc = new UserDaoArc();
+		if (classCommRecordsDaoArc == null)
+			classCommRecordsDaoArc = new ClassCommRecordsDaoArc();
 	}
 	
 /* 加入班级 ****************************************************************************************************************************************/
@@ -98,7 +106,7 @@ public class GuardianService {
 		}
 	}
 	
-	// 转我的班级功能页
+	// 转我的班级功能页（初始化数据，默认跳转班级信息功能）
 	public void initMyClassPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String selectedClassNo = request.getParameter("selectedClassNo");	
 		ClassInfo currClassInfo = null;
@@ -136,8 +144,9 @@ public class GuardianService {
 				List<ClassAnnoMap> records = classAnnoMapDaoArc.getAnnoList(connection, currClassInfo.getClassNo());
 				request.setAttribute("records", records);
 			} 
-			else {
-				
+			else if (page.equals("3")) { // 班级交流
+				List<ClassCommRecords> records = classCommRecordsDaoArc.getAllRecords(connection, currClassInfo.getClassNo());
+				request.setAttribute("records", records);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,7 +184,61 @@ public class GuardianService {
 	}
 	
 /*************************************************************************************************************************************************/
+
 	
+	
+	
+	
+/* 班级交流 ******************************************************************************************************************************************/
+	
+	// 发布信息（班级交流）
+	public void postCommRecordService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("page", new String("3"));
+		String context = request.getParameter("context-post");
+		context = new String(context.getBytes("iso-8859-1"), "utf-8");
+		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+		Connection connection = null;
+		List<ClassCommRecords> records = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			connection.setAutoCommit(false);
+			classCommRecordsDaoArc.addRecord(connection, new ClassCommRecords(currClassInfo.getClassNo(), 
+					(String)request.getSession().getAttribute("currName"), (String)request.getSession().getAttribute("currEmailAddr"),
+					context, new Date()));
+			records = classCommRecordsDaoArc.getAllRecords(connection, currClassInfo.getClassNo());
+		} catch (Exception e) {
+			connection.rollback();
+			e.printStackTrace();
+		} finally {
+			connection.setAutoCommit(true);
+			JdbcTools.releaseSources(connection);
+		}
+		request.setAttribute("records", records);
+	}
+	
+	// 信息筛选
+	public void filteCommRecordsService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("page", new String("3"));
+		String filterContext = "%" + request.getParameter("contxt-filter") + "%";
+		String filterDate = "%" + request.getParameter("date") + "%";
+		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+		Connection connection = null;
+		List<ClassCommRecords> records = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			records = classCommRecordsDaoArc.getAllRecordsByFilter(connection, currClassInfo.getClassNo(), filterContext, filterDate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+		request.setAttribute("records", records);
+	}
+	
+/****************************************************************************************************************************************************/
+	
+	
+	// 刷新系统公告
 	public void refreshSysAnnoService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Connection connection = null;
 		try {

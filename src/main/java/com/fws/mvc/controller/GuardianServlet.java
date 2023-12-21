@@ -118,4 +118,26 @@ public class GuardianServlet extends HttpServlet {
 
 /**************************************************************************************************************************************************/
 	
+	
+	
+	
+	
+/* 班级交流 ******************************************************************************************************************************************/
+	
+	// 发布信息（班级交流）
+	@SuppressWarnings("unused")
+	private void postCommRecord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.postCommRecordService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/guardianPage/myClass.jsp").forward(request, response);
+	}
+	
+	// 筛选班级信息（班级交流）
+	@SuppressWarnings("unused")
+	private void filteCommRecords(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.filteCommRecordsService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/guardianPage/myClass.jsp").forward(request, response);		
+	}
+	
+/****************************************************************************************************************************************************/
+
 }
