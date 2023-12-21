@@ -60,6 +60,7 @@ public class GuardianServlet extends HttpServlet {
 	// 转加入班级页
 	@SuppressWarnings("unused")
 	private void turnToJoinClassPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.refreshSysAnnoService(request, response);
 		request.getRequestDispatcher("WEB-INF/views/guardianPage/joinClass.jsp").forward(request, response);
 	}
 	
@@ -81,6 +82,7 @@ public class GuardianServlet extends HttpServlet {
 	// 跳转班级选择
 	@SuppressWarnings("unused")
 	private void turnToSelectClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.refreshSysAnnoService(request, response);
 		guardianService.initJoinedClassRecordList(request, response);
 		request.getRequestDispatcher("WEB-INF/views/guardianPage/selectClass.jsp").forward(request, response);
 	}
@@ -100,5 +102,20 @@ public class GuardianServlet extends HttpServlet {
 	}
 	
 /*************************************************************************************************************************************************/
+	
+	
+	
+	
+
+/* 班级通知筛选 *************************************************************************************************************************************/
+	
+	// 筛选班级通知
+	@SuppressWarnings("unused")
+	private void filterClassAnno(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.getClassAnnoListByFilter(request, response);
+		request.getRequestDispatcher("WEB-INF/views/guardianPage/myClass.jsp").forward(request, response);
+	}
+
+/**************************************************************************************************************************************************/
 	
 }

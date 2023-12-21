@@ -23,6 +23,16 @@ public class ClassAnnoMapDaoArc extends CommonDaoArc<ClassAnnoMap> implements Cl
 		Object[] params = {classNo};
 		return fetchList(connection, sql, params);
 	}
+
+	@Override
+	public List<ClassAnnoMap> getAnnoListByFilter(Connection connection, String classNo, String filterContext, String filterDate)
+			throws SQLException {
+		String sql = "select * from class_announcement_map where classNo = ? and context like ? and createTimeStamp like ?;";
+		Object[] params = {classNo, filterContext ,filterDate};
+//		for (Object str : params)
+//				System.out.println((String)str);
+		return fetchList(connection, sql, params);
+	}
 	
 
 }

@@ -96,25 +96,33 @@
 					<div class="layui-tab-content">
 
 						<!-- 班级信息 -->
- 						<%
+						<%
 						if (request.getAttribute("page").equals("0")) {
 						%>
 						<div class="layui-tab-item  layui-show">
 							<%
-							ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+							ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");	
+							String createrName = (String) request.getSession().getAttribute("createrName");
+							String createrEmailAddr = (String) request.getSession().getAttribute("createrEmailAddr");
 							%>
 							<p>
 								班级编号：<%=currClassInfo.getClassNo()%></p>
 							<br>
 							<p>
 								班级名称：<%=currClassInfo.getClassName()%></p>
+							<br>
+							<p>
+								老师姓名：<%=createrName %></p>
+							<br>
+							<p>
+								老师邮箱：<%=createrEmailAddr %></p>
 						</div>
 						<%
 						}
 						%>
-						
-						
-						
+
+
+
 						<!-- 班级成员 -->
 						<%
 						if (request.getAttribute("page").equals("1")) {
@@ -149,44 +157,90 @@
 						<%
 						}
 						%>
-						
-						
+
+
 						<!-- 班级通知 -->
 						<%
 						if (request.getAttribute("page").equals("2")) {
 						%>
 						<div class="layui-tab-item  layui-show ">
-							<%List<ClassAnnoMap> records = (List<ClassAnnoMap>)request.getAttribute("records"); %>
-							<%for (ClassAnnoMap record : records) { %>
-								<div class="layui-card"  style="background-color: #F5F5F5;">
-									<div class="layui-card-header"><%=record.getCreateTimeStamp() %></div>
-									<div class="layui-card-body">
-										<%=record.getContext() %>
+
+							<form action="filterClassAnno.gdo" method="get">
+								<div class="layui-form-item">
+
+									<div class="layui-inline">
+										<label class="layui-form-label">内容</label>
+										<div class="layui-input-inline">
+											<input type="text" name="contxt" lay-verify="context"
+												placeholder="输入要查询的内容" autocomplete="off" class="layui-input">
+										</div>
+									</div>
+
+									<div class="layui-inline">
+										<label class="layui-form-label">日期</label>
+										<div class="layui-input-inline layui-input-wrap">
+											<div class="layui-input-prefix">
+												<i class="layui-icon layui-icon-date"></i>
+											</div>
+											<input type="text" name="date" id="date" lay-verify="date"
+												placeholder="yyyy-MM-dd" autocomplete="off"
+												class="layui-input">
+										</div>
+									</div>
+
+									<div class="layui-inline">
+										<button type="submit" class="layui-btn" lay-submit>筛选</button>
 									</div>
 								</div>
+							</form>
+
+
+							<%List<ClassAnnoMap> records = (List<ClassAnnoMap>)request.getAttribute("records"); %>
+							<%for (ClassAnnoMap record : records) { %>
+							<div class="layui-card" style="background-color: #F5F5F5;">
+								<div class="layui-card-header"><%=record.getCreateTimeStamp() %></div>
+								<div class="layui-card-body">
+									<%=record.getContext() %>
+								</div>
+							</div>
 							<%} %>
-							
+
 							<%if (records.size() == 0) { %>
-								<p style="text-align: center;">暂无通知</h1>
+							<p style="text-align: center;">暂无通知
+							</h1>
 							<%} %>
 						</div>
 						<%
 						}
 						%>
-		
 
+
+
+						<!-- 站内交流 -->
+
+					</div>
 				</div>
 			</div>
+
+			<div class="layui-footer">
+				<!-- 底部固定区域 -->
+				${sessionScope.announcement }
+			</div>
+
 		</div>
 
-		<div class="layui-footer">
-			<!-- 底部固定区域 -->
-			${sessionScope.announcement }
-		</div>
-
-	</div>
-
-	<script src="layui/layui.js"></script>
-	<script src="js/adminPageJS/mainPage.js"></script>
+		<script src="layui/layui.js"></script>
+		<script src="js/adminPageJS/mainPage.js"></script>
+		<script>
+	layui.use(['laydate'], function(){
+	  var laydate = layui.laydate;
+	  
+	  // 日期
+	  laydate.render({
+	    elem: '#date'
+	  });
+	  
+	});
+	</script>
 </body>
 </html>

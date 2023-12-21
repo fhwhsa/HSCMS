@@ -13,4 +13,7 @@ public interface ClassAnnoMapDao {
 	
 	// 获取指定班级所有通知（降序）
 	public List<ClassAnnoMap> getAnnoList(Connection connection, String classNo) throws SQLException;
+	
+	// 获取指定班级筛选后的所有通知（降序）
+	public List<ClassAnnoMap> getAnnoListByFilter(Connection connection, String classNo, String filterContext, String filterDate) throws SQLException;
 }
