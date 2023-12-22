@@ -13,6 +13,7 @@ import com.fws.mvc.bean.UserClassMap;
 import com.fws.mvc.daoArc.ClassAnnoMapDaoArc;
 import com.fws.mvc.daoArc.ClassApplicationRecordDaoArc;
 import com.fws.mvc.daoArc.ClassInfoDaoArc;
+import com.fws.mvc.daoArc.GlobalVarDaoArc;
 import com.fws.mvc.daoArc.UserClassMapDaoArc;
 import com.fws.mvc.utils.JdbcTools;
 
@@ -22,6 +23,7 @@ public class TeacherService {
 	private static UserClassMapDaoArc userClassMapDaoArc = null;
 	private static ClassAnnoMapDaoArc classAnnoMapDaoArc = null;
 	private static ClassApplicationRecordDaoArc classApplicationRecordDaoArc = null;
+	private static GlobalVarDaoArc globalVarDaoArc = null;
 	
 	public TeacherService() {
 		if (classInfoDaoArc == null)
@@ -32,6 +34,8 @@ public class TeacherService {
 			classAnnoMapDaoArc = new ClassAnnoMapDaoArc();
 		if (classApplicationRecordDaoArc == null)
 			classApplicationRecordDaoArc = new ClassApplicationRecordDaoArc();
+		if (globalVarDaoArc == null)
+			globalVarDaoArc = new GlobalVarDaoArc();
 	}
 	
 	
@@ -256,5 +260,72 @@ public class TeacherService {
 	}
 	
 /*************************************************************************************************************************************************/
+
+	
+	
+	
+	
+/* 加入班级 ****************************************************************************************************************************************/
+
+	public void submitApplicationService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String classNo = request.getParameter("classNo");
+		String emailAddr = (String) request.getSession().getAttribute("currEmailAddr");
+		Connection connection = null;
+		List<ClassInfo> records = null;
+		Boolean flag = true;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			records = classInfoDaoArc.getCreateClassRecordsList(connection, emailAddr);
+			if (!classInfoDaoArc.isExist(connection, classNo)) {
+				request.setAttribute("mes", "不存在的班级编号！");
+				flag = false;
+			}
+			else {
+				for (ClassInfo record : records) {
+					if (record.getClassNo().equals(classNo)) {
+						request.setAttribute("mes", "不可以加入自己创建的班级！");
+						flag = false;
+						break;
+					}
+				}
+			}
+			
+			if (flag) {
+				String name = (String) request.getSession().getAttribute("currName");
+				ClassApplicationRecord record = new ClassApplicationRecord(emailAddr, name, classNo);
+				if (classApplicationRecordDaoArc.hasSubmit(connection, record)) 
+					request.setAttribute("mes",	"审核重复提交");
+				else {
+					connection.setAutoCommit(false);
+					classApplicationRecordDaoArc.addApplicationRecord(connection, record);
+					connection.commit();
+					request.setAttribute("mes", "申请已提交，请等待审核");
+				}
+			}
+		} catch (Exception e) {
+			connection.rollback();
+			e.printStackTrace();
+		} finally {
+			connection.setAutoCommit(true);
+			JdbcTools.releaseSources(connection);
+		}
+	}
+	
+/*************************************************************************************************************************************************/
+	
+	
+	
+	// 刷新系统公告
+	public void refreshSysAnnoService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Connection connection = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			request.getSession().setAttribute("announcement", globalVarDaoArc.getSysAnnoContext(connection));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+	}
 	
 }

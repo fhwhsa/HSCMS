@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>我的班级_G</title>
+<title>我的班级_T</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,10 +52,10 @@
 			<div class="layui-side-scroll">
 				<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 				<ul class="layui-nav layui-nav-tree" lay-filter="test">
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToJoinClassPage.gdo">加入班级</a></li>
-					<li class="layui-nav-item"><a
-						href="${pageContext.request.contextPath }/turnToSelectClassJSP.gdo">我的班级</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectCreateClassJSP.tdo">班级管理</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToJoinClassPage.tdo">加入班级</a></li>
+					<li class="layui-nav-item"><a href="#">我的班级</a></li>
 
 				</ul>
 			</div>

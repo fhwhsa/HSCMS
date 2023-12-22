@@ -77,9 +77,9 @@ public class TeacherServlet extends HttpServlet {
 	
 /* 班级管理跳转处理 *********************************************************************************************************************/
 
-	// 转班级选择
+	// 转班级选择（创建的）
 	@SuppressWarnings("unused")
-	private void turnToSelectClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void turnToSelectCreateClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		teacherService.initCreateClassData(request, response);
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/selectClass.jsp").forward(request, response);
 	}
@@ -148,4 +148,25 @@ public class TeacherServlet extends HttpServlet {
 /****************************************************************************************************************************************/
 	
 
+	
+
+
+/* 加入班级 ******************************************************************************************************************************/
+	
+	// 转加入班级页
+	@SuppressWarnings("unused")
+	private void turnToJoinClassPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.refreshSysAnnoService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/joinClass.jsp").forward(request, response);
+	}
+	
+	// 提交加入班级申请
+	@SuppressWarnings("unused")
+	private void submitApplication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.submitApplicationService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/joinClass.jsp").forward(request, response);
+	}
+	
+/***************************************************************************************************************************************/
+	
 }
