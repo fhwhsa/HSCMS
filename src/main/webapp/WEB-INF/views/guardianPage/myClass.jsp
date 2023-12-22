@@ -226,7 +226,8 @@
 						<div class="layui-tab-item  layui-show ">
 
 							<label class="layui-form-label">发贴：</label>
-							<form class="layui-form" action="postCommRecord.gdo" method="post">
+							<form class="layui-form" action="postCommRecord.gdo"
+								method="post">
 								<div class="layui-form-item layui-form-text">
 									<div class="layui-input-block">
 										<textarea name="context-post" placeholder="请输入内容"
@@ -241,8 +242,8 @@
 									</div>
 								</div>
 							</form>
-							
-							
+
+
 							<!-- 筛选 -->
 							<form action="filteCommRecords.gdo" method="get">
 								<div class="layui-form-item">
@@ -273,11 +274,12 @@
 									</div>
 								</div>
 							</form>
-							
+
 							<% List<ClassCommRecords> records = (List<ClassCommRecords>) request.getAttribute("records"); %>
 							<% for (ClassCommRecords record : records) { %>
 							<div class="layui-card" style="background-color: #F5F5F5;">
-								<div class="layui-card-header"><%=record.getSenderName() %>  <%=record.getSendingDate() %></div>
+								<div class="layui-card-header"><%=record.getSenderName() %>
+									<%=record.getSendingDate() %></div>
 								<div class="layui-card-body">
 									<%=record.getContext() %>
 								</div>

@@ -4,6 +4,7 @@ import java.util.Date;
 
 // 班级通知映射
 public class ClassAnnoMap {
+	private String id;
 	private String classNo;
 	private String context;
 	private Date createTimeStamp;
@@ -11,8 +12,9 @@ public class ClassAnnoMap {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ClassAnnoMap(String classNo, String context) {
+	public ClassAnnoMap(String id, String classNo, String context) {
 		super();
+		this.setId(id);
 		this.classNo = classNo;
 		this.context = context;
 		this.createTimeStamp = new Date();
@@ -35,5 +37,12 @@ public class ClassAnnoMap {
 	public void setCreateTimeStamp(Date createTimeStamp) {
 		this.createTimeStamp = createTimeStamp;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	
 }

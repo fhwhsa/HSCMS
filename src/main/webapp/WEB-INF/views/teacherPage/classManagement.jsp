@@ -1,3 +1,4 @@
+<%@page import="com.fws.mvc.bean.ClassAnnoMap"%>
 <%@page import="com.fws.mvc.bean.ClassInfo"%>
 <%@page import="com.fws.mvc.bean.ClassApplicationRecord"%>
 <%@page import="com.fws.mvc.bean.UserClassMap"%>
@@ -174,9 +175,6 @@
 									<tr>
 										<th lay-data="{width:80}" rowspan="2">姓名</th>
 										<th lay-data="{align:'center'}">邮箱地址</th>
-										<th
-											lay-data="{fixed: 'right', width: 100, align: 'center', toolbar: '#templet-demo-theads-tool'}"
-											rowspan="2">操作</th>
 									</tr>
 								</thead>
 
@@ -190,11 +188,6 @@
 								<tr>
 									<th><%=record.getName()%></th>
 									<th><%=record.getEmailAddr()%></th>
-									<th>
-										<div class="layui-clear-space">
-											<a class="layui-btn layui-btn-primary layui-btn-xs" href="#">删除</a>
-										</div>
-									</th>
 								</tr>
 								<%
 								}
@@ -229,10 +222,29 @@
 									</div>
 								</div>
 							</form>
+
+							<br>
+
+							<% List<ClassAnnoMap> records = (List<ClassAnnoMap>) request.getAttribute("records"); %>
+							<% for (ClassAnnoMap record : records) { %>
+								<div style="display: flex;">
+									<div class="layui-card"
+										style="background-color: #F5F5F5; width: 95%;">
+										<div class="layui-card-header"><%=record.getCreateTimeStamp() %></div>
+										<div class="layui-card-body"><%=record.getContext() %></div>
+									</div>
+									<div class="layui-card" style="margin-top: 2%; margin-left: 2%;">
+										<button class="layui-btn" onclick='window.location.href="deleteAnno.tdo?id=<%=record.getId() %>"'>删除</button>
+									</div>
+								</div>
+							<% } %>
+
 						</div>
 						<%
 						}
 						%>
+
+
 
 					</div>
 				</div>

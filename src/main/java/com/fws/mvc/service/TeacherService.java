@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fws.mvc.bean.ClassAnnoMap;
 import com.fws.mvc.bean.ClassApplicationRecord;
 import com.fws.mvc.bean.ClassInfo;
 import com.fws.mvc.bean.UserClassMap;
@@ -109,7 +110,7 @@ public class TeacherService {
 	public void changeManagementPageService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String page = request.getParameter("page");
 		request.setAttribute("page", page);
-		if (page.equals("3"))
+		if (page.equals("0"))
 			return;
 		
 		Connection connection = null;
@@ -120,8 +121,12 @@ public class TeacherService {
 				List<ClassApplicationRecord> records = classApplicationRecordDaoArc.getApplicationRecordsList(connection, currClassInfo.getClassNo());
 				request.setAttribute("records", records);
 			}
-			else { // 班级成员
+			else if (page.equals("2")) { // 班级成员
 				List<UserClassMap> records = userClassMapDaoArc.getClassMembers(connection, currClassInfo.getClassNo());
+				request.setAttribute("records", records);
+			}
+			else { // 通知
+				List<ClassAnnoMap> records = classAnnoMapDaoArc.getAnnoList(connection, currClassInfo.getClassNo());
 				request.setAttribute("records", records);
 			}
 		} catch (Exception e) {
@@ -140,16 +145,18 @@ public class TeacherService {
 /* 通知模块 ***************************************************************************************************************************************/
 	
 	// 发布通知
-	public void postNoticeService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void postAnnoService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("page", new String("3"));
 		String context = request.getParameter("context");
 		context = new String(context.getBytes("iso-8859-1"), "utf-8");
 		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
-		
+		List<ClassAnnoMap> records = null;
 		Connection connection = null;
 		try {
 			connection = JdbcTools.getConnectionByPools();
 			connection.setAutoCommit(false);
 			classAnnoMapDaoArc.addAnno(connection, currClassInfo.getClassNo(), context);
+			records = classAnnoMapDaoArc.getAnnoList(connection, currClassInfo.getClassNo());
 		} catch (Exception e) {
 			connection.rollback();
 			e.printStackTrace();
@@ -157,8 +164,32 @@ public class TeacherService {
 			connection.setAutoCommit(true);
 			JdbcTools.releaseSources(connection);
 		}
+		request.setAttribute("records", records);
 	}
-
+	
+	
+	// 删除通知
+	public void deleteAnnoService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setAttribute("page", new String("3"));
+		String id = request.getParameter("id");
+		Connection connection = null;
+		List<ClassAnnoMap> records = null;
+		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			connection.setAutoCommit(false);
+			classAnnoMapDaoArc.deleteAnno(connection, id);
+			records = classAnnoMapDaoArc.getAnnoList(connection, currClassInfo.getClassNo());
+		} catch (Exception e) {
+			connection.rollback();
+			e.printStackTrace();
+		} finally {
+			connection.setAutoCommit(true);
+			JdbcTools.releaseSources(connection);
+		}
+		request.setAttribute("records", records);
+	}
+	
 /*************************************************************************************************************************************************/
 
 	

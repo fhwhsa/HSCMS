@@ -33,6 +33,13 @@ public class ClassAnnoMapDaoArc extends CommonDaoArc<ClassAnnoMap> implements Cl
 //				System.out.println((String)str);
 		return fetchList(connection, sql, params);
 	}
+
+	@Override
+	public void deleteAnno(Connection connection, String id) throws SQLException {
+		String sql = "delete from class_announcement_map where id = ?;";
+		Object[] params = {id};
+		update(connection, sql, params);
+	}
 	
 
 }

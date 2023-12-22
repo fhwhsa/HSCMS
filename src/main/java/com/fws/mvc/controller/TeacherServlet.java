@@ -109,8 +109,15 @@ public class TeacherServlet extends HttpServlet {
 	// 发布通知
 	@SuppressWarnings("unused")
 	private void postAnno(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		teacherService.postNoticeService(request, response);
-		request.setAttribute("page", "3");
+		teacherService.postAnnoService(request, response);
+//		request.setAttribute("page", "3");
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
+	}
+	
+	// 删除通知
+	@SuppressWarnings("unused")
+	private void deleteAnno(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.deleteAnnoService(request, response);
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
 
