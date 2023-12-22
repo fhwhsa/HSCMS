@@ -277,23 +277,35 @@ public class TeacherService {
 	
 /* 加入班级 ****************************************************************************************************************************************/
 
+	// 提交加入申请
 	public void submitApplicationService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String classNo = request.getParameter("classNo");
-		String emailAddr = (String) request.getSession().getAttribute("currEmailAddr");
 		Connection connection = null;
 		List<ClassInfo> records = null;
+		String emailAddr = (String) request.getSession().getAttribute("currEmailAddr");
 		Boolean flag = true;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			records = classInfoDaoArc.getCreateClassRecordsList(connection, emailAddr);
 			if (!classInfoDaoArc.isExist(connection, classNo)) {
 				request.setAttribute("mes", "不存在的班级编号！");
 				flag = false;
 			}
 			else {
+				// 检查是否为自己创建的班级
+				records = classInfoDaoArc.getCreateClassRecordsList(connection, emailAddr);
 				for (ClassInfo record : records) {
 					if (record.getClassNo().equals(classNo)) {
 						request.setAttribute("mes", "不可以加入自己创建的班级！");
+						flag = false;
+						break;
+					}
+				}
+				
+				// 检查是否为已经加入的班级
+				records = classInfoDaoArc.getJoinedClassRecordsList(connection, emailAddr);
+				for (ClassInfo record : records) {
+					if (record.getClassNo().equals(classNo)) {
+						request.setAttribute("mes", "班级已加入！");
 						flag = false;
 						break;
 					}

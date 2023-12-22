@@ -57,13 +57,28 @@ public class GuardianService {
 	public void submitApplicationService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String classNo = request.getParameter("classNo");
 		Connection connection = null;
-		
+		List<ClassInfo> records = null;
+		String emailAddr = (String) request.getSession().getAttribute("currEmailAddr");
+		boolean flag = true;
 		try {
 			connection = JdbcTools.getConnectionByPools();
-			if (!classInfoDaoArc.isExist(connection, classNo)) 
+			if (!classInfoDaoArc.isExist(connection, classNo)) {
 				request.setAttribute("mes", "不存在的班级编号");
+				flag = false;
+			}
 			else {
-				String emailAddr = (String) request.getSession().getAttribute("currEmailAddr");
+				// 检查是否为已经加入的班级
+				records = classInfoDaoArc.getJoinedClassRecordsList(connection, emailAddr);
+				for (ClassInfo record : records) {
+					if (record.getClassNo().equals(classNo)) {
+						request.setAttribute("mes", "班级已加入！");
+						flag = false;
+						break;
+					}
+				}
+			}
+			
+			if (flag) {
 				String name = (String) request.getSession().getAttribute("currName");
 				ClassApplicationRecord record = new ClassApplicationRecord(emailAddr, name, classNo);
 				if (classApplicationRecordDaoArc.hasSubmit(connection, record)) 
