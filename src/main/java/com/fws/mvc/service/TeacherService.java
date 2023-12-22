@@ -8,13 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fws.mvc.bean.ClassAnnoMap;
 import com.fws.mvc.bean.ClassApplicationRecord;
+import com.fws.mvc.bean.ClassCommRecords;
 import com.fws.mvc.bean.ClassInfo;
+import com.fws.mvc.bean.User;
 import com.fws.mvc.bean.UserClassMap;
 import com.fws.mvc.daoArc.ClassAnnoMapDaoArc;
 import com.fws.mvc.daoArc.ClassApplicationRecordDaoArc;
+import com.fws.mvc.daoArc.ClassCommRecordsDaoArc;
 import com.fws.mvc.daoArc.ClassInfoDaoArc;
 import com.fws.mvc.daoArc.GlobalVarDaoArc;
 import com.fws.mvc.daoArc.UserClassMapDaoArc;
+import com.fws.mvc.daoArc.UserDaoArc;
 import com.fws.mvc.utils.JdbcTools;
 
 public class TeacherService {
@@ -24,6 +28,8 @@ public class TeacherService {
 	private static ClassAnnoMapDaoArc classAnnoMapDaoArc = null;
 	private static ClassApplicationRecordDaoArc classApplicationRecordDaoArc = null;
 	private static GlobalVarDaoArc globalVarDaoArc = null;
+	private static UserDaoArc userDaoArc = null;
+	private static ClassCommRecordsDaoArc classCommRecordsDaoArc = null;
 	
 	public TeacherService() {
 		if (classInfoDaoArc == null)
@@ -36,6 +42,10 @@ public class TeacherService {
 			classApplicationRecordDaoArc = new ClassApplicationRecordDaoArc();
 		if (globalVarDaoArc == null)
 			globalVarDaoArc = new GlobalVarDaoArc();
+		if (userDaoArc == null)
+			userDaoArc = new UserDaoArc();
+		if (classCommRecordsDaoArc == null)
+			classCommRecordsDaoArc = new ClassCommRecordsDaoArc();
 	}
 	
 	
@@ -312,6 +322,84 @@ public class TeacherService {
 	}
 	
 /*************************************************************************************************************************************************/
+	
+	
+	
+	
+	
+/* 跳转处理 **************************************************************************************************************************/
+	
+	// 获取加入的班级信息
+	public void initJoinedClassRecordList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Connection connection = null;
+		List<ClassInfo> records = null;
+		String emailAddr = (String) request.getSession().getAttribute("currEmailAddr");
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			records = classInfoDaoArc.getJoinedClassRecordsList(connection, emailAddr);
+			request.setAttribute("records", records);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+	}
+	
+	// 选择班级后转我的班级功能页（初始化数据，默认跳转班级信息功能）
+	public void initMyClassPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String selectedClassNo = request.getParameter("selectedClassNo");	
+		ClassInfo currClassInfo = null;
+		User creater = null;
+		Connection connection = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			currClassInfo = classInfoDaoArc.getClassInfo(connection, selectedClassNo);
+			creater = userDaoArc.getUser(connection, currClassInfo.getCreaterEmailAddr(), "Teacher");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+		request.getSession().setAttribute("createrName", creater.getName());
+		request.getSession().setAttribute("createrEmailAddr", creater.getEmailAddr());
+		request.getSession().setAttribute("currClassInfo", currClassInfo);
+		request.setAttribute("page", "0");
+	}
+	
+	// 我的班级功能页功能选择
+	public void changeMyClassPageService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String page = request.getParameter("page");
+		request.setAttribute("page", page);
+		Connection connection = null;
+		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			
+			if (page.equals("1")) { // 班级成员
+				System.out.println("page1");
+				List<UserClassMap> records = userClassMapDaoArc.getClassMembers(connection, currClassInfo.getClassNo());
+				request.setAttribute("records", records);
+			}
+			else if (page.equals("2")) { // 班级通知
+				System.out.println("page2");
+				List<ClassAnnoMap> records = classAnnoMapDaoArc.getAnnoList(connection, currClassInfo.getClassNo());
+				request.setAttribute("records", records);
+			} 
+			else if (page.equals("3")) { // 班级交流
+				System.out.println("page3");
+				List<ClassCommRecords> records = classCommRecordsDaoArc.getAllRecords(connection, currClassInfo.getClassNo());
+				request.setAttribute("records", records);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+		
+	}
+	
+	
+/*****************************************************************************************************************************************/
 	
 	
 	

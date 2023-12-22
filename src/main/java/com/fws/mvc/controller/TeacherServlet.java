@@ -57,6 +57,7 @@ public class TeacherServlet extends HttpServlet {
 	// 转创建班级页
 	@SuppressWarnings("unused")
 	private void turnToCreateClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.refreshSysAnnoService(request, response);
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/createClass.jsp").forward(request, response);
 	}	
 	
@@ -81,6 +82,8 @@ public class TeacherServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	private void turnToSelectCreateClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		teacherService.initCreateClassData(request, response);
+		teacherService.refreshSysAnnoService(request, response);
+		request.setAttribute("jumpPath", new String("turnToClassManagementJSP")); // 用于表示在选择班级后是跳转班级管理还是我的班级
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/selectClass.jsp").forward(request, response);
 	}
 	
@@ -88,6 +91,7 @@ public class TeacherServlet extends HttpServlet {
 	@SuppressWarnings("unused")
 	private void turnToClassManagementJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		teacherService.initClassManagementData(request, response);
+		teacherService.refreshSysAnnoService(request, response);
 		request.getRequestDispatcher("WEB-INF/views/teacherPage/classManagement.jsp").forward(request, response);
 	}
 	
@@ -168,5 +172,38 @@ public class TeacherServlet extends HttpServlet {
 	}
 	
 /***************************************************************************************************************************************/
+	
+	
+	
+	
+	
+/* 我的班级跳转处理 ********************************************************************************************************/
+	
+	// 转班级选择（加入的）
+	@SuppressWarnings("unused")
+	private void turnToSelectJoinedClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.refreshSysAnnoService(request, response);
+		teacherService.initJoinedClassRecordList(request, response);
+		request.setAttribute("jumpPath", new String("turnToMyClassJSP")); // 用于表示在选择班级后是跳转班级管理还是我的班级
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/selectClass.jsp").forward(request, response);
+	}
+	
+	// 转我的班级功能页
+	@SuppressWarnings("unused")
+	private void turnToMyClassJSP(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.initMyClassPage(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/myClass.jsp").forward(request, response);
+	}
+	
+	// 我的班级功能页功能选择
+	@SuppressWarnings("unused")
+	private void changeClassPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("change");
+		teacherService.changeMyClassPageService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/myClass.jsp").forward(request, response);
+	}
+	
+/***********************************************************************************************************************/
+	
 	
 }

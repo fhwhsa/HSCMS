@@ -64,7 +64,7 @@
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectCreateClassJSP.tdo">班级管理</a></li>
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToJoinClassPage.tdo">加入班级</a></li>
-					<li class="layui-nav-item"><a href="#">我的班级</a></li>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectJoinedClassJSP.tdos">我的班级</a></li>
 				</ul>
 			</div>
 		</div>

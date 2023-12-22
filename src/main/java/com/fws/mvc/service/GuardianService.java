@@ -53,9 +53,11 @@ public class GuardianService {
 	
 /* 加入班级 ****************************************************************************************************************************************/
 
+	// 提交加入申请
 	public void submitApplicationService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String classNo = request.getParameter("classNo");
 		Connection connection = null;
+		
 		try {
 			connection = JdbcTools.getConnectionByPools();
 			if (!classInfoDaoArc.isExist(connection, classNo)) 
@@ -106,7 +108,7 @@ public class GuardianService {
 		}
 	}
 	
-	// 转我的班级功能页（初始化数据，默认跳转班级信息功能）
+	// 选择班级后转我的班级功能页（初始化数据，默认跳转班级信息功能）
 	public void initMyClassPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String selectedClassNo = request.getParameter("selectedClassNo");	
 		ClassInfo currClassInfo = null;
@@ -128,7 +130,7 @@ public class GuardianService {
 	}
 	
 	// 我的班级功能页功能选择
-	public void changeManagementPageService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void changeMyClassPageService(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String page = request.getParameter("page");
 		request.setAttribute("page", page);
 		Connection connection = null;

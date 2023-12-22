@@ -96,8 +96,8 @@ public class GuardianServlet extends HttpServlet {
 	
 	// 我的班级功能页功能选择
 	@SuppressWarnings("unused")
-	private void changeManagementPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		guardianService.changeManagementPageService(request, response);
+	private void changeMyClassPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		guardianService.changeMyClassPageService(request, response);
 		request.getRequestDispatcher("WEB-INF/views/guardianPage/myClass.jsp").forward(request, response);
 	}
 	

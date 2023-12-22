@@ -53,7 +53,7 @@
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">创建班级</a></li>
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectCreateClassJSP.tdo">班级管理</a></li>
 					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToJoinClassPage.tdo">加入班级</a></li>
-					<li class="layui-nav-item"><a href="#">我的班级</a></li>i>
+					<li class="layui-nav-item"><a href="${pageContext.request.contextPath }/turnToSelectJoinedClassJSP.tdo">我的班级</a></li>
 				</ul>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 				<div class="layui-row layui-col-space15">
 
 					<%for (ClassInfo record : records) { %>
-					<div class="layui-col-md6 myDiv" onclick="window.location.href='turnToClassManagementJSP.tdo?selectedClassNo=<%=record.getClassNo() %>';">
+					<div class="layui-col-md6 myDiv" onclick="window.location.href='<%=request.getAttribute("jumpPath") %>.tdo?selectedClassNo=<%=record.getClassNo() %>';">
 						<div class="layui-card">
 							<div class="layui-card-header">
 								班级编号：<%=record.getClassNo() %></div>
@@ -79,8 +79,7 @@
 					<%} %>
 
 					<%if (records.size() == 0) { %>
-					没有创建的班级，<a
-						href="${pageContext.request.contextPath }/turnToCreateClassJSP.tdo">点此前往创建班级</a>
+						<p style="text-align: center;">暂无记录</p>
 					<%} %>
 
 				</div>

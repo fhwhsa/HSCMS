@@ -69,25 +69,25 @@
 					<ul class="layui-tab-title">
 
 						<a
-							href="${pageContext.request.contextPath }/changeManagementPage.gdo?page=0">
+							href="${pageContext.request.contextPath }/changeMyClassPage.gdo?page=0">
 							<li <%if (request.getAttribute("page").equals("0")) {%>
 							class="layui-this" <%}%>>班级信息</li>
 						</a>
 
 						<a
-							href="${pageContext.request.contextPath }/changeManagementPage.gdo?page=1">
+							href="${pageContext.request.contextPath }/changeMyClassPage.gdo?page=1">
 							<li <%if (request.getAttribute("page").equals("1")) {%>
 							class="layui-this" <%}%>>班级成员</li>
 						</a>
 
 						<a
-							href="${pageContext.request.contextPath }/changeManagementPage.gdo?page=2">
+							href="${pageContext.request.contextPath }/changeMyClassPage.gdo?page=2">
 							<li <%if (request.getAttribute("page").equals("2")) {%>
 							class="layui-this" <%}%>>班级通知</li>
 						</a>
 
 						<a
-							href="${pageContext.request.contextPath }/changeManagementPage.gdo?page=3">
+							href="${pageContext.request.contextPath }/changeMyClassPage.gdo?page=3">
 							<li <%if (request.getAttribute("page").equals("3")) {%>
 							class="layui-this" <%}%>>站内交流</li>
 						</a>
