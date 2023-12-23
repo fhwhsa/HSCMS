@@ -204,6 +204,44 @@ public class TeacherServlet extends HttpServlet {
 	}
 	
 /***********************************************************************************************************************/
+
 	
+	
+	
+	
+/* 班级通知筛选 *************************************************************************************************************************************/
+	
+	// 筛选班级通知
+	@SuppressWarnings("unused")
+	private void filterClassAnno(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		teacherService.getClassAnnoListByFilter(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/myClass.jsp").forward(request, response);
+	}
+
+/**************************************************************************************************************************************************/
+	
+	
+	
+	
+	
+/* 班级交流 ******************************************************************************************************************************************/
+	
+	// 发布信息（班级交流）
+	@SuppressWarnings("unused")
+	private void postCommRecord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String jumpPath = request.getParameter("jumpPath");
+		teacherService.postCommRecordService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/" + jumpPath).forward(request, response);
+	}
+	
+	// 筛选班级信息（班级交流）
+	@SuppressWarnings("unused")
+	private void filteCommRecords(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String jumpPath = request.getParameter("jumpPath");
+		teacherService.filteCommRecordsService(request, response);
+		request.getRequestDispatcher("WEB-INF/views/teacherPage/" + jumpPath).forward(request, response);		
+	}
+	
+/****************************************************************************************************************************************************/
 	
 }

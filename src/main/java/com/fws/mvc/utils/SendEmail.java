@@ -65,6 +65,7 @@ public class SendEmail {
 		return true;
 	}
 	
+	// 生成六位随机验证码
 	public static String generateVerCode() {
 		Integer res =  (int) ((Math.random() * 9 + 1) * 100000);
 		return res.toString();

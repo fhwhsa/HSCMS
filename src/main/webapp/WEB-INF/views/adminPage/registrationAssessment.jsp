@@ -75,7 +75,6 @@
 						</tr>
 					</thead>
 
-
 					<%List<RegistrationRecord> records = (List<RegistrationRecord>)request.getAttribute("records"); %>
 
 					<% for (RegistrationRecord record : records) { %>
@@ -92,11 +91,7 @@
 						</th>
 					</tr>
 					<%} %>
-
-
-
 				</table>
-				
 				<% if (records.size() == 0) { %>
 					<p style="text-align: center; font-weight: bold;">暂无注册申请</p>
 				<% } %>

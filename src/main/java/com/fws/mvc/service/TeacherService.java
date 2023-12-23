@@ -1,6 +1,7 @@
 package com.fws.mvc.service;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -139,8 +140,12 @@ public class TeacherService {
 				List<UserClassMap> records = userClassMapDaoArc.getClassMembers(connection, currClassInfo.getClassNo());
 				request.setAttribute("records", records);
 			}
-			else { // 通知
+			else if (page.equals("3")) { // 通知
 				List<ClassAnnoMap> records = classAnnoMapDaoArc.getAnnoList(connection, currClassInfo.getClassNo());
+				request.setAttribute("records", records);
+			}
+			else { // 站内交流
+				List<ClassCommRecords> records = classCommRecordsDaoArc.getAllRecords(connection, currClassInfo.getClassNo());
 				request.setAttribute("records", records);
 			}
 		} catch (Exception e) {
@@ -339,7 +344,7 @@ public class TeacherService {
 	
 	
 	
-/* 跳转处理 **************************************************************************************************************************/
+/* 我的班级跳转处理 **************************************************************************************************************************/
 	
 	// 获取加入的班级信息
 	public void initJoinedClassRecordList(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -413,6 +418,89 @@ public class TeacherService {
 	
 /*****************************************************************************************************************************************/
 	
+	
+	
+	
+
+/* 班级通知的多条件查询 ******************************************************************************************************************************/
+
+	public void getClassAnnoListByFilter(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String page = "2";
+		request.setAttribute("page", page);
+		Connection connection = null;
+		List<ClassAnnoMap> records = null;
+		String filterContext = "%" + request.getParameter("contxt") + "%";
+		String filterDate = "%" + request.getParameter("date") + "%";
+		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			records = classAnnoMapDaoArc.getAnnoListByFilter(connection, currClassInfo.getClassNo(), filterContext, filterDate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+		request.setAttribute("records", records);
+	}
+	
+/*************************************************************************************************************************************************/
+	
+
+	
+	
+	
+/* 班级交流 ******************************************************************************************************************************************/
+	
+	// 发布信息（班级交流）
+	public void postCommRecordService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 该函数可能由班级管理或我的班级调用的servlet调用，因为功能块数不同，所以需要进行判断
+		String jumpPath = request.getParameter("jumpPath");
+		request.setAttribute("page", new String(jumpPath.equals("myClass.jsp") ? "3" : "4"));
+		
+		String context = request.getParameter("context-post");
+		context = new String(context.getBytes("iso-8859-1"), "utf-8");
+		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+		Connection connection = null;
+		List<ClassCommRecords> records = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			connection.setAutoCommit(false);
+			classCommRecordsDaoArc.addRecord(connection, new ClassCommRecords(currClassInfo.getClassNo(), 
+					(String)request.getSession().getAttribute("currName"), (String)request.getSession().getAttribute("currEmailAddr"),
+					context, new Date()));
+			records = classCommRecordsDaoArc.getAllRecords(connection, currClassInfo.getClassNo());
+		} catch (Exception e) {
+			connection.rollback();
+			e.printStackTrace();
+		} finally {
+			connection.setAutoCommit(true);
+			JdbcTools.releaseSources(connection);
+		}
+		request.setAttribute("records", records);
+	}
+	
+	// 信息筛选
+	public void filteCommRecordsService(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String jumpPath = request.getParameter("jumpPath");
+		request.setAttribute("page", new String(jumpPath.equals("myClass.jsp") ? "3" : "4"));
+		
+		String filterContext = "%" + request.getParameter("contxt-filter") + "%";
+		String filterDate = "%" + request.getParameter("date") + "%";
+		ClassInfo currClassInfo = (ClassInfo) request.getSession().getAttribute("currClassInfo");
+		Connection connection = null;
+		List<ClassCommRecords> records = null;
+		try {
+			connection = JdbcTools.getConnectionByPools();
+			records = classCommRecordsDaoArc.getAllRecordsByFilter(connection, currClassInfo.getClassNo(), filterContext, filterDate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTools.releaseSources(connection);
+		}
+		request.setAttribute("records", records);
+	}
+	
+/****************************************************************************************************************************************************/
 	
 	
 	// 刷新系统公告

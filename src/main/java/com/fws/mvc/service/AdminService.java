@@ -68,6 +68,8 @@ public class AdminService {
 	
 
 /*	注册审核模块 ********************************************************************************************/	
+	
+	// 获取审核列表
 	public List<RegistrationRecord> getRegisterRecordsService() {
 		Connection connection = null;
 		List<RegistrationRecord> records = null;
@@ -119,6 +121,7 @@ public class AdminService {
 	
 /*	班级审核模块 ********************************************************************************************/	
 	
+	// 获取老师注册记录
 	public List<ClassInfo> getClassInfoRecordsService() {
 		Connection connection = null;
 		List<ClassInfo> records = null;
@@ -133,7 +136,7 @@ public class AdminService {
 		return records;
 	}
 	
-	
+	// 通过申请
 	public void approvedClassApplicationService(String classNo, String emailAddr) {
 		Connection connection = null;
 		try {
@@ -147,6 +150,7 @@ public class AdminService {
 		}
 	}
 	
+	// 拒绝申请
 	public void refusedClassApplication(String classNo, String emailAddr) {
 		Connection connection = null;
 		try {

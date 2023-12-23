@@ -1,3 +1,4 @@
+<%@page import="com.fws.mvc.bean.ClassCommRecords"%>
 <%@page import="com.fws.mvc.bean.ClassAnnoMap"%>
 <%@page import="com.fws.mvc.bean.ClassInfo"%>
 <%@page import="com.fws.mvc.bean.ClassApplicationRecord"%>
@@ -90,6 +91,13 @@
 							<li <%if (request.getAttribute("page").equals("3")) {%>
 							class="layui-this" <%}%>>发布通知</li>
 						</a>
+						
+						<a
+							href="${pageContext.request.contextPath }/changeManagementPage.tdo?page=4">
+							<li <%if (request.getAttribute("page").equals("4")) {%>
+							class="layui-this" <%}%>>站内交流</li>
+						</a>
+						
 					</ul>
 
 
@@ -244,6 +252,80 @@
 						%>
 
 
+						<!-- 站内交流 -->
+						<%
+						if (request.getAttribute("page").equals("4")) {
+						%>
+						<div class="layui-tab-item  layui-show ">
+
+							<label class="layui-form-label">发贴：</label>
+							<form class="layui-form" action="postCommRecord.tdo?jumpPath=classManagement.jsp"
+								method="post">
+								<div class="layui-form-item layui-form-text">
+									<div class="layui-input-block">
+										<textarea name="context-post" placeholder="请输入内容"
+											class="layui-textarea"></textarea>
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<button type="submit" class="layui-btn" lay-submit
+											lay-filter="demo1">立即提交</button>
+										<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+									</div>
+								</div>
+							</form>
+
+
+							<!-- 筛选 -->
+							<form action="filteCommRecords.tdo?jumpPath=classManagement.jsp" method="get">
+								<div class="layui-form-item">
+
+									<div class="layui-inline">
+										<label class="layui-form-label">内容</label>
+										<div class="layui-input-inline">
+											<input type="text" name="contxt-filter" lay-verify="context"
+												placeholder="输入要查询的内容" autocomplete="off"
+												class="layui-input">
+										</div>
+									</div>
+
+									<div class="layui-inline">
+										<label class="layui-form-label">日期</label>
+										<div class="layui-input-inline layui-input-wrap">
+											<div class="layui-input-prefix">
+												<i class="layui-icon layui-icon-date"></i>
+											</div>
+											<input type="text" name="date" id="date" lay-verify="date"
+												placeholder="yyyy-MM-dd" autocomplete="off"
+												class="layui-input">
+										</div>
+									</div>
+									
+									<input name="jumpPath" value="classManagement.jsp" style="display: none;">
+
+									<div class="layui-inline">
+										<button type="submit" class="layui-btn" lay-submit>筛选</button>
+									</div>
+								</div>
+							</form>
+
+							<% List<ClassCommRecords> records = (List<ClassCommRecords>) request.getAttribute("records"); %>
+							<% for (ClassCommRecords record : records) { %>
+							<div class="layui-card" style="background-color: #F5F5F5;">
+								<div class="layui-card-header"><%=record.getSenderName() %>
+									<%=record.getSendingDate() %></div>
+								<div class="layui-card-body">
+									<%=record.getContext() %>
+								</div>
+							</div>
+							<%} %>
+
+						</div>
+						<%
+						}
+						%>
+
 
 					</div>
 				</div>
@@ -261,5 +343,16 @@
 	<script src="layui/layui.js"></script>
 	<script src="js/teacherPageJS/mainPage.js"></script>
 	<script type="js/teacherPageJS/classManagement.js"></script>
+			<script>
+	layui.use(['laydate'], function(){
+	  var laydate = layui.laydate;
+	  
+	  // 日期
+	  laydate.render({
+	    elem: '#date'
+	  });
+	  
+	});
+	</script>
 </body>
 </html>

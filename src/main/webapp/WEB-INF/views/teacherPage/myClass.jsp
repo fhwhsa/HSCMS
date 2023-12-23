@@ -167,7 +167,7 @@
 						<div class="layui-tab-item  layui-show ">
 
 							<!-- 筛选 -->
-							<form action="filterClassAnno.gdo" method="get">
+							<form action="filterClassAnno.tdo" method="get">
 								<div class="layui-form-item">
 
 									<div class="layui-inline">
@@ -226,7 +226,7 @@
 						<div class="layui-tab-item  layui-show ">
 
 							<label class="layui-form-label">发贴：</label>
-							<form class="layui-form" action="postCommRecord.gdo"
+							<form class="layui-form" action="postCommRecord.tdo?jumpPath=myClass.jsp"
 								method="post">
 								<div class="layui-form-item layui-form-text">
 									<div class="layui-input-block">
@@ -245,7 +245,7 @@
 
 
 							<!-- 筛选 -->
-							<form action="filteCommRecords.gdo" method="get">
+							<form action="filteCommRecords.tdo?jumpPath=myClass.jsp" method="get">
 								<div class="layui-form-item">
 
 									<div class="layui-inline">
@@ -268,6 +268,8 @@
 												class="layui-input">
 										</div>
 									</div>
+
+									<input name="jumpPath" value="myClass.jsp" style="display: none;">
 
 									<div class="layui-inline">
 										<button type="submit" class="layui-btn" lay-submit>筛选</button>
