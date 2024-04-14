@@ -16,6 +16,8 @@
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+CREATE DATABASE hscms;
+USE hscms;
 
 -- ----------------------------
 -- Table structure for caf
@@ -148,5 +150,11 @@ CREATE TABLE `user_class_map` (
   CONSTRAINT `user_class_map_ibfk_1` FOREIGN KEY (`emailAddr`) REFERENCES `user` (`emailAddr`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `user_class_map_ibfk_2` FOREIGN KEY (`classNo`) REFERENCES `classinfo` (`classNo`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户-班级映射表';
+
+-- ----------------------------
+-- Init data
+-- ----------------------------
+INSERT INTO `hscms`.`user` (`name`, `passWord`, `emailAddr`, `userType`) VALUES ('fws', '123456', 'admin@hscms.com', 'admin');
+INSERT INTO `hscms`.`globalvar` (`type`) VALUES ('sys');
 
 SET FOREIGN_KEY_CHECKS = 1;

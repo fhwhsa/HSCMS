@@ -14,7 +14,7 @@ public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements 
 
 	@Override
 	public List<RegistrationRecord> getRegistrationRecordsList(Connection connection) throws SQLException {
-		String sql = "select * from RAF;";
+		String sql = "select * from raf;";
 		return fetchList(connection, sql, null);
 	}
 
@@ -22,7 +22,7 @@ public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements 
 	public RegistrationRecord getRegistrationRecord(Connection connection, String emailAddr)
 			throws SQLException {
 		
-		String sql = "select * from RAF where emailAddr = ?;";
+		String sql = "select * from raf where emailAddr = ?;";
 		Object[] params = {emailAddr};
 		return fetch(connection, sql, params);
 	}
@@ -31,7 +31,7 @@ public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements 
 	public void deleteRegistrationRecord(Connection connection, String emailAddr)
 			throws SQLException {
 		
-		String sql = "delete from RAF where emailAddr = ?;";
+		String sql = "delete from raf where emailAddr = ?;";
 		Object[] params = {emailAddr};
 		update(connection, sql, params);
 	}
@@ -42,7 +42,7 @@ public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements 
 		
 		RegistrationRecord record = getRegistrationRecord(connection, emailAddr);
 
-		String sql = "delete from RAF where emailAddr = ?;";
+		String sql = "delete from raf where emailAddr = ?;";
 		Object[] params = {emailAddr};
 		update(connection, sql, params);
 
@@ -64,7 +64,7 @@ public class RegisterDaoArc extends CommonDaoArc<RegistrationRecord> implements 
 	@Override
 	public void addApplication(Connection connection, RegistrationRecord record) throws SQLException {
 		System.out.println(record.toString());
-		String sql = "insert into RAF (name, passWord, emailAddr) values (?, ?, ?);";
+		String sql = "insert into raf (name, passWord, emailAddr) values (?, ?, ?);";
 		System.out.println();
 		Object[] params = {record.getName(), record.getPassWord(), record.getEmailAddr()};
 		update(connection, sql, params);

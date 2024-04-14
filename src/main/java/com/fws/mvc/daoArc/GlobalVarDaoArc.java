@@ -10,7 +10,7 @@ public class GlobalVarDaoArc extends CommonDaoArc<GlobalVar> implements GlobalVa
 
 	@Override
 	public void updateSysAnnoContext(Connection connection, String context) throws SQLException {
-		String sql = "update globalVar set context = ? where type = ?;";
+		String sql = "update globalvar set context = ? where type = ?;";
 		Object[] params = {context, "sys"};
 		update(connection, sql, params);
 	}
@@ -19,7 +19,7 @@ public class GlobalVarDaoArc extends CommonDaoArc<GlobalVar> implements GlobalVa
 	@Override
 	public String getSysAnnoContext(Connection connection) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql = "select context from globalVar where type = ?;";
+		String sql = "select context from globalvar where type = ?;";
 		Object[] params = {"sys"};
 		String res = this.<String>fetchScaler(connection, sql, params);
 		return res;

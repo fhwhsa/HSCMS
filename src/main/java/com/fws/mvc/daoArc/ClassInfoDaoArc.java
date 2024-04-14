@@ -61,7 +61,7 @@ public class ClassInfoDaoArc extends CommonDaoArc<ClassInfo> implements ClassInf
 
 	@Override
 	public List<ClassInfo> getClassInfoRecordsListFromApplication(Connection connection) throws SQLException {
-		String sql = "select * from CAF;";
+		String sql = "select * from caf;";
 		return fetchList(connection, sql, null);
 	}
 
