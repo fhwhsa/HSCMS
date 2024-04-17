@@ -103,6 +103,8 @@ public class IndexService {
 			verCode.put(emailAddr, vcode);
 			SendEmail.sendMail(emailAddr, "找回密码验证码", vcode);
 			request.setAttribute("flag", true);
+			
+			request.setAttribute("vcode", vcode); // 用于测试将验证码显示在页面上方便获取
 		}
 	}
 	
@@ -169,6 +171,8 @@ public class IndexService {
 		verCode.put(emailAddr, vcode);
 		SendEmail.sendMail(emailAddr, "注册验证码", vcode);
 		request.setAttribute("flag", true); // 该servlet是点击获取验证码按钮启动的，改变flag值让其回到页面后按钮开始计时
+		
+		request.setAttribute("vcode", vcode); // 用于测试将验证码显示在页面上方便获取
 	}
 	
 	// 家长注册（不经管理员审核）

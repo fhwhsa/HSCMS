@@ -16,7 +16,7 @@ public class SendEmail {
 	/**
 	 * 邮箱密码或授权码
 	 */
-	private static final String PASSWORD = "NGSBJENXXTHUUHIC";
+	private static final String PASSWORD = "HBSLQWZGPLTXZCQW";
 
 	/**
 	 * 发送邮件

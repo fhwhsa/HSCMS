@@ -119,7 +119,10 @@
 			</div>
 		</div>
 	</form>
-
+	
+	<!-- 显示验证码用于测试 -->
+	<div id="show_vcode_for_test">${requestScope.vcode }</div>
+	
 	<!-- 是否调用计时函数判断 -->
 	<%if ((Boolean) request.getAttribute("flag")) {%>
 		<script>func();</script>
