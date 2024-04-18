@@ -170,3 +170,27 @@ class TeacherPage:
         def reject_first_join_class_application(self):
             self.click_class_audit()
             self.driver.find_element(By.CSS_SELECTOR, 'tbody>tr a').click()
+
+        # 通过申请人邮箱地址同意加入班级申请
+        def accept_join_class_application_by_email(self, email: str):
+            self.click_class_audit()
+            try:
+                self.driver.find_element(By.XPATH, f'//th[text()="{email}"]/../th[last()]//a[2]').click()
+            except NoSuchElementException:
+                return False
+            except Exception as e:
+                print(e)
+            else:
+                return True
+
+        # 通过申请人邮箱地址拒绝加入班级申请
+        def reject_join_class_application_by_email(self, email: str):
+            self.click_class_audit()
+            try:
+                self.driver.find_element(By.XPATH, f'//th[text()="{email}"]/../th[last()]//a[1]').click()
+            except NoSuchElementException:
+                return False
+            except Exception as e:
+                print(e)
+            else:
+                return True

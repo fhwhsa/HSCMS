@@ -1,3 +1,4 @@
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -40,10 +41,6 @@ class AdminPage:
         alist = self.driver.find_elements(By.XPATH, '//tbody/tr')
         return len(alist)
 
-    # # 获取第一条注册申请
-    # def get_first_application_of_registration(self):
-    #     return self.driver.find_element(By.CSS_SELECTOR, 'tbody>tr')
-
     # 同意第一条注册申请
     def accept_first_registration_application(self):
         self.click_registration_audit()
@@ -59,6 +56,30 @@ class AdminPage:
         self.driver.find_element(By.CSS_SELECTOR, 'tbody>tr a:nth-child(1)').click()
         sleep(1)  # 等待页面处理
         return email
+
+    # 通过邮箱地址同意注册申请
+    def accept_registration_application_by_email(self, email: str):
+        self.click_registration_audit()
+        try:
+            self.driver.find_element(By.XPATH, f'//th[text()="{email}"]/..//div/a[2]').click()
+        except NoSuchElementException:
+            return False
+        except Exception as e:
+            print(e)
+        else:
+            return True
+
+    # 通过邮箱地址拒绝注册申请
+    def reject_registration_application_by_email(self, email: str):
+        self.click_registration_audit()
+        try:
+            self.driver.find_element(By.XPATH, f'//th[text()="{email}"]/..//div/a[1]').click()
+        except NoSuchElementException:
+            return False
+        except Exception as e:
+            print(e)
+        else:
+            return True
 
     # 点击班级审核栏
     def click_class_audit(self):
@@ -85,3 +106,27 @@ class AdminPage:
         self.driver.find_element(By.CSS_SELECTOR, 'tbody>tr a:nth-child(1)').click()
         sleep(1)
         return class_name
+
+    # 通过班级名称同意班级创建申请
+    def accept_class_application_by_name(self, class_name: str):
+        self.click_class_audit()
+        try:
+            self.driver.find_element(By.XPATH, f'//th[text()="{class_name}"]/../th[last()]//a[2]').click()
+        except NoSuchElementException:
+            return False
+        except Exception as e:
+            print(e)
+        else:
+            return True
+
+    # 通过班级名称拒绝班级创建申请
+    def reject_class_application_by_name(self, class_name: str):
+        self.click_class_audit()
+        try:
+            self.driver.find_element(By.XPATH, f'//th[text()="{class_name}"]/../th[last()]//a[1]').click()
+        except NoSuchElementException:
+            return False
+        except Exception as e:
+            print(e)
+        else:
+            return True

@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from PageObjects.admin_page import AdminPage
-from PageObjects.forget_passwd_page import ForgetPasswdPage
+from PageObjects.forget_passwd_page import SelectFTypePage
 from PageObjects.guardian_page import GuardianPage
 from PageObjects.registration_page import SelectRTypePage
 from PageObjects.teacher_page import TeacherPage
