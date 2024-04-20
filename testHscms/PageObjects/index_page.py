@@ -16,12 +16,10 @@ class IndexPage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.url = "http://localhost:8080/HSCMS/index.jsp"
-        self.__open_url()
+        self.open_url()
 
-    def __open_url(self):
+    def open_url(self):
         self.driver.get(self.url)
-        self.driver.implicitly_wait(5)
-        self.driver.maximize_window()
 
     def input_mail(self, email_addr):
         self.driver.find_element(By.CSS_SELECTOR, 'input[name="emailAddr"]').send_keys(email_addr)

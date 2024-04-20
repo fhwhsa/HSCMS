@@ -1,4 +1,5 @@
 from selenium.common import NoSuchElementException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -108,7 +109,7 @@ class AdminPage:
         return class_name
 
     # 通过班级名称同意班级创建申请
-    def accept_class_application_by_name(self, class_name: str):
+    def accept_class_application_by_name(self, class_name: str): # 滚动点击
         self.click_class_audit()
         try:
             self.driver.find_element(By.XPATH, f'//th[text()="{class_name}"]/../th[last()]//a[2]').click()
@@ -120,7 +121,7 @@ class AdminPage:
             return True
 
     # 通过班级名称拒绝班级创建申请
-    def reject_class_application_by_name(self, class_name: str):
+    def reject_class_application_by_name(self, class_name: str): # 滚动点击
         self.click_class_audit()
         try:
             self.driver.find_element(By.XPATH, f'//th[text()="{class_name}"]/../th[last()]//a[1]').click()

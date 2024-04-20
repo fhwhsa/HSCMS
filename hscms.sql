@@ -155,6 +155,8 @@ CREATE TABLE `user_class_map` (
 -- Init data
 -- ----------------------------
 INSERT INTO `hscms`.`user` (`name`, `passWord`, `emailAddr`, `userType`) VALUES ('fws', '123456', 'admin@hscms.com', 'admin');
+INSERT INTO `hscms`.`user` (`name`, `passWord`, `emailAddr`, `userType`) VALUES ('fws', '123456', 'teacher@teacher.com', 'Teacher');
+INSERT INTO `hscms`.`user` (`name`, `passWord`, `emailAddr`, `userType`) VALUES ('fws', '123456', 'guardian@guardian.com', 'Guardian');
 INSERT INTO `hscms`.`globalvar` (`type`) VALUES ('sys');
 
 SET FOREIGN_KEY_CHECKS = 1;

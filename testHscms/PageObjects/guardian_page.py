@@ -1,4 +1,5 @@
 from selenium.common import NoSuchElementException, TimeoutException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.webdriver import WebDriver
 from time import sleep
@@ -11,6 +12,12 @@ class GuardianPage:
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
+        self.main_page_url = 'http://localhost:8080/HSCMS/login.do'
+
+    def get_main_page_msg(self):
+        if self.driver.current_url != self.main_page_url:
+            return None
+        return self.driver.find_element(By.CSS_SELECTOR, 'h1').text
 
     # 点击加入班级
     def click_join_class(self):
@@ -23,9 +30,7 @@ class GuardianPage:
         self.driver.find_element(By.CSS_SELECTOR, 'button').click()
         sleep(1)
         info = self.driver.find_element(By.CSS_SELECTOR, 'p').text
-        if "不存在" in info:
-            return False
-        return True
+        return info
 
     # 点击我的班级
     def click_my_class(self):
@@ -62,9 +67,12 @@ class GuardianPage:
                 )
             ).click()
         except TimeoutException:
-            return None
+            tar_ele = self.driver.find_element(By.XPATH, f'//div[contains(text(), "{class_name}")]/..')
+            rect = tar_ele.rect
+            ActionChains(self.driver).scroll_by_amount(rect['x'], rect['y'] + rect['height']).perform()  # 滑轮滚动到对应位置
+            tar_ele.click()
         except Exception as e:
-            print(e)
+            raise e
         else:
             return self.MyClassOption(self.driver)
 
@@ -136,7 +144,7 @@ class GuardianPage:
 
         # 根据时间筛选班级通知
         def filter_class_anno_by_time(self, filter_time: str):
-            self.click_class_anno()
+            self.click_class_communication()
             self.driver.find_element(By.XPATH, '//input[@name="date"]').send_keys(filter_time)
             self.driver.find_element(By.CSS_SELECTOR, 'button').click()
             sleep(1)  # 等待页面刷新
@@ -171,7 +179,9 @@ class GuardianPage:
         # 站内交流通过时间筛选信息yyyy-mm-dd，返回筛选出来的信息列表
         def filter_communication_records_by_time(self, filter_time: str):
             self.click_class_communication()
-            self.driver.find_element(By.XPATH, '//input[@name="date"]').send_keys(filter_time)
+            input_area = self.driver.find_element(By.XPATH, '//input[@name="date"]')
+            input_area.click()
+            input_area.send_keys(filter_time)
             self.driver.find_element(By.XPATH, '//button[text()="筛选"]').click()
             sleep(1)  # 等待页面刷新
             elist = self.driver.find_elements(By.XPATH, '//div[@class="layui-card-body"]')

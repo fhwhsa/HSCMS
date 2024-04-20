@@ -1,4 +1,5 @@
 from selenium.common import TimeoutException, NoSuchElementException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions
@@ -10,6 +11,12 @@ class TeacherPage:
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
+        self.main_page_url = 'http://localhost:8080/HSCMS/login.do'
+
+    def get_main_page_msg(self):
+        if self.driver.current_url != self.main_page_url:
+            return None
+        return self.driver.find_element(By.CSS_SELECTOR, 'h1').text
 
     # 点击创建班级按钮
     def click_create_class(self):
@@ -20,6 +27,8 @@ class TeacherPage:
         self.click_create_class()
         self.driver.find_element(By.XPATH, '//input[@name="className"]').send_keys(class_name)
         self.driver.find_element(By.XPATH, '//button[text()="提交"]').click()
+        sleep(1)
+        return self.driver.find_element(By.CSS_SELECTOR, 'p').text
 
     # 点击班级管理
     def click_class_management(self):
@@ -50,11 +59,7 @@ class TeacherPage:
     def select_create_class_to_manage_by_name(self, class_name=None):
         self.click_class_management()
         try:
-            WebDriverWait(self.driver, 3).until(
-                expected_conditions.element_to_be_clickable(
-                    (By.XPATH, f'//div[contains(text(), "{class_name}")]/..')
-                )
-            ).click()
+            self.driver.find_element(By.XPATH, f'//div[contains(text(), "{class_name}")]/..').click()
         except TimeoutException:
             return None
         except Exception as e:

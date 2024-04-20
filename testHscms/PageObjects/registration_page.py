@@ -1,3 +1,4 @@
+from selenium.common import UnexpectedAlertPresentException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -32,9 +33,6 @@ class SelectRTypePage:
 
         def get_vcode_and_input(self):
             self.driver.find_element(By.XPATH, '//button[text()="获取验证码"]').click()
-            sleep(1)  # 等待可能的错误信息更新
-            if self.driver.find_element(By.CSS_SELECTOR, 'p').text == '邮箱已被使用或审核还未通过':
-                raise ValueError('邮箱已被使用或审核还未通过, 请重新传入一个测试邮箱')
 
             text = WebDriverWait(self.driver, 5).until(
                 expected_conditions.visibility_of_element_located(
